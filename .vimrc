@@ -620,8 +620,12 @@
         if !has('python')
             let g:pymode = 0
         else
+            "python-mode
             let g:pymode = 1
             let g:pymode_virtualenv = 1
+            " jedi-vim
+            let g:jedi#show_call_signatures = "1"
+            let g:jedi#popup_on_dot = 1
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
