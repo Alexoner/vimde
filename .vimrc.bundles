@@ -62,7 +62,7 @@
     " Add an UnBundle command {
     function! UnBundle(arg, ...)
       let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
+      call filter(g:vundle#bundles, 'v:val["name_spec"] != "' . a:arg . '"')
     endfunction
 
     com! -nargs=+         UnBundle
@@ -91,7 +91,7 @@
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:spf13_bundle_groups')
-        let g:spf13_bundle_groups=['general', 'writing', 'neocomplcache', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+        let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
     endif
 
     " To override all the included bundles, add the following to your
@@ -106,7 +106,7 @@
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
             Bundle 'tpope/vim-repeat'
-            Bundle 'spf13/vim-autoclose'
+            Bundle 'jiangmiao/auto-pairs'
             Bundle 'ctrlpvim/ctrlp.vim'
             Bundle 'tacahiroy/ctrlp-funky'
             Bundle 'kristijanhusak/vim-multiple-cursors'
@@ -119,6 +119,7 @@
             else
                 Bundle 'bling/vim-airline'
             endif
+            Bundle 'powerline/fonts'
             Bundle 'bling/vim-bufferline'
             Bundle 'Lokaltog/vim-easymotion'
             Bundle 'jistr/vim-nerdtree-tabs'
@@ -232,7 +233,7 @@
             Bundle 'lukerandall/haskellmode-vim'
             Bundle 'eagletmt/neco-ghc'
             Bundle 'eagletmt/ghcmod-vim'
-            Bundle 'Shougo/vimproc'
+            Bundle 'Shougo/vimproc.vim'
             Bundle 'adinapoli/cumino'
             Bundle 'bitc/vim-hdevtools'
         endif
@@ -279,7 +280,7 @@
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
-            Bundle 'wting/rust.vim'
+            Bundle 'rust-lang/rust.vim'
             Bundle 'tpope/vim-markdown'
             Bundle 'spf13/vim-preview'
             Bundle 'tpope/vim-cucumber'
