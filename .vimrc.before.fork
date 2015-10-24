@@ -1,1 +1,7 @@
-let g:spf13_bundle_groups=['general', 'writting', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', 'scala', 'youcompleteme']
+" default setting
+"let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+let g:spf13_bundle_groups=['general', 'writting', 'programming', 'php', 'ruby', 'python', 'javascript', 'go', 'html', 'misc', 'scala', 'youcompleteme']
+"let g:spf13_bundle_groups=['general', 'writting', 'programming', 'php', 'ruby', 'javascript', 'go', 'html', 'misc', 'scala', 'youcompleteme']
+"let g:spf13_bundle_groups=['general', 'programming', 'misc', 'youcompleteme']
+
+let g:airline_powerline_fonts=1

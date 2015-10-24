@@ -1,2 +1,5 @@
-noremap <F3> :Autoformat<CR>
-"au BufWrite * :Autoformat
+" Support virtualenv
+
+if !exists("b:color_pattern")
+        let b:color_pattern = {}
+endif

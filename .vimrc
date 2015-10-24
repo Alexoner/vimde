@@ -458,6 +458,20 @@
 
 " Plugins {
 
+    "General Programming  {
+         if count(g:spf13_bundle_groups, 'programming')
+             "vim-autoformat
+            noremap <F3> :Autoformat<CR>
+            "au BufWrite * :Autoformat
+            
+            "rainbow_parentheses.vim
+            au VimEnter * RainbowParenthesesToggle
+            au Syntax * RainbowParenthesesLoadRound
+            au Syntax * RainbowParenthesesLoadSquare
+            au Syntax * RainbowParenthesesLoadBraces
+        endif
+    "}
+
     " TextObj Sentence {
         if count(g:spf13_bundle_groups, 'writing')
             augroup textobj_sentence
@@ -605,6 +619,9 @@
         " Disable if python support not present
         if !has('python')
             let g:pymode = 0
+        else
+            let g:pymode = 1
+            let g:pymode_virtualenv = 1
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
@@ -687,10 +704,16 @@
 
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files = 1
-
+            let g:ycm_global_ycm_extra_conf               = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+            let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+            let g:ycm_use_ultisnips_completer             = 1 " Default 1, just ensure
+            let g:ycm_seed_identifiers_with_syntax        = 1 " Completion for programming language's keyword
+            let g:ycm_complete_in_comments                = 1 " Completion in comments
+            let g:ycm_complete_in_strings                 = 1 " Completion in string
+            nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> "
             " remap Ultisnips for compatibility for YCM
-            let g:UltiSnipsExpandTrigger = '<C-j>'
-            let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+            let g:UltiSnipsExpandTrigger       = '<C-j>'
+            let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
             " Enable omni completion.
