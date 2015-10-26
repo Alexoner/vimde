@@ -619,16 +619,18 @@
         " Disable if python support not present
         if !has('python')
             let g:pymode = 0
-        else
-            "python-mode
-            let g:pymode = 1
-            let g:pymode_virtualenv = 1
+        endif
+
+        if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " jedi-vim
             let g:jedi#show_call_signatures = "1"
             let g:jedi#popup_on_dot = 1
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
+            "python-mode
+            let g:pymode = 0
+            let g:pymode_virtualenv = 1
             let g:pymode_lint_checkers = ['pyflakes']
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options = 0
@@ -714,7 +716,7 @@
             let g:ycm_seed_identifiers_with_syntax        = 1 " Completion for programming language's keyword
             let g:ycm_complete_in_comments                = 1 " Completion in comments
             let g:ycm_complete_in_strings                 = 1 " Completion in string
-            nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> "
+            nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR> "
             " remap Ultisnips for compatibility for YCM
             let g:UltiSnipsExpandTrigger       = '<C-j>'
             let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
@@ -749,7 +751,15 @@
             set completeopt-=preview
         endif
     " }
-
+    
+    " javascript {
+        if count(g:spf13_bundle_groups, 'javascript')
+            if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
+                autocmd FileType javascript setlocal omnifunc=tern#Complete
+            endif
+        endif
+    " }
+    
     " neocomplete {
         if count(g:spf13_bundle_groups, 'neocomplete')
             let g:acp_enableAtStartup = 0
@@ -1053,6 +1063,10 @@
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
+            let g:airline#extensions#tabline#enabled = 1
+            let g:airline#extensions#virtualenv#enabled = 1
+            let g:airline#extensions#wordcount#enabled = 1
+            let g:airline#extensions#tabline#buffer_idx_mode = 1
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations
                 let g:airline_left_sep='›'  " Slightly fancier than '>'

@@ -5,3 +5,5 @@ let g:spf13_bundle_groups=['general', 'writting', 'programming', 'php', 'ruby', 
 "let g:spf13_bundle_groups=['general', 'programming', 'misc', 'youcompleteme']
 
 let g:airline_powerline_fonts=1
+let g:airline_theme='luna'
+let g:syntastic_check_on_open=1
