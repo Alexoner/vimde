@@ -106,7 +106,7 @@
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
             Bundle 'tpope/vim-repeat'
-            Bundle 'jiangmiao/auto-pairs'
+            "Bundle 'jiangmiao/auto-pairs'
             Bundle 'ctrlpvim/ctrlp.vim'
             Bundle 'tacahiroy/ctrlp-funky'
             Bundle 'kristijanhusak/vim-multiple-cursors'
@@ -217,6 +217,9 @@
             Bundle 'briancollins/vim-jst'
             Bundle 'kchmck/vim-coffee-script'
             Bundle 'marijnh/tern_for_vim'
+            Plugin 'isRuslan/vim-es6'
+            "Plugin 'othree/yajs.vim'
+            Plugin 'mxw/vim-jsx'
         endif
     " }
 
