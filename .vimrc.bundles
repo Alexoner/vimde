@@ -109,7 +109,7 @@
             "Bundle 'jiangmiao/auto-pairs'
             Bundle 'ctrlpvim/ctrlp.vim'
             Bundle 'tacahiroy/ctrlp-funky'
-            Bundle 'kristijanhusak/vim-multiple-cursors'
+            Bundle 'terryma/vim-multiple-cursors'
             Bundle 'vim-scripts/sessionman.vim'
             Bundle 'matchit.zip'
             Bundle 'kien/rainbow_parentheses.vim'
@@ -122,7 +122,7 @@
             endif
             Bundle 'powerline/fonts'
             Bundle 'bling/vim-bufferline'
-            Bundle 'Lokaltog/vim-easymotion'
+            Bundle 'easymotion/vim-easymotion'
             Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
             Bundle 'mbbill/undotree'
