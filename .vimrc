@@ -39,7 +39,7 @@
             return has('unix') && !has('macunix') && !has('win32unix')
         endfunction
         silent function! WINDOWS()
-            return  (has('win16') || has('win32') || has('win64'))
+            return  (has('win32') || has('win64'))
         endfunction
     " }
 
@@ -475,6 +475,29 @@
             au Syntax * RainbowParenthesesLoadBraces
         endif
     "}
+     
+    " GoLang {
+        if count(g:spf13_bundle_groups, 'go')
+            let g:go_highlight_functions = 1
+            let g:go_highlight_methods = 1
+            let g:go_highlight_structs = 1
+            let g:go_highlight_operators = 1
+            let g:go_highlight_build_constraints = 1
+            let g:go_fmt_command = "goimports"
+            let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+            au FileType go nmap <Leader>s <Plug>(go-implements)
+            au FileType go nmap <Leader>i <Plug>(go-info)
+            au FileType go nmap <Leader>e <Plug>(go-rename)
+            au FileType go nmap <leader>r <Plug>(go-run)
+            au FileType go nmap <leader>b <Plug>(go-build)
+            au FileType go nmap <leader>t <Plug>(go-test)
+            au FileType go nmap <Leader>gd <Plug>(go-doc)
+            au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+            au FileType go nmap <leader>co <Plug>(go-coverage)
+        endif
+        " }
+
 
     " TextObj Sentence {
         if count(g:spf13_bundle_groups, 'writing')
@@ -530,7 +553,7 @@
             hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
             " Some convenient mappings
-            inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+            "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
             if exists('g:spf13_map_cr_omni_complete')
                 inoremap <expr> <CR>     pumvisible() ? "\<C-y>" : "\<CR>"
             endif
@@ -1097,6 +1120,8 @@
             endif
         endif
     " }
+
+
 
 " }
 
