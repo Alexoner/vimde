@@ -627,8 +627,11 @@
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " jedi-vim
-            let g:jedi#show_call_signatures = "1"
-            let g:jedi#popup_on_dot = 1
+            let g:jedi#completions_enabled   = 0
+            let g:jedi#show_call_signatures  = "1"
+            let g:jedi#popup_on_dot          = 0
+            let g:jedi#use_tabs_not_buffers  = 1
+            let g:jedi#documentation_command = "K"
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
@@ -686,6 +689,7 @@
 
     " TagBar {
         if isdirectory(expand("~/.vim/bundle/tagbar/"))
+            let updatetime=600
             nnoremap <silent> <leader>tt :TagbarToggle<CR>
         endif
     "}
@@ -725,7 +729,12 @@
             let g:ycm_seed_identifiers_with_syntax        = 1 " Completion for programming language's keyword
             let g:ycm_complete_in_comments                = 1 " Completion in comments
             let g:ycm_complete_in_strings                 = 1 " Completion in string
-            nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR> "
+            let g:ycm_goto_buffer_command                 = 'new-tab' "where GoTo* commands result should be opened.
+            let g:ycm_key_list_select_completion          = ['<TAB>', '<Down>']
+            let g:ycm_key_list_previous_completion        = ['<S-TAB>', '<Up>']
+
+            nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+            nnoremap <S-K> :YcmCompleter GetDoc<CR>
             " remap Ultisnips for compatibility for YCM
             let g:UltiSnipsExpandTrigger       = '<C-j>'
             let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
@@ -734,7 +743,8 @@
             " Enable omni completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            " User tern_for_vim for javascript completion
+            "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -765,7 +775,11 @@
         if count(g:spf13_bundle_groups, 'javascript')
             if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
                 autocmd FileType javascript setlocal omnifunc=tern#Complete
+                let g:tern_show_argument_hints='on_hold'
+                let g:tern_show_signature_in_pum=1
             endif
+            "vim-jsx
+            let g:jsx_ext_required = 0 " Allow JSX in normal JS files
         endif
     " }
     
@@ -990,7 +1004,7 @@
             " Enable omni-completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
