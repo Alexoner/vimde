@@ -162,6 +162,7 @@
             Bundle 'godlygeek/tabular'
             Bundle 'Chiel92/vim-autoformat'
             Bundle 'luochen1990/rainbow'
+            Bundle 'millermedeiros/vim-esformatter'
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
@@ -216,7 +217,7 @@
         if count(g:spf13_bundle_groups, 'javascript')
             Bundle 'elzr/vim-json'
             Bundle 'groenewege/vim-less'
-            "Bundle 'pangloss/vim-javascript'
+            Bundle 'pangloss/vim-javascript'
             Bundle 'briancollins/vim-jst'
             Bundle 'kchmck/vim-coffee-script'
             Bundle 'marijnh/tern_for_vim'
@@ -293,9 +294,8 @@
         if count(g:spf13_bundle_groups, 'misc')
             Bundle 'rust-lang/rust.vim'
             Bundle 'tpope/vim-markdown'
-            "Bundle 'suan/vim-instant-markdown'
-            Bundle "euclio/vim-markdown-composer"
             Bundle 'spf13/vim-preview'
+            Plugin 'suan/vim-instant-markdown'
             Bundle 'tpope/vim-cucumber'
             Bundle 'cespare/vim-toml'
             Bundle 'quentindecock/vim-cucumber-align-pipes'
