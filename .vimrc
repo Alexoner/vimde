@@ -788,20 +788,27 @@
                 \ 'errorformat': '%f: line %l\, col %c\, %m',
                 \ }
             let g:neomake_javascript_eslint_maker = {
-                \ 'args': ['--verbose'],
-                \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+                \ 'args': ['-f', 'compact'],
+                \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+                \ '%W%f: line %l\, col %c\, Warning - %m'
                 \ }
+            let g:neomake_jsx_eslint_maker = {
+                \ 'args': ['-f', 'compact'],
+                \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+                \ '%W%f: line %l\, col %c\, Warning - %m'
+                \ }
+
             "let g:neomake_javascript_enabled_makers = ['eslint']
             let g:neomake_python_enabled_makers     = ['python2', 'python3', 'pylint2', 'pylint3', 'pyflakes']
             let g:neomake_logfile                   = '/tmp/neomake/error.log'
-            "let g:neomake_open_list                 = 2
+            let g:neomake_open_list                 = 0
             "let g:neomake_verbose                   = 3
         endif
     " }
     
     " Syntastic {
         if isdirectory(expand("~/.vim/bundle/syntastic/"))
-            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python', 'c', 'cpp'] }
+            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python', 'c', 'cpp', 'javascript', 'jsx'] }
             set statusline+=%#warningmsg#
             set statusline+=%{SyntasticStatuslineFlag()}
             set statusline+=%*
