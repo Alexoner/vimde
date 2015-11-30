@@ -8,21 +8,6 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='luna'
 let g:airline#extensions#tabline#fnamemod=':t'
 
-" syntastic checherks
-let g:syntastic_check_on_open=0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_javascript_checkers = ['jsxhint']
-"let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-"let g:syntastic_javascript_jsxhint_exec = 'jsx-jsxhint-wrapper'
-let g:syntastic_json_checkers=['jsonlint']
-let g:syntastic_python_checkers = ['python2', 'pylint']
-" flake8 combines pep8 and pyflakes
-"let g:syntastic_python_checkers = ['flake8']
-
-
-" Support virtualenv
-
 "vim-coloresque
 if !exists("b:color_pattern")
     let b:color_pattern = {}
@@ -50,3 +35,6 @@ au FileType markdown setl shell=bash\ -i
 " disable <F1> help.txt
 map <F1> <Esc>
 imap <F1> <Esc>
+
+"fileformat
+set fileformat=unix

@@ -123,7 +123,7 @@
                 Bundle 'bling/vim-airline'
             endif
             Bundle 'powerline/fonts'
-            Bundle 'bling/vim-bufferline'
+            "Bundle 'bling/vim-bufferline'
             Bundle 'easymotion/vim-easymotion'
             Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
@@ -161,8 +161,8 @@
             Bundle 'tpope/vim-commentary'
             Bundle 'godlygeek/tabular'
             Bundle 'Chiel92/vim-autoformat'
+            Bundle 'benekastah/neomake'
             Bundle 'luochen1990/rainbow'
-            Bundle 'millermedeiros/vim-esformatter'
             if executable('ctags')
                 Bundle 'majutsushi/tagbar'
             endif
@@ -218,7 +218,7 @@
             Bundle 'elzr/vim-json'
             Bundle 'groenewege/vim-less'
             Bundle 'pangloss/vim-javascript'
-            Bundle 'briancollins/vim-jst'
+            "Bundle 'briancollins/vim-jst'
             Bundle 'kchmck/vim-coffee-script'
             Bundle 'marijnh/tern_for_vim'
             "Plugin 'isRuslan/vim-es6'
@@ -295,7 +295,7 @@
             Bundle 'rust-lang/rust.vim'
             Bundle 'tpope/vim-markdown'
             Bundle 'spf13/vim-preview'
-            Plugin 'suan/vim-instant-markdown'
+            "Plugin 'suan/vim-instant-markdown'
             Bundle 'tpope/vim-cucumber'
             Bundle 'cespare/vim-toml'
             Bundle 'quentindecock/vim-cucumber-align-pipes'

@@ -256,7 +256,7 @@
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,html,css setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -740,6 +740,107 @@
         endif
     "}
 
+    " Neomake {
+        if isdirectory(expand("~/.vim/bundle/neomake"))
+            autocmd! BufWritePost,BufEnter * Neomake
+            let g:neomake_python_flake82_maker = {
+                \ 'exe': 'python2',
+                \ 'args': [ '-m' , 'flake8'],
+                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ }
+            let g:neomake_python_flake83_maker = {
+                \ 'exe': 'python3',
+                \ 'args': ['-m', 'flake8'],
+                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ }
+            let g:neomake_python_pylint2_maker = {
+                \ 'exe': 'python2',
+                \ 'args': [
+                    \ '-m', 'pylint', '--rcfile=~/.pylintrc',
+                    \ '-f', 'text',
+                    \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+                    \ '-r', 'n'
+                \ ],
+                \ 'errorformat':
+                    \ '%A%f:%l:%c:%t: %m,' .
+                    \ '%A%f:%l: %m,' .
+                    \ '%A%f:(%l): %m,' .
+                    \ '%-Z%p^%.%#,' .
+                    \ '%-G%.%#',
+                \ }
+            let g:neomake_python_pylint3_maker = {
+                \ 'exe': 'python3',
+                \ 'args': [
+                    \ '-m', 'pylint', '--rc-file= ~/.pylintrc','-f', 'text',
+                    \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+                    \ '-r','n'
+                \ ],
+                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ }
+            let g:neomake_python_python2_maker = {
+                \ 'exe': 'python2',
+                \ 'args': [],
+                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ }
+            let g:neomake_python_python3_maker = {
+                \ 'exe': 'python3',
+                \ 'args': [],
+                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ }
+            let g:neomake_javascript_eslint_maker = {
+                \ 'args': ['--verbose'],
+                \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+                \ }
+            "let g:neomake_javascript_enabled_makers = ['eslint']
+            let g:neomake_python_enabled_makers     = ['python2', 'python3', 'pylint2', 'pylint3', 'pyflakes']
+            let g:neomake_logfile                   = '/tmp/neomake/error.log'
+            "let g:neomake_open_list                 = 2
+            "let g:neomake_verbose                   = 3
+        endif
+    " }
+    
+    " Syntastic {
+        if isdirectory(expand("~/.vim/bundle/syntastic/"))
+            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python', 'c', 'cpp'] }
+            set statusline+=%#warningmsg#
+            set statusline+=%{SyntasticStatuslineFlag()}
+            set statusline+=%*
+
+            let g:syntastic_always_populate_loc_list = 1
+            let g:syntastic_auto_loc_list = 1
+            let g:syntastic_check_on_open = 0
+            let g:syntastic_check_on_wq = 0
+            let g:syntastic_aggregate_errors = 0
+            let g:syntastic_error_symbol='✗'
+            let g:syntastic_warning_symbol='⚠'
+            let g:syntastic_enable_ballons=has('ballon_eval')
+            let g:syntastic_javascript_checkers = ['eslint']
+            "let g:syntastic_javascript_checkers = ['jsxhint']
+            "let g:syntastic_javascript_jsxhint_exec = 'jsx-jsxhint-wrapper'
+            let g:syntastic_json_checkers=['jsonlint', 'jsonval']
+            " flake8 combines pep8 and pyflakes
+            "let g:syntastic_python_checkers = ['python2', 'pylint', 'flake8']
+            let g:syntastic_python_checkers = ['python2', 'pylint']
+            let g:syntastic_ruby_checkers=['rubocop','mri']
+            let g:syntastic_perl_checkers=['perl','perlcritic','podchecker']
+            let g:syntastic_cpp_checkers=['gcc','cppcheck','cpplint','ycm','clang_tidy','clang_check']
+            let g:syntastic_c_checkers=['gcc','make','cppcheck','clang_tidy','clang_check']
+            let g:syntastic_haml_checkers=['haml_lint', 'haml']
+            let g:syntastic_html_checkers=['jshint']
+            let g:syntastic_yaml_checkers=['jsyaml']
+            let g:syntastic_sh_checkers=['sh','shellcheck','checkbashisms']
+            let g:syntastic_vim_checkers=['vimlint']
+            let g:syntastic_enable_perl_checker=1
+            let g:syntastic_c_clang_tidy_sort=1
+            let g:syntastic_c_clang_check_sort=1
+            let g:syntastic_c_remove_include_errors=1
+            let g:syntastic_quiet_messages = { "level": "[]", "file": ['*_LOCAL_*', '*_BASE_*', '*_REMOTE_*']  }
+            let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{, }%W{W: %fw #%w}]'
+            let g:syntastic_java_javac_options = "-g:none -source 8 -Xmaxerrs 5 -Xmaswarns 5"
+        endif
+
+    " }
+
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
             let g:acp_enableAtStartup = 0
@@ -755,6 +856,7 @@
             let g:ycm_goto_buffer_command                 = 'new-tab' "where GoTo* commands result should be opened.
             let g:ycm_key_list_select_completion          = ['<TAB>', '<Down>']
             let g:ycm_key_list_previous_completion        = ['<S-TAB>', '<Up>']
+            " let g:ycm_show_diagnostics_ui               = 0 " enable syntastic checker 
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
             nnoremap <S-K> :YcmCompleter GetDoc<CR>
@@ -767,7 +869,7 @@
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             " User tern_for_vim for javascript completion
-            "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
