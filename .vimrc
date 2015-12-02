@@ -808,7 +808,21 @@
     
     " Syntastic {
         if isdirectory(expand("~/.vim/bundle/syntastic/"))
-            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go', 'python', 'c', 'cpp', 'javascript', 'jsx'] }
+            let g:syntastic_mode_map = { 
+                \ 'mode': 'active',
+                   \ 'passive_filetypes':
+                   \ [
+                       \ 'go',
+                       \ 'python',
+                       \ 'c',
+                       \ 'cpp',
+                       \ 'javascript',
+                       \ 'jsx',
+                       \ 'javascript.jsx',
+                       \ 'markdown',
+                       \ 'sh'
+                   \ ] 
+               \ }
             set statusline+=%#warningmsg#
             set statusline+=%{SyntasticStatuslineFlag()}
             set statusline+=%*
@@ -1136,7 +1150,7 @@
             " Enable omni-completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
