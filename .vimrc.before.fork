@@ -27,7 +27,6 @@ let g:formatdef_esformatter = '"/usr/local/Cellar/node/5.0.0/bin/esformatter -c 
 let g:formatdef_autopep8 = '"autopep8 - --aggressive ".(&textwidth ? "--max-line-length=".&textwidth : "")'
 
 " the underlying vim native formatting tool,used by vim-autoformt actually
-au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --aggressive
 
 "markdown 
 au FileType markdown setl shell=bash\ -i

@@ -265,6 +265,7 @@
     autocmd FileType haskell setlocal commentstring=--\ %s
     " Workaround broken colour highlighting in Haskell
     autocmd FileType haskell,rust setlocal nospell
+    au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --aggressive
 
 " }
 
@@ -650,6 +651,7 @@
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " jedi-vim
+            " disable completion to avoid conflicts with YCM
             let g:jedi#completions_enabled   = 0
             let g:jedi#show_call_signatures  = "1"
             let g:jedi#popup_on_dot          = 0
@@ -665,6 +667,8 @@
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options = 0
             let g:pymode_rope = 0
+            " disable completion to avoid conflicts with YCM
+            let g:pymode_rope_completion = 0
         endif
     " }
 
@@ -880,7 +884,8 @@
             " let g:ycm_show_diagnostics_ui               = 0 " enable syntastic checker 
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-            nnoremap <S-K> :YcmCompleter GetDoc<CR>
+            autocmd FileType c,cpp,objc,objcpp,python,cs  nnoremap <C-]> :YcmCompleter GoTo<CR>
+            autocmd FileType c,cpp,objc,objcpp,python,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
             " remap Ultisnips for compatibility for YCM
             let g:UltiSnipsExpandTrigger       = '<C-j>'
             let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
@@ -923,6 +928,8 @@
                 autocmd FileType javascript setlocal omnifunc=tern#Complete
                 let g:tern_show_argument_hints='on_hold'
                 let g:tern_show_signature_in_pum=1
+                autocmd FileType javascript,jsx,javascript.jsx  nnoremap <C-]> :TernDef<CR>
+                autocmd FileType javascript,jsx,javascript.jsx  nnoremap <S-K> :TernDoc<CR>
             endif
             "vim-jsx
             let g:jsx_ext_required = 0 " Allow JSX in normal JS files
