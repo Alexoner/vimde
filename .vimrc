@@ -458,6 +458,7 @@
     " FIXME: Revert this f70be548
     " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH
     map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
+    "autocmd FileType text,help,vim nnoremap <C-]> :tjump<CR>
 
 " }
 
@@ -803,10 +804,18 @@
                 \ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
-            let g:neomake_python_enabled_makers     = ['python2', 'python3', 'pylint2', 'pylint3', 'pyflakes']
-            let g:neomake_logfile                   = '/tmp/neomake/error.log'
-            let g:neomake_open_list                 = 0
-            "let g:neomake_verbose                   = 3
+            let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pylint2', 'pylint3', 'pyflakes']
+            let g:neomake_serialize                  = 1
+            let g:neomake_serialize_abort_on_error   = 1
+            let g:neomake_logfile                    = '/tmp/neomake/error.log'
+            let g:neomake_airline                    = 1
+            "let g:neomake_open_list                  = 2
+            let g:neomake_verbose                    = 1
+            let g:neomake_error_sign                 = {
+                \ 'text': '✗',
+                \ 'texthl': 'Error',
+                \ }
+
         endif
     " }
     
@@ -832,36 +841,36 @@
             set statusline+=%*
 
             let g:syntastic_always_populate_loc_list = 1
-            let g:syntastic_auto_loc_list = 1
-            let g:syntastic_check_on_open = 0
-            let g:syntastic_check_on_wq = 0
-            let g:syntastic_aggregate_errors = 0
-            let g:syntastic_error_symbol='✗'
-            let g:syntastic_warning_symbol='⚠'
-            let g:syntastic_enable_ballons=has('ballon_eval')
-            let g:syntastic_javascript_checkers = ['eslint']
-            "let g:syntastic_javascript_checkers = ['jsxhint']
+            let g:syntastic_auto_loc_list            = 1
+            let g:syntastic_check_on_open            = 0
+            let g:syntastic_check_on_wq              = 0
+            let g:syntastic_aggregate_errors         = 0
+            let g:syntastic_error_symbol             = '✗'
+            let g:syntastic_warning_symbol           = '⚠'
+            let g:syntastic_enable_ballons           = has('ballon_eval')
+            let g:syntastic_javascript_checkers      = ['eslint']
+            "let g:syntastic_javascript_checkers     = ['jsxhint']
             "let g:syntastic_javascript_jsxhint_exec = 'jsx-jsxhint-wrapper'
-            let g:syntastic_json_checkers=['jsonlint', 'jsonval']
+            let g:syntastic_json_checkers            = ['jsonlint', 'jsonval']
             " flake8 combines pep8 and pyflakes
-            "let g:syntastic_python_checkers = ['python2', 'pylint', 'flake8']
-            let g:syntastic_python_checkers = ['python2', 'pylint']
-            let g:syntastic_ruby_checkers=['rubocop','mri']
-            let g:syntastic_perl_checkers=['perl','perlcritic','podchecker']
-            let g:syntastic_cpp_checkers=['gcc','cppcheck','cpplint','ycm','clang_tidy','clang_check']
-            let g:syntastic_c_checkers=['gcc','make','cppcheck','clang_tidy','clang_check']
-            let g:syntastic_haml_checkers=['haml_lint', 'haml']
-            let g:syntastic_html_checkers=['jshint']
-            let g:syntastic_yaml_checkers=['jsyaml']
-            let g:syntastic_sh_checkers=['sh','shellcheck','checkbashisms']
-            let g:syntastic_vim_checkers=['vimlint']
-            let g:syntastic_enable_perl_checker=1
-            let g:syntastic_c_clang_tidy_sort=1
-            let g:syntastic_c_clang_check_sort=1
-            let g:syntastic_c_remove_include_errors=1
-            let g:syntastic_quiet_messages = { "level": "[]", "file": ['*_LOCAL_*', '*_BASE_*', '*_REMOTE_*']  }
-            let g:syntastic_stl_format = '[%E{E: %fe #%e}%B{, }%W{W: %fw #%w}]'
-            let g:syntastic_java_javac_options = "-g:none -source 8 -Xmaxerrs 5 -Xmaswarns 5"
+            "let g:syntastic_python_checkers        = ['python2', 'pylint', 'flake8']
+            let g:syntastic_python_checkers         = ['python2', 'pylint']
+            let g:syntastic_ruby_checkers           = ['rubocop','mri']
+            let g:syntastic_perl_checkers           = ['perl','perlcritic','podchecker']
+            let g:syntastic_cpp_checkers            = ['gcc','cppcheck','cpplint','ycm','clang_tidy','clang_check']
+            let g:syntastic_c_checkers              = ['gcc','make','cppcheck','clang_tidy','clang_check']
+            let g:syntastic_haml_checkers           = ['haml_lint', 'haml']
+            let g:syntastic_html_checkers           = ['jshint']
+            let g:syntastic_yaml_checkers           = ['jsyaml']
+            let g:syntastic_sh_checkers             = ['sh','shellcheck','checkbashisms']
+            let g:syntastic_vim_checkers            = ['vimlint']
+            let g:syntastic_enable_perl_checker     = 1
+            let g:syntastic_c_clang_tidy_sort       = 1
+            let g:syntastic_c_clang_check_sort      = 1
+            let g:syntastic_c_remove_include_errors = 1
+            let g:syntastic_quiet_messages          = { "level": "[]", "file": ['*_LOCAL_*', '*_BASE_*', '*_REMOTE_*']  }
+            let g:syntastic_stl_format              = '[%E{E: %fe #%e}%B{, }%W{W: %fw #%w}]'
+            let g:syntastic_java_javac_options      = "-g:none -source 8 -Xmaxerrs 5 -Xmaswarns 5"
         endif
 
     " }
