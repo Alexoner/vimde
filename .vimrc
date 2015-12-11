@@ -657,7 +657,7 @@
             let g:jedi#show_call_signatures  = "1"
             let g:jedi#popup_on_dot          = 0
             let g:jedi#use_tabs_not_buffers  = 1
-            let g:jedi#documentation_command = "K"
+            "let g:jedi#documentation_command = "K"
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
@@ -665,11 +665,29 @@
             let g:pymode = 1
             let g:pymode_virtualenv = 1
             let g:pymode_lint_checkers = ['flake8']
+            "let g:pymode_indent = []
+            let g:pymode_doc = 0
+            " Override view python doc key shortcut to Ctrl-Shift-d
+            let g:pymode_doc_bind = "<C-S-d>"
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options = 0
-            let g:pymode_rope = 0
+            let g:pymode_run = 1
+            let g:pymode_run_bind = '<leader>r'
+            let g:pymode_breakpoint_cmd = ''
+            let g:pymode_lint_on_fly = 1
+            let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+
+            let g:pymode_rope = 1
             " disable completion to avoid conflicts with YCM
             let g:pymode_rope_completion = 0
+            let g:pymode_rope_autoimport = 1
+            let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
+            let g:pymode_rope_organize_imports_bind = '<C-c>ro'
+            let g:pymode_rope_autoimport_bind = '<C-c>ra'
+            let g:pymode_rope_module_to_package_bind = '<C-c>r1p'
+            let g:pymode_rope_extract_method_bind = '<C-c>rm'
+            let g:pymode_rope_extract_variable_bind = '<C-c>rl'
+            let g:pymode_rope_rename_bind = '<C-c>rr'
         endif
     " }
 
@@ -751,12 +769,20 @@
             let g:neomake_python_flake82_maker = {
                 \ 'exe': 'python2',
                 \ 'args': [ '-m' , 'flake8'],
-                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ 'errorformat':
+                    \ '%E%f:%l: could not compile,%-Z%p^,' .
+                    \ '%A%f:%l:%c: %t%n %m,' .
+                    \ '%A%f:%l: %t%n %m,' .
+                    \ '%-G%.%#'
                 \ }
             let g:neomake_python_flake83_maker = {
                 \ 'exe': 'python3',
                 \ 'args': ['-m', 'flake8'],
-                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ 'errorformat':
+                    \ '%E%f:%l: could not compile,%-Z%p^,' .
+                    \ '%A%f:%l:%c: %t%n %m,' .
+                    \ '%A%f:%l: %t%n %m,' .
+                    \ '%-G%.%#'
                 \ }
             let g:neomake_python_pylint2_maker = {
                 \ 'exe': 'python2',
@@ -776,21 +802,43 @@
             let g:neomake_python_pylint3_maker = {
                 \ 'exe': 'python3',
                 \ 'args': [
-                    \ '-m', 'pylint', '--rc-file= ~/.pylintrc','-f', 'text',
+                    \ '-m', 'pylint', '--rcfile=~/.pylintrc',
+                    \ '-f', 'text',
                     \ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
-                    \ '-r','n'
+                    \ '-r', 'n'
                 \ ],
-                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ 'errorformat':
+                    \ '%A%f:%l:%c:%t: %m,' .
+                    \ '%A%f:%l: %m,' .
+                    \ '%A%f:(%l): %m,' .
+                    \ '%-Z%p^%.%#,' .
+                    \ '%-G%.%#',
                 \ }
             let g:neomake_python_python2_maker = {
-                \ 'exe': 'python2',
-                \ 'args': [],
-                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ 'args': [ '-c',
+                    \ "from __future__ import print_function\n" .
+                    \ "from sys import argv, exit\n" .
+                    \ "if len(argv) != 2:\n" .
+                    \ "    exit(1)\n" .
+                    \ "try:\n" .
+                    \ "    compile(open(argv[1]).read(), argv[1], 'exec', 0, 1)\n" .
+                    \ "except SyntaxError as err:\n" .
+                    \ "    print('%s:%s:%s: %s' % (err.filename, err.lineno, err.offset, err.msg))"
+                \ ],
+                \ 'errorformat': '%E%f:%l:%c: %m',
                 \ }
             let g:neomake_python_python3_maker = {
-                \ 'exe': 'python3',
-                \ 'args': [],
-                \ 'errorformat': '%f: line %l\, col %c\, %m',
+                \ 'args': [ '-c',
+                    \ "from __future__ import print_function\n" .
+                    \ "from sys import argv, exit\n" .
+                    \ "if len(argv) != 2:\n" .
+                    \ "    exit(1)\n" .
+                    \ "try:\n" .
+                    \ "    compile(open(argv[1]).read(), argv[1], 'exec', 0, 1)\n" .
+                    \ "except SyntaxError as err:\n" .
+                    \ "    print('%s:%s:%s: %s' % (err.filename, err.lineno, err.offset, err.msg))"
+                \ ],
+                \ 'errorformat': '%E%f:%l:%c: %m',
                 \ }
             let g:neomake_javascript_eslint_maker = {
                 \ 'args': ['-f', 'compact'],
@@ -804,7 +852,7 @@
                 \ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
-            let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pylint2', 'pylint3', 'pyflakes']
+            let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pylint2', 'python3', 'flake8']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
             let g:neomake_logfile                    = '/tmp/neomake/error.log'
@@ -822,7 +870,7 @@
     " Syntastic {
         if isdirectory(expand("~/.vim/bundle/syntastic/"))
             let g:syntastic_mode_map = { 
-                \ 'mode': 'active',
+                \ 'mode': 'passive',
                    \ 'passive_filetypes':
                    \ [
                        \ 'go',
