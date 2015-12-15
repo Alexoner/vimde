@@ -664,7 +664,6 @@
             "python-mode
             let g:pymode = 1
             let g:pymode_virtualenv = 1
-            let g:pymode_lint_checkers = ['flake8']
             "let g:pymode_indent = []
             let g:pymode_doc = 0
             " Override view python doc key shortcut to Ctrl-Shift-d
@@ -675,7 +674,9 @@
             let g:pymode_run_bind = '<leader>r'
             let g:pymode_breakpoint_cmd = ''
             let g:pymode_lint_on_fly = 1
-            let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+            "if using neomake, then disable pymode lint
+            "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+            let g:pymode_lint_checkers = []
 
             let g:pymode_rope = 1
             " disable completion to avoid conflicts with YCM
@@ -852,7 +853,8 @@
                 \ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
-            let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pylint2', 'python3', 'flake8']
+            "let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pylint2', 'pylint3', 'flake82']
+            let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pyflakes']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
             let g:neomake_logfile                    = '/tmp/neomake/error.log'
