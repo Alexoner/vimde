@@ -78,16 +78,16 @@
     " Deps {
         Bundle 'gmarik/vundle'
         Plug 'junegunn/vim-plug'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
+        Plug 'MarcWeber/vim-addon-mw-utils'
+        Plug 'tomtom/tlib_vim'
         if executable('ag')
-            Bundle 'mileszs/ack.vim'
+            Plug 'mileszs/ack.vim'
             let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
         elseif executable('ack-grep')
             let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Bundle 'mileszs/ack.vim'
+            Plug 'mileszs/ack.vim'
         elseif executable('ack')
-            Bundle 'mileszs/ack.vim'
+            Plug 'mileszs/ack.vim'
         endif
     " }
 
@@ -104,43 +104,43 @@
 
     " General {
         if count(g:spf13_bundle_groups, 'general')
-            Bundle 'scrooloose/nerdtree'
+            Plug 'scrooloose/nerdtree'
             Plug 'altercation/vim-colors-solarized'
-            Bundle 'spf13/vim-colors'
+            Plug 'spf13/vim-colors'
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
-            "Bundle 'jiangmiao/auto-pairs'
+            "Plug 'jiangmiao/auto-pairs'
             Plug 'Raimondi/delimitMate'
             Plug 'ctrlpvim/ctrlp.vim'
             Plug 'tacahiroy/ctrlp-funky'
             Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'matchit.zip'
-            Bundle 'kien/rainbow_parentheses.vim'
+            Plug 'kien/rainbow_parentheses.vim'
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
-                Bundle 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
+                Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
-                Bundle 'Lokaltog/vim-powerline'
+                Plug 'Lokaltog/vim-powerline'
             else
-                "Bundle 'bling/vim-airline'
+                "Plug 'bling/vim-airline'
                 Plug 'bling/vim-airline'
             endif
-            Bundle 'powerline/fonts'
-            "Bundle 'bling/vim-bufferline'
+            Plug 'powerline/fonts'
+            "Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'flazz/vim-colorschemes'
             Plug 'mbbill/undotree'
             Plug 'nathanaelkane/vim-indent-guides'
             if !exists('g:spf13_no_views')
-                Bundle 'vim-scripts/restore_view.vim'
+                Plug 'vim-scripts/restore_view.vim'
             endif
             Plug 'mhinz/vim-signify'
-            Bundle 'tpope/vim-abolish.git'
-            Bundle 'osyo-manga/vim-over'
-            Bundle 'kana/vim-textobj-user'
-            Bundle 'kana/vim-textobj-indent'
+            Plug 'tpope/vim-abolish'
+            Plug 'osyo-manga/vim-over'
+            Plug 'kana/vim-textobj-user'
+            Plug 'kana/vim-textobj-indent'
             Plug 'gcmt/wildfire.vim'
             "Plug 'cazador481/fakeclip.neovim'
         endif
@@ -148,10 +148,10 @@
 
     " Writing {
         if count(g:spf13_bundle_groups, 'writing')
-            Bundle 'reedes/vim-litecorrect'
-            Bundle 'reedes/vim-textobj-sentence'
-            Bundle 'reedes/vim-textobj-quote'
-            Bundle 'reedes/vim-wordy'
+            Plug 'reedes/vim-litecorrect'
+            Plug 'reedes/vim-textobj-sentence'
+            Plug 'reedes/vim-textobj-quote'
+            Plug 'reedes/vim-wordy'
         endif
     " }
     
@@ -166,9 +166,9 @@
             " Pick one of the checksyntax, jslint, or syntastic
             Plug 'scrooloose/syntastic'
             Plug 'tpope/vim-fugitive'
-            Bundle 'mattn/webapi-vim'
-            Bundle 'mattn/gist-vim'
-            Bundle 'scrooloose/nerdcommenter'
+            Plug 'mattn/webapi-vim'
+            Plug 'mattn/gist-vim'
+            Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
             Plug 'godlygeek/tabular'
             Plug 'benekastah/neomake'
@@ -176,16 +176,18 @@
             Plug 'luochen1990/rainbow'
             Plug 'janko-m/vim-test'
             Plug 'critiqjo/lldb.nvim', { 'for': ['cpp', 'c'] }
+            " CVS/SVN/SVK/git/hk/bzr integration
+            "Plug 'vim-scripts/vcscommand.vim'
             if executable('ctags')
-                Bundle 'majutsushi/tagbar'
+                Plug 'majutsushi/tagbar'
             endif
         endif
     " }
 
     " Snippets & AutoComplete {
         if count(g:spf13_bundle_groups, 'snipmate')
-            Bundle 'garbas/vim-snipmate'
-            Bundle 'honza/vim-snippets'
+            Plug 'garbas/vim-snipmate'
+            Plug 'honza/vim-snippets'
             " Source support_function.vim to support vim-snippets.
             if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
                 source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
@@ -209,25 +211,26 @@
             Plug 'SirVer/ultisnips'
             Plug 'honza/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplcache')
-            Bundle 'Shougo/neocomplcache'
-            Bundle 'Shougo/neosnippet'
-            Bundle 'Shougo/neosnippet-snippets'
-            Bundle 'honza/vim-snippets'
+            Plug 'Shougo/neocomplcache'
+            Plug 'Shougo/neosnippet'
+            Plug 'Shougo/neosnippet-snippets'
+            Plug 'honza/vim-snippets'
         elseif count(g:spf13_bundle_groups, 'neocomplete')
-            Bundle 'Shougo/neocomplete.vim.git'
-            Bundle 'Shougo/neosnippet'
-            Bundle 'Shougo/neosnippet-snippets'
-            Bundle 'honza/vim-snippets'
-        elseif count(g:spf13_bundle_groups, 'deoplete')
+            Plug 'Shougo/neocomplete.vim.git'
+            Plug 'Shougo/neosnippet'
+            Plug 'Shougo/neosnippet-snippets'
+            Plug 'honza/vim-snippets'
+        endif
+        if count(g:spf13_bundle_groups, 'deoplete')
             Plug 'Shougo/deoplete.nvim'
         endif
     " }
 
     " PHP {
         if count(g:spf13_bundle_groups, 'php')
-            Bundle 'spf13/PIV'
-            Bundle 'arnaud-lb/vim-php-namespace'
-            Bundle 'beyondwords/vim-twig'
+            Plug 'spf13/PIV'
+            Plug 'arnaud-lb/vim-php-namespace'
+            Plug 'beyondwords/vim-twig'
         endif
     " }
 
@@ -236,9 +239,9 @@
             " Pick either python-mode or pyflakes & pydoc
             Plug 'klen/python-mode'
             "Plug 'davidhalter/jedi-vim'
-            Bundle 'yssource/python.vim'
-            Bundle 'python_match.vim'
-            Bundle 'pythoncomplete'
+            Plug 'yssource/python.vim'
+            Plug 'python_match.vim'
+            Plug 'pythoncomplete'
         endif
     " }
     
@@ -250,8 +253,8 @@
 
     " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
-            Bundle 'elzr/vim-json'
-            Bundle 'groenewege/vim-less'
+            Plug 'elzr/vim-json'
+            Plug 'groenewege/vim-less'
             Plug 'pangloss/vim-javascript'
             "Plug 'briancollins/vim-jst'
             Plug 'kchmck/vim-coffee-script'
@@ -265,24 +268,24 @@
 
     " Scala {
         if count(g:spf13_bundle_groups, 'scala')
-            Bundle 'derekwyatt/vim-scala'
-            Bundle 'derekwyatt/vim-sbt'
-            Bundle 'xptemplate'
+            Plug 'derekwyatt/vim-scala'
+            Plug 'derekwyatt/vim-sbt'
+            Plug 'xptemplate'
         endif
     " }
 
     " Haskell {
         if count(g:spf13_bundle_groups, 'haskell')
-            Bundle 'travitch/hasksyn'
-            Bundle 'dag/vim2hs'
-            Bundle 'Twinside/vim-haskellConceal'
-            Bundle 'Twinside/vim-haskellFold'
-            Bundle 'lukerandall/haskellmode-vim'
-            Bundle 'eagletmt/neco-ghc'
-            Bundle 'eagletmt/ghcmod-vim'
-            Bundle 'Shougo/vimproc.vim'
-            Bundle 'adinapoli/cumino'
-            Bundle 'bitc/vim-hdevtools'
+            Plug 'travitch/hasksyn'
+            Plug 'dag/vim2hs'
+            Plug 'Twinside/vim-haskellConceal'
+            Plug 'Twinside/vim-haskellFold'
+            Plug 'lukerandall/haskellmode-vim'
+            Plug 'eagletmt/neco-ghc'
+            Plug 'eagletmt/ghcmod-vim'
+            Plug 'Shougo/vimproc.vim'
+            Plug 'adinapoli/cumino'
+            Plug 'bitc/vim-hdevtools'
             Plug 'neovimhaskell/haskell-vim'
         endif
     " }
@@ -292,13 +295,13 @@
             Plug 'amirh/HTML-AutoCloseTag'
             Plug 'hail2u/vim-css3-syntax'
             Plug 'gorodinskiy/vim-coloresque'
-            Bundle 'tpope/vim-haml'
+            Plug 'tpope/vim-haml'
         endif
     " }
 
     " Ruby {
         if count(g:spf13_bundle_groups, 'ruby')
-            Bundle 'tpope/vim-rails'
+            Plug 'tpope/vim-rails'
             let g:rubycomplete_buffer_loading = 1
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1
@@ -307,7 +310,7 @@
 
     " Puppet {
         if count(g:spf13_bundle_groups, 'puppet')
-            Bundle 'rodjek/vim-puppet'
+            Plug 'rodjek/vim-puppet'
         endif
     " }
 
@@ -320,20 +323,21 @@
 
     " Elixir {
         if count(g:spf13_bundle_groups, 'elixir')
-            Bundle 'elixir-lang/vim-elixir'
-            Bundle 'carlosgaldino/elixir-snippets'
-            Bundle 'mattreduce/vim-mix'
+            Plug 'elixir-lang/vim-elixir'
+            Plug 'carlosgaldino/elixir-snippets'
+            Plug 'mattreduce/vim-mix'
         endif
     " }
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
-            Bundle 'rust-lang/rust.vim'
+            Plug 'rust-lang/rust.vim'
             Plug 'tpope/vim-markdown'
-            Bundle 'tpope/vim-cucumber'
-            Bundle 'cespare/vim-toml'
-            Bundle 'quentindecock/vim-cucumber-align-pipes'
-            Bundle 'saltstack/salt-vim'
+            Plug 'tpope/vim-cucumber'
+            Plug 'cespare/vim-toml'
+            Plug 'quentindecock/vim-cucumber-align-pipes'
+            Plug 'saltstack/salt-vim'
+            Plug 'chrisbra/csv.vim'
 
             function! BuildComposer(info)
               if a:info.status != 'unchanged' || a:info.force
@@ -350,6 +354,14 @@
         if count(g:spf13_bundle_groups, 'github')
             " Using git URL
             Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+        endif
+    " }
+    
+    " SQL {
+        if 1 == 1
+            Plug 'vim-scripts/SQLUtilities', { 'for': ['sql'] }
+            Plug 'vim-scripts/SQLComplete.vim', { 'for': ['sql']}
+            Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
         endif
     " }
 
