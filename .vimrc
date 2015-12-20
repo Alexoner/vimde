@@ -478,29 +478,6 @@
         endif
     "}
      
-    " GoLang {
-        if count(g:spf13_bundle_groups, 'go')
-            let g:go_highlight_functions = 1
-            let g:go_highlight_methods = 1
-            let g:go_highlight_structs = 1
-            let g:go_highlight_operators = 1
-            let g:go_highlight_build_constraints = 1
-            let g:go_fmt_command = "goimports"
-            let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-            au FileType go nmap <Leader>s <Plug>(go-implements)
-            au FileType go nmap <Leader>i <Plug>(go-info)
-            au FileType go nmap <Leader>e <Plug>(go-rename)
-            au FileType go nmap <leader>r <Plug>(go-run)
-            au FileType go nmap <leader>b <Plug>(go-build)
-            au FileType go nmap <leader>t <Plug>(go-test)
-            au FileType go nmap <Leader>gd <Plug>(go-doc)
-            au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-            au FileType go nmap <leader>co <Plug>(go-coverage)
-        endif
-        " }
-
-
     " TextObj Sentence {
         if count(g:spf13_bundle_groups, 'writing')
             augroup textobj_sentence
@@ -642,54 +619,6 @@
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
         let g:vim_json_syntax_conceal = 0
-    " }
-
-    " PyMode {
-        " Disable if python support not present
-        if !has('python') && !has('python3')
-            let g:pymode = 0
-        endif
-
-        if isdirectory(expand("~/.vim/bundle/jedi-vim"))
-            " jedi-vim
-            " disable completion to avoid conflicts with YCM
-            let g:jedi#completions_enabled   = 0
-            let g:jedi#show_call_signatures  = "1"
-            let g:jedi#popup_on_dot          = 0
-            let g:jedi#use_tabs_not_buffers  = 1
-            "let g:jedi#documentation_command = "K"
-        endif
-
-        if isdirectory(expand("~/.vim/bundle/python-mode"))
-            "python-mode
-            let g:pymode = 1
-            let g:pymode_virtualenv = 1
-            "let g:pymode_indent = []
-            let g:pymode_doc = 0
-            " Override view python doc key shortcut to Ctrl-Shift-d
-            let g:pymode_doc_bind = "<C-S-d>"
-            let g:pymode_trim_whitespaces = 0
-            let g:pymode_options = 0
-            let g:pymode_run = 1
-            let g:pymode_run_bind = '<leader>r'
-            let g:pymode_breakpoint_cmd = ''
-            let g:pymode_lint_on_fly = 1
-            "if using neomake, then disable pymode lint
-            "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-            let g:pymode_lint_checkers = []
-
-            let g:pymode_rope = 1
-            " disable completion to avoid conflicts with YCM
-            let g:pymode_rope_completion = 0
-            let g:pymode_rope_autoimport = 1
-            let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
-            let g:pymode_rope_organize_imports_bind = '<C-c>ro'
-            let g:pymode_rope_autoimport_bind = '<C-c>ra'
-            let g:pymode_rope_module_to_package_bind = '<C-c>r1p'
-            let g:pymode_rope_extract_method_bind = '<C-c>rm'
-            let g:pymode_rope_extract_variable_bind = '<C-c>rl'
-            let g:pymode_rope_rename_bind = '<C-c>rr'
-        endif
     " }
 
     " ctrlp {
@@ -887,7 +816,7 @@
                    \ ] 
                \ }
             set statusline+=%#warningmsg#
-            set statusline+=%{SyntasticStatuslineFlag()}
+            "set statusline+=%{SyntasticStatuslineFlag()}
             set statusline+=%*
 
             let g:syntastic_always_populate_loc_list = 1
@@ -940,7 +869,7 @@
             let g:ycm_goto_buffer_command                 = 'new-tab' "where GoTo* commands result should be opened.
             let g:ycm_key_list_select_completion          = ['<TAB>', '<Down>']
             let g:ycm_key_list_previous_completion        = ['<S-TAB>', '<Up>']
-            " let g:ycm_show_diagnostics_ui               = 0 " enable syntastic checker 
+            let g:ycm_show_diagnostics_ui                 = 0 " enable syntastic checker
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
             autocmd FileType c,cpp,objc,objcpp,python,cs  nnoremap <C-]> :YcmCompleter GoTo<CR>
@@ -980,21 +909,36 @@
             set completeopt-=preview
         endif
     " }
-    
-    " javascript {
-        if count(g:spf13_bundle_groups, 'javascript')
-            if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
-                autocmd FileType javascript setlocal omnifunc=tern#Complete
-                let g:tern_show_argument_hints='on_hold'
-                let g:tern_show_signature_in_pum=1
-                autocmd FileType javascript,jsx,javascript.jsx  nnoremap <C-]> :TernDef<CR>
-                autocmd FileType javascript,jsx,javascript.jsx  nnoremap <S-K> :TernDoc<CR>
-            endif
-            "vim-jsx
-            let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+    " deoplete {
+        if count(g:spf13_bundle_groups, 'deoplete')
+            " Use deoplete.
+            let g:deoplete#enable_at_startup = 1
+            " Use smartcase.
+            let g:deoplete#enable_smart_case = 1
+            set completeopt-=preview
+            set completeopt+=menuone
+            " use tab to forward cycle
+            inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+            " use tab to backward cycle
+            inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+            " Enable omni completion.
+            " User tern_for_vim for javascript completion
+            aug omnicomplete
+                autocmd!
+                au FileType css,sass,scss,stylus,less setl omnifunc=csscomplete#CompleteCSS
+                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+                au FileType html,htmldjango,jinja,markdown setl omnifunc=emmet#completeTag
+                au FileType python setl omnifunc=pythoncomplete#Complete
+                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
+                au FileType xml setl omnifunc=xmlcomplete#CompleteTags
+                autocmd FileType go setlocal omnifunc=gocomplete#Complete
+                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+                autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+            aug END
         endif
     " }
-    
+
     " neocomplete {
         if count(g:spf13_bundle_groups, 'neocomplete')
             let g:acp_enableAtStartup = 0
@@ -1310,7 +1254,97 @@
         endif
     " }
 
+    " Python {
+        " Disable if python support not present
+        if !has('python') && !has('python3')
+            let g:pymode = 0
+        endif
 
+        if isdirectory(expand("~/.vim/bundle/jedi-vim"))
+            " jedi-vim
+            " disable completion to avoid conflicts with YCM
+            "autocmd FileType python setlocal omnifunc=jedi#completions
+            let g:jedi#completions_enabled   = 0
+            let g:jedi#auto_vim_configuration = 0
+            let g:jedi#smart_auto_mappings = 0
+            let g:jedi#show_call_signatures = 0
+            "let g:jedi#show_call_signatures  = "1"
+            let g:jedi#popup_on_dot          = 0
+            let g:jedi#use_tabs_not_buffers  = 1
+            let g:jedi#documentation_command = "K"
+        endif
+
+        if isdirectory(expand("~/.vim/bundle/python-mode"))
+            "python-mode
+            let g:pymode = 1
+            let g:pymode_virtualenv = 1
+            "let g:pymode_indent = []
+            let g:pymode_doc = 0
+            " Override view python doc key shortcut to Ctrl-Shift-d
+            let g:pymode_doc_bind = "<C-S-d>"
+            let g:pymode_trim_whitespaces = 0
+            let g:pymode_options = 0
+            let g:pymode_run = 1
+            let g:pymode_run_bind = '<leader>r'
+            let g:pymode_breakpoint_cmd = ''
+            let g:pymode_lint_on_fly = 1
+            "if using neomake, then disable pymode lint
+            "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+            let g:pymode_lint_checkers = []
+
+            let g:pymode_rope = 1
+            " disable completion to avoid conflicts with YCM
+            let g:pymode_rope_completion = 0
+            let g:pymode_rope_autoimport = 1
+            let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
+            let g:pymode_rope_organize_imports_bind = '<C-c>ro'
+            let g:pymode_rope_autoimport_bind = '<C-c>ra'
+            let g:pymode_rope_module_to_package_bind = '<C-c>r1p'
+            let g:pymode_rope_extract_method_bind = '<C-c>rm'
+            let g:pymode_rope_extract_variable_bind = '<C-c>rl'
+            let g:pymode_rope_rename_bind = '<C-c>rr'
+        endif
+    " }
+    
+    " javascript {
+        if count(g:spf13_bundle_groups, 'javascript')
+            if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
+                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=tern#Complete
+                let g:tern_show_argument_hints='on_hold'
+                let g:tern_show_signature_in_pum=1
+                autocmd FileType javascript,jsx,javascript.jsx  nnoremap <C-]> :TernDef<CR>
+                autocmd FileType javascript,jsx,javascript.jsx  nnoremap <S-K> :TernDoc<CR>
+            endif
+            "vim-jsx
+            let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+        endif
+    " }
+
+    " GoLang {
+        if count(g:spf13_bundle_groups, 'go')
+            let g:go_highlight_functions = 1
+            let g:go_highlight_methods = 1
+            let g:go_highlight_structs = 1
+            let g:go_highlight_operators = 1
+            let g:go_highlight_build_constraints = 1
+            let g:go_fmt_command = "goimports"
+            let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+            au FileType go nmap <Leader>s <Plug>(go-implements)
+            au FileType go nmap <Leader>i <Plug>(go-info)
+            au FileType go nmap <Leader>e <Plug>(go-rename)
+            au FileType go nmap <leader>r <Plug>(go-run)
+            au FileType go nmap <leader>b <Plug>(go-build)
+            au FileType go nmap <leader>t <Plug>(go-test)
+            au FileType go nmap <Leader>gd <Plug>(go-doc)
+            au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+            au FileType go nmap <leader>co <Plug>(go-coverage)
+        endif
+    " }
+    
+    " java {
+        Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
+    " }
 
 " }
 

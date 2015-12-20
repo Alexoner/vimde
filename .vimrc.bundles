@@ -118,7 +118,6 @@
             Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'matchit.zip'
-            Plug 'kien/rainbow_parentheses.vim'
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
@@ -165,7 +164,7 @@
     " General Programming {
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            Plug 'scrooloose/syntastic', { 'for': [] }
+            "Plug 'scrooloose/syntastic', { 'for': [] }
             Plug 'tpope/vim-fugitive'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
@@ -175,6 +174,7 @@
             Plug 'benekastah/neomake'
             Plug 'Chiel92/vim-autoformat'
             Plug 'luochen1990/rainbow'
+            Plug 'kien/rainbow_parentheses.vim'
             Plug 'janko-m/vim-test'
             Plug 'critiqjo/lldb.nvim', { 'for': ['cpp', 'c'] }
             " CVS/SVN/SVK/git/hk/bzr integration
@@ -205,9 +205,9 @@
             endfunction
 
             Plug 'Valloric/YouCompleteMe',
-                        \ { 'do': function('BuildYCM'),
-                        \ 'for': ['cpp', 'c', 'python', 'javascript', 'rust']
-                        \ }
+                    \ { 
+                        \ 'do': function('BuildYCM')
+                    \ }
             " Using a non-master branch
             Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
@@ -226,6 +226,12 @@
         endif
         if count(g:spf13_bundle_groups, 'deoplete')
             Plug 'Shougo/deoplete.nvim'
+            Plug 'Shougo/neco-vim'
+            "Plug 'Shougo/neosnippet.vim'
+            Plug 'Shougo/neoinclude.vim'
+            Plug 'Shougo/neco-syntax'
+            Plug 'zchee/deoplete-go',{ 'for': ['go'] }
+            Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp'] }
         endif
     " }
 
@@ -241,7 +247,7 @@
         if count(g:spf13_bundle_groups, 'python')
             " Pick either python-mode or pyflakes & pydoc
             Plug 'klen/python-mode', { 'for': ['python'] }
-            "Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+            Plug 'davidhalter/jedi-vim', { 'for': 'python' }
             Plug 'yssource/python.vim', { 'for': ['python'] }
             Plug 'python_match.vim', { 'for': ['python'] }
             Plug 'pythoncomplete', { 'for': ['python'] }
@@ -250,7 +256,8 @@
     
     " R {
         if count(g:spf13_bundle_groups, 'R')
-            Plug 'jalvesaq/Nvim-R'
+            Plug 'jalvesaq/Nvim-R', { 'for': ['r'] }
+            Plug 'vim-scripts/Vim-R-plugin', { 'for': ['r'] }
         endif
     " }
 
@@ -261,7 +268,7 @@
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
-            Plug 'marijnh/tern_for_vim', { 'for': ['javascript'] }
+            Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
             "Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
@@ -304,7 +311,7 @@
 
     " Ruby {
         if count(g:spf13_bundle_groups, 'ruby')
-            Plug 'tpope/vim-rails'
+            Plug 'tpope/vim-rails', { 'for': ['ruby'] }
             let g:rubycomplete_buffer_loading = 1
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1
