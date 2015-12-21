@@ -695,7 +695,7 @@
 
     " Neomake {
         if isdirectory(expand("~/.vim/bundle/neomake"))
-            autocmd! BufWritePost,BufEnter * Neomake
+            autocmd! InsertLeave,BufWritePost,BufEnter * Neomake
             let g:neomake_python_flake82_maker = {
                 \ 'exe': 'python2',
                 \ 'args': [ '-m' , 'flake8'],
@@ -782,13 +782,13 @@
                 \ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
-            "let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pylint2', 'pylint3', 'flake82']
-            let g:neomake_python_enabled_makers      = ['python2', 'python3', 'pyflakes']
+            let g:neomake_python_enabled_makers      = ['python', 'pylint', 'flake8']
+            "let g:neomake_python_enabled_makers      = []
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
             let g:neomake_logfile                    = '/tmp/neomake/error.log'
             let g:neomake_airline                    = 1
-            "let g:neomake_open_list                  = 2
+            let g:neomake_open_list                  = 1
             let g:neomake_verbose                    = 1
             let g:neomake_error_sign                 = {
                 \ 'text': '✗',
@@ -923,19 +923,27 @@
             " use tab to backward cycle
             inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
             " Enable omni completion.
-            " User tern_for_vim for javascript completion
             aug omnicomplete
                 autocmd!
-                au FileType css,sass,scss,stylus,less setl omnifunc=csscomplete#CompleteCSS
-                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-                au FileType html,htmldjango,jinja,markdown setl omnifunc=emmet#completeTag
-                au FileType python setl omnifunc=pythoncomplete#Complete
-                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
-                au FileType xml setl omnifunc=xmlcomplete#CompleteTags
+                autocmd FileType c setlocal omnifunc=ccomplete#CompleteCSS
+                autocmd FileType clojure setlocal omnifunc=clojurecomplete#CompleteCSS
+                autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
                 autocmd FileType go setlocal omnifunc=gocomplete#Complete
-                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
                 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+                autocmd FileType html,htmldjango,jinja,markdown setlocal omnifunc=emmet#completeTag
+                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
+                " python2 complete,defined in runtime/autoload/pythoncomplete.vim
+                autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+                " python3 complete, defined in runtime/autoload/python3complete.vim
+                autocmd FileType python setlocal omnifunc=python3complete#Complete
+                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+                autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+                autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             aug END
+            if !exists('g:deoplete#omni#input_patterns')
+                let g:deoplete#omni#input_patterns = {}
+            endif
         endif
     " }
 
@@ -1262,62 +1270,73 @@
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " jedi-vim
-            " disable completion to avoid conflicts with YCM
             "autocmd FileType python setlocal omnifunc=jedi#completions
-            let g:jedi#completions_enabled   = 0
-            let g:jedi#auto_vim_configuration = 0
-            let g:jedi#smart_auto_mappings = 0
-            let g:jedi#show_call_signatures = 0
-            "let g:jedi#show_call_signatures  = "1"
-            let g:jedi#popup_on_dot          = 0
-            let g:jedi#use_tabs_not_buffers  = 1
-            let g:jedi#documentation_command = "K"
+            " disable completion to avoid conflicts with YCM
+            let g:jedi#completions_enabled             = 0
+            let g:jedi#auto_vim_configuration          = 0
+            let g:jedi#smart_auto_mappings             = 0
+            let g:jedi#show_call_signatures            = 0
+            "let g:jedi#show_call_signatures           = "1"
+            let g:jedi#popup_on_dot                    = 0
+            let g:jedi#use_tabs_not_buffers            = 1
+            let g:jedi#documentation_command           = "K"
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
             "python-mode
-            let g:pymode = 1
+            let g:pymode            = 1
+            let g:pymode_python     = 'python3'
             let g:pymode_virtualenv = 1
-            "let g:pymode_indent = []
-            let g:pymode_doc = 0
+            "let g:pymode_indent    = []
+            let g:pymode_doc        = 0
             " Override view python doc key shortcut to Ctrl-Shift-d
-            let g:pymode_doc_bind = "<C-S-d>"
+            let g:pymode_doc_bind         = "<C-S-d>"
             let g:pymode_trim_whitespaces = 0
-            let g:pymode_options = 0
-            let g:pymode_run = 1
-            let g:pymode_run_bind = '<leader>r'
-            let g:pymode_breakpoint_cmd = ''
-            let g:pymode_lint_on_fly = 1
+            let g:pymode_options          = 0
+            let g:pymode_run              = 1
+            let g:pymode_run_bind         = '<leader>r'
+            let g:pymode_breakpoint_cmd   = ''
+            let g:pymode_lint_on_fly      = 1
             "if using neomake, then disable pymode lint
-            "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+            "let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'mccabe']
+            "let g:pymode_lint_checkers = ['pylama', 'pylint']
             let g:pymode_lint_checkers = []
+            let g:pymode_lint_ignore = ""
 
             let g:pymode_rope = 1
             " disable completion to avoid conflicts with YCM
-            let g:pymode_rope_completion = 0
-            let g:pymode_rope_autoimport = 1
-            let g:pymode_rope_autoimport_modules = ['os', 'shutil', 'datetime']
-            let g:pymode_rope_organize_imports_bind = '<C-c>ro'
-            let g:pymode_rope_autoimport_bind = '<C-c>ra'
+            let g:pymode_rope_completion             = 0
+            " Override go-to.definition key shortcut to Ctrl-]
+            let g:pymode_rope_goto_definition_bind   = "<C-]>"
+            let g:pymode_rope_autoimport             = 1
+            let g:pymode_rope_autoimport_modules     = ['os', 'shutil', 'datetime']
+            let g:pymode_rope_organize_imports_bind  = '<C-c>ro'
+            let g:pymode_rope_autoimport_bind        = '<C-c>ra'
             let g:pymode_rope_module_to_package_bind = '<C-c>r1p'
-            let g:pymode_rope_extract_method_bind = '<C-c>rm'
-            let g:pymode_rope_extract_variable_bind = '<C-c>rl'
-            let g:pymode_rope_rename_bind = '<C-c>rr'
+            let g:pymode_rope_extract_method_bind    = '<C-c>rm'
+            let g:pymode_rope_extract_variable_bind  = '<C-c>rl'
+            let g:pymode_rope_rename_bind            = '<C-c>rr'
         endif
     " }
     
     " javascript {
         if count(g:spf13_bundle_groups, 'javascript')
             if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
+                " User tern_for_vim for javascript completion
                 autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=tern#Complete
-                let g:tern_show_argument_hints='on_hold'
-                let g:tern_show_signature_in_pum=1
+                let g:tern_show_argument_hints   = 'on_hold'
+                let g:tern_show_signature_in_pum = 1
                 autocmd FileType javascript,jsx,javascript.jsx  nnoremap <C-]> :TernDef<CR>
                 autocmd FileType javascript,jsx,javascript.jsx  nnoremap <S-K> :TernDoc<CR>
             endif
             "vim-jsx
             let g:jsx_ext_required = 0 " Allow JSX in normal JS files
         endif
+    " }
+
+    " c {
+        " clang_complete
+        let g:clang_library_path="/Users/Alex/.vim/bundle/YouCompleteMe//third_party/ycmd/libclang.dylib"
     " }
 
     " GoLang {
@@ -1343,7 +1362,13 @@
     " }
     
     " java {
-        Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
+        if isdirectory(expand("~/.vim/bundle/vim-javacomplete2"))
+            autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+            nmap <F4> <Plug>(JavaComplete-Imports-Add)
+            imap <F4> <Plug>(JavaComplete-Imports-Add)
+
+        endif
     " }
 
 " }
