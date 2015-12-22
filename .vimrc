@@ -462,6 +462,7 @@
 
 " }
 
+
 " Plugins {
 
     "General Programming  {
@@ -695,7 +696,12 @@
 
     " Neomake {
         if isdirectory(expand("~/.vim/bundle/neomake"))
-            autocmd! InsertLeave,BufWritePost,BufEnter * Neomake
+            augroup lint
+                autocmd!
+                " Details about autocmd see :help autocmd
+                "autocmd! InsertLeave,BufWrite,BufWinEnter * Neomake
+                autocmd! BufWritePost,BufWinEnter * Neomake
+            augroup END
             let g:neomake_python_flake82_maker = {
                 \ 'exe': 'python2',
                 \ 'args': [ '-m' , 'flake8'],
@@ -782,13 +788,13 @@
                 \ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
-            let g:neomake_python_enabled_makers      = ['python', 'pylint', 'flake8']
-            "let g:neomake_python_enabled_makers      = []
+            "let g:neomake_python_enabled_makers      = ['python', 'pylint', 'flake8']
+            let g:neomake_python_enabled_makers      = ['pylint']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
             let g:neomake_logfile                    = '/tmp/neomake/error.log'
             let g:neomake_airline                    = 1
-            let g:neomake_open_list                  = 1
+            let g:neomake_open_list                  = 2
             let g:neomake_verbose                    = 1
             let g:neomake_error_sign                 = {
                 \ 'text': '✗',
@@ -874,10 +880,6 @@
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
             autocmd FileType c,cpp,objc,objcpp,python,cs  nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,objc,objcpp,python,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
-            " remap Ultisnips for compatibility for YCM
-            let g:UltiSnipsExpandTrigger       = '<C-j>'
-            let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
-            let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
             " Enable omni completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -923,10 +925,20 @@
             " use tab to backward cycle
             inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
             " Enable omni completion.
+            " <C-h>, <BS>: close popup and delete backword char.
+            inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+            inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+
+            " <CR>: close popup and save indent.
+            inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+            function! s:my_cr_function()
+                return deoplete#mappings#close_popup() . "\<CR>"
+            endfunction
+
             aug omnicomplete
                 autocmd!
-                autocmd FileType c setlocal omnifunc=ccomplete#CompleteCSS
-                autocmd FileType clojure setlocal omnifunc=clojurecomplete#CompleteCSS
+                autocmd FileType c setlocal omnifunc=ccomplete#Complete
+                autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
                 autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
                 autocmd FileType go setlocal omnifunc=gocomplete#Complete
                 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
@@ -943,6 +955,9 @@
             aug END
             if !exists('g:deoplete#omni#input_patterns')
                 let g:deoplete#omni#input_patterns = {}
+            endif
+            if !exists('g:deoplete#omni#functions')
+                let g:deoplete#omni#functions = {}
             endif
         endif
     " }
@@ -1202,6 +1217,12 @@
             " especially when splits are used.
             set completeopt-=preview
         endif
+
+        " remap Ultisnips for compatibility for omnicomplete
+        let g:UltiSnipsExpandTrigger       = '<C-j>'
+        let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
+        let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
     " }
 
     " FIXME: Isn't this for Syntastic to handle?
@@ -1269,17 +1290,24 @@
         endif
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
-            " jedi-vim
-            "autocmd FileType python setlocal omnifunc=jedi#completions
+            " use jedi-vim implemented omnifunc
+            autocmd FileType python setlocal omnifunc=jedi#completions
             " disable completion to avoid conflicts with YCM
-            let g:jedi#completions_enabled             = 0
-            let g:jedi#auto_vim_configuration          = 0
-            let g:jedi#smart_auto_mappings             = 0
-            let g:jedi#show_call_signatures            = 0
-            "let g:jedi#show_call_signatures           = "1"
-            let g:jedi#popup_on_dot                    = 0
-            let g:jedi#use_tabs_not_buffers            = 1
-            let g:jedi#documentation_command           = "K"
+            let g:jedi#completions_enabled      = 0
+            let g:jedi#auto_vim_configuration   = 0
+            let g:jedi#smart_auto_mappings      = 0
+            let g:jedi#show_call_signatures     = 0
+            "let g:jedi#show_call_signatures    = "1"
+            let g:jedi#popup_on_dot             = 0
+            let g:jedi#use_tabs_not_buffers     = 1
+            "let g:jedi#goto_command             = "<leader>d"
+            let g:jedi#goto_command             = "<C-]>"
+            let g:jedi#goto_assignments_command = "<leader>g"
+            let g:jedi#goto_definitions_command = ""
+            let g:jedi#documentation_command    = "K"
+            let g:jedi#usages_command           = "<leader>n"
+            let g:jedi#completions_command      = "<C-Space>"
+            let g:jedi#rename_command           = "<leader>r"
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode"))
@@ -1308,6 +1336,7 @@
             let g:pymode_rope_completion             = 0
             " Override go-to.definition key shortcut to Ctrl-]
             let g:pymode_rope_goto_definition_bind   = "<C-]>"
+            let g:pymode_rope_goto_definition_cmd    = 'tabnew'
             let g:pymode_rope_autoimport             = 1
             let g:pymode_rope_autoimport_modules     = ['os', 'shutil', 'datetime']
             let g:pymode_rope_organize_imports_bind  = '<C-c>ro'
@@ -1359,6 +1388,23 @@
             au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
             au FileType go nmap <leader>co <Plug>(go-coverage)
         endif
+    " }
+
+    " markdown {
+        "vim-markdown plugin
+        let g:vim_markdown_folding_disabled=1
+        let g:vim_markdown_math=1
+    " }
+
+    " lua {
+        let g:lua_check_syntax = 0
+        let g:lua_complete_omni = 1
+        let g:lua_complete_dynamic = 0
+        let g:lua_define_completion_mappings = 0
+
+        let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
+        "let g:deoplete#omni#functions.lua = 'xolox#lua#completefunc'
+
     " }
     
     " java {

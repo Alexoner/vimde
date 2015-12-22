@@ -227,13 +227,13 @@
         if count(g:spf13_bundle_groups, 'deoplete')
             Plug 'Shougo/deoplete.nvim'
             Plug 'Shougo/neco-vim'
-            Plug 'Shougo/neosnippet.vim'
-            Plug 'Shougo/neosnippet-snippets'
+            "Plug 'Shougo/neosnippet.vim'
+            "Plug 'Shougo/neosnippet-snippets'
             Plug 'Shougo/neoinclude.vim'
             Plug 'Shougo/neco-syntax'
             Plug 'zchee/deoplete-go',{ 'for': ['go'] }
             Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp'], 'do': 'make install' }
-            "Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
+            Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
         endif
     " }
 
@@ -249,10 +249,10 @@
         if count(g:spf13_bundle_groups, 'python')
             " Pick either python-mode or pyflakes & pydoc
             Plug 'yssource/python.vim', { 'for': ['python'] }
+            Plug 'python_match.vim', { 'for': ['python'] }
             "Plug 'pythoncomplete', { 'for': ['python'] }
             Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-            Plug 'klen/python-mode', { 'for': ['python'] }
-            "Plug 'python_match.vim', { 'for': ['python'] }
+            "Plug 'klen/python-mode', { 'for': ['python'] }
         endif
     " }
     
@@ -307,7 +307,7 @@
             Plug 'amirh/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
             Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'javascript']}
             Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'html', 'javascript']}
-            Plug 'tpope/vim-haml'
+            Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
         endif
         Plug 'mattn/emmet-vim', {'for': ['html','javascript', 'css', 'jsx', 'javascript.jsx' ]}
     " }
@@ -344,12 +344,13 @@
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
-            Plug 'tpope/vim-markdown',{ 'for': ['markdown'] }
+            "Plug 'tpope/vim-markdown',{ 'for': ['markdown'] }
+            Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
             Plug 'tpope/vim-cucumber'
-            Plug 'cespare/vim-toml'
+            Plug 'cespare/vim-toml', { 'for': ['toml'] }
             Plug 'quentindecock/vim-cucumber-align-pipes'
             Plug 'saltstack/salt-vim'
-            Plug 'chrisbra/csv.vim'
+            Plug 'chrisbra/csv.vim', { 'for': ['csv'] }
 
             function! BuildComposer(info)
               if a:info.status != 'unchanged' || a:info.force
@@ -394,6 +395,10 @@
         Plug 'vim-scripts/SQLComplete.vim', { 'for': ['sql']}
         Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
     " }
+
+    " lua {
+        Plug 'xolox/vim-lua-ftplugin', {'for':['lua']}
+    "
     
     " java {
         Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
