@@ -265,7 +265,8 @@
     autocmd FileType haskell setlocal commentstring=--\ %s
     " Workaround broken colour highlighting in Haskell
     autocmd FileType haskell,rust setlocal nospell
-    au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --aggressive
+    " Note: this could be override by vim-autoformat plugin
+    au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --aggressive\ --ignore\ E302
 
 " }
 
@@ -478,7 +479,7 @@
             au Syntax * RainbowParenthesesLoadBraces
         endif
     "}
-     
+
     " TextObj Sentence {
         if count(g:spf13_bundle_groups, 'writing')
             augroup textobj_sentence
@@ -499,6 +500,9 @@
                 autocmd FileType text call textobj#quote#init({'educate': 0})
             augroup END
         endif
+    " }
+    " nerdcommenter {
+        let NERDSpaceDelims=1
     " }
 
     " PIV {
@@ -584,6 +588,7 @@
             let NERDTreeShowHidden=1
             let NERDTreeKeepTreeInNewTab=1
             let g:nerdtree_tabs_open_on_gui_startup=0
+            let g:nerdtree_tabs_autofind=0
         endif
     " }
 
@@ -790,9 +795,10 @@
             "let g:neomake_javascript_enabled_makers = ['eslint']
             "let g:neomake_python_enabled_makers      = ['python', 'pylint', 'flake8']
             let g:neomake_python_enabled_makers      = ['pylint']
+            let g:neomake_objc_enabled_makers      = ['clang']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
-            let g:neomake_logfile                    = '/tmp/neomake/error.log'
+            " let g:neomake_logfile                    = '/tmp/neomake/error.log'
             let g:neomake_airline                    = 1
             let g:neomake_open_list                  = 2
             let g:neomake_verbose                    = 1
@@ -938,6 +944,8 @@
             aug omnicomplete
                 autocmd!
                 autocmd FileType c setlocal omnifunc=ccomplete#Complete
+                autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
+                autocmd FileType objc setlocal omnifunc=ccomplete#Complete
                 autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
                 autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
                 autocmd FileType go setlocal omnifunc=gocomplete#Complete
@@ -949,6 +957,7 @@
                 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
                 " python3 complete, defined in runtime/autoload/python3complete.vim
                 autocmd FileType python setlocal omnifunc=python3complete#Complete
+                "autocmd FileType r setlocal omnifunc=rubycomplete#Complete
                 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
                 autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
                 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -960,6 +969,11 @@
                 let g:deoplete#omni#functions = {}
             endif
         endif
+    " }
+
+    " echodoc {
+        "set cmdheight=2
+        "let g:echodoc_enable_at_startup = 1
     " }
 
     " neocomplete {
@@ -1288,11 +1302,14 @@
         if !has('python') && !has('python3')
             let g:pymode = 0
         endif
+        autocmd FileType python setlocal makeprg=python
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " use jedi-vim implemented omnifunc
             autocmd FileType python setlocal omnifunc=jedi#completions
-            " disable completion to avoid conflicts with YCM
+            " use make to run the current file
+            " disable completion to avoid conflicts with completion engine
+            " plugins like YCM and deoplete
             let g:jedi#completions_enabled      = 0
             let g:jedi#auto_vim_configuration   = 0
             let g:jedi#smart_auto_mappings      = 0
@@ -1302,7 +1319,7 @@
             let g:jedi#use_tabs_not_buffers     = 1
             "let g:jedi#goto_command             = "<leader>d"
             let g:jedi#goto_command             = "<C-]>"
-            let g:jedi#goto_assignments_command = "<leader>g"
+            let g:jedi#goto_assignments_command = "gd"
             let g:jedi#goto_definitions_command = ""
             let g:jedi#documentation_command    = "K"
             let g:jedi#usages_command           = "<leader>n"
@@ -1366,6 +1383,11 @@
     " c {
         " clang_complete
         let g:clang_library_path="/Users/Alex/.vim/bundle/YouCompleteMe//third_party/ycmd/libclang.dylib"
+        let g:clang_snippets_engine="ultisnips"
+        let g:clang_complete_optional_args_in_snippets=1
+        let g:clang_snippets=1
+        let g:clang_complete_auto=0
+
     " }
 
     " GoLang {

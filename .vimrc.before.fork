@@ -53,9 +53,7 @@ let g:formatters_javascript = ['esformatter']
 let g:formatdef_esformatter = '"/usr/local/bin/esformatter -c ~/.esformatter"'
 
 "let g:formatdef_autopep8 = '"autopep8 - --aggressive --aggressive ".(&textwidth ? "--max-line-length=".&textwidth : "")'
-let g:formatdef_autopep8 = '"autopep8 - --aggressive ".(&textwidth ? "--max-line-length=".&textwidth : "")'
-
-" the underlying vim native formatting tool,used by vim-autoformt actually
+let g:formatdef_autopep8 = '"autopep8 - --aggressive --ignore E302".(&textwidth ? "--max-line-length=".&textwidth : "")'
 
 "markdown 
 au FileType markdown setl shell=bash\ -i

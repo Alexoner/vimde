@@ -105,7 +105,8 @@
     " General {
         if count(g:spf13_bundle_groups, 'general')
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-            Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+            Plug 'scrooloose/nerdtree'
+            Plug 'jistr/vim-nerdtree-tabs'
             Plug 'altercation/vim-colors-solarized'
             Plug 'spf13/vim-colors'
             Plug 'tpope/vim-surround'
@@ -118,6 +119,7 @@
             Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'matchit.zip'
+            Plug 'Shougo/vimproc.vim'
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
@@ -129,7 +131,6 @@
             Plug 'powerline/fonts'
             "Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
-            Plug 'jistr/vim-nerdtree-tabs'
             Plug 'flazz/vim-colorschemes'
             Plug 'mbbill/undotree'
             Plug 'nathanaelkane/vim-indent-guides'
@@ -175,8 +176,10 @@
             Plug 'Chiel92/vim-autoformat'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
+            Plug 'thinca/vim-quickrun'
             Plug 'janko-m/vim-test'
             Plug 'critiqjo/lldb.nvim', { 'for': ['cpp', 'c'] }
+            Plug 'Xuyuanp/nerdtree-git-plugin'
             " CVS/SVN/SVK/git/hk/bzr integration
             "Plug 'vim-scripts/vcscommand.vim'
             if executable('ctags')
@@ -232,16 +235,18 @@
             Plug 'Shougo/neoinclude.vim'
             Plug 'Shougo/neco-syntax'
             Plug 'zchee/deoplete-go',{ 'for': ['go'] }
-            Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp'], 'do': 'make install' }
+            Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc'], 'do': 'make install' }
+            " use ultisnips snippet engine
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
+            "Plug 'Shougo/echodoc'
         endif
     " }
 
     " PHP {
         if count(g:spf13_bundle_groups, 'php')
-            Plug 'spf13/PIV'
-            Plug 'arnaud-lb/vim-php-namespace'
-            Plug 'beyondwords/vim-twig'
+            Plug 'spf13/PIV', { 'for': ['php'] }
+            Plug 'arnaud-lb/vim-php-namespace', { 'for': ['php'] }
+            Plug 'beyondwords/vim-twig', { 'for': ['php'] }
         endif
     " }
 
@@ -253,19 +258,19 @@
             "Plug 'pythoncomplete', { 'for': ['python'] }
             Plug 'davidhalter/jedi-vim', { 'for': 'python' }
             "Plug 'klen/python-mode', { 'for': ['python'] }
+            Plug 'bfredl/nvim-ipy', {'for': ['python', 'r']}
         endif
     " }
     
     " R {
         if count(g:spf13_bundle_groups, 'R')
             Plug 'jalvesaq/Nvim-R', { 'for': ['r'] }
-            Plug 'vim-scripts/Vim-R-plugin', { 'for': ['r'] }
+            "Plug 'vim-scripts/Vim-R-plugin', { 'for': ['r'] }
         endif
     " }
 
     " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
-            Plug 'elzr/vim-json', { 'for': ['javascript'] }
             Plug 'groenewege/vim-less', { 'for': ['javascript'] }
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
@@ -281,24 +286,23 @@
     " Scala {
         if count(g:spf13_bundle_groups, 'scala')
             Plug 'derekwyatt/vim-scala', { 'for': ['scala'] }
-            Plug 'derekwyatt/vim-sbt'
-            Plug 'xptemplate'
+            Plug 'derekwyatt/vim-sbt', { 'for': ['scala'] }
+            Plug 'xptemplate', { 'for': ['scala'] }
         endif
     " }
 
     " Haskell {
         if count(g:spf13_bundle_groups, 'haskell')
-            Plug 'travitch/hasksyn'
-            Plug 'dag/vim2hs'
-            Plug 'Twinside/vim-haskellConceal'
-            Plug 'Twinside/vim-haskellFold'
-            Plug 'lukerandall/haskellmode-vim'
-            Plug 'eagletmt/neco-ghc'
-            Plug 'eagletmt/ghcmod-vim'
-            Plug 'Shougo/vimproc.vim'
-            Plug 'adinapoli/cumino'
-            Plug 'bitc/vim-hdevtools'
-            Plug 'neovimhaskell/haskell-vim'
+            Plug 'travitch/hasksyn', { 'for': ['haskell'] }
+            Plug 'dag/vim2hs', { 'for': ['haskell'] }
+            Plug 'Twinside/vim-haskellConceal', { 'for': ['haskell'] }
+            Plug 'Twinside/vim-haskellFold', { 'for': ['haskell'] }
+            Plug 'lukerandall/haskellmode-vim', { 'for': ['haskell'] }
+            Plug 'eagletmt/neco-ghc', { 'for': ['haskell'] }
+            Plug 'eagletmt/ghcmod-vim', { 'for': ['haskell'] }
+            Plug 'adinapoli/cumino', { 'for': ['haskell'] }
+            Plug 'bitc/vim-hdevtools', { 'for': ['haskell'] }
+            Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
         endif
     " }
 
@@ -382,6 +386,11 @@
                         \ 'do': 'DownloadRust'
                     \ }
     " }
+
+    " Objective-c {
+        Plug 'b4winckler/vim-objc', { 'for': ['objc'] }
+        Plug 'eraserhd/vim-ios', { 'for': ['objc'] }
+    " }
     
     " github {
         if count(g:spf13_bundle_groups, 'github')
@@ -397,11 +406,15 @@
     " }
 
     " lua {
-        Plug 'xolox/vim-lua-ftplugin', {'for':['lua']}
+        Plug 'xolox/vim-misc' | Plug 'xolox/vim-lua-ftplugin', {'for':['lua']}
     "
     
     " java {
         Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
+    " }
+
+    " json {
+        Plug 'elzr/vim-json', { 'for': ['json'] }
     " }
 
     endif
