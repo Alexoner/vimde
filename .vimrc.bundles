@@ -54,21 +54,21 @@
 
     " Setup Bundle Support {
         " The next three lines ensure that the ~/.vim/bundle/ system works
-        filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
+        " filetype off
+        " set rtp+=~/.vim/bundle/vundle
+        " call vundle#rc()
         set rtp+=~/.vim/bundle/vim-plug
         call plug#begin('~/.vim/bundle')
     " }
 
     " Add an UnBundle command {
-    function! UnBundle(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:vundle#bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
+    " function! UnBundle(arg, ...)
+      " let bundle = vundle#config#init_bundle(a:arg, a:000)
+      " call filter(g:vundle#bundles, 'v:val["name_spec"] != "' . a:arg . '"')
+    " endfunction
 
-    com! -nargs=+         UnBundle
-    \ call UnBundle(<args>)
+    " com! -nargs=+         UnBundle
+    " \ call UnBundle(<args>)
     " }
 
 " }
@@ -76,7 +76,7 @@
 " Bundles {
 
     " Deps {
-        Bundle 'gmarik/vundle'
+        " Bundle 'gmarik/vundle'
         Plug 'junegunn/vim-plug'
         Plug 'MarcWeber/vim-addon-mw-utils'
         Plug 'tomtom/tlib_vim'
