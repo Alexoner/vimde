@@ -20,7 +20,7 @@ app_name='spf13-vim'
 [ -z "$REPO_URI" ] && REPO_URI='https://github.com/Alexoner/spf13-vim.git'
 [ -z "$REPO_BRANCH" ] && REPO_BRANCH='3.0'
 debug_mode='0'
-fork_maintainer='0'
+fork_maintainer='1'
 [ -z "$PLUG_URL" ] && PLUG_URL="https://github.com/junegunn/vim-plug.git"
 
 ############################  BASIC SETUP TOOLS
