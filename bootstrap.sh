@@ -47,7 +47,7 @@ debug() {
 
 program_exists() {
     local ret='0'
-    command -v $1 >/dev/null 2>&1 || { local ret='1'; }
+    command -v "$1" >/dev/null 2>&1 || { local ret='1'; }
 
     # fail on non-zero return value
     if [ "$ret" -ne 0 ]; then
@@ -58,7 +58,7 @@ program_exists() {
 }
 
 program_must_exist() {
-    program_exists $1
+    program_exists "$1"
 
     # throw error on non-zero return value
     if [ "$?" -ne 0 ]; then
@@ -85,7 +85,7 @@ lnif() {
 do_backup() {
     if [ -e "$1" ] || [ -e "$2" ] || [ -e "$3" ]; then
         msg "Attempting to back up your original vim configuration."
-        today=`date +%Y%m%d_%s`
+        today=$(date +%Y%m%d_%s)
         for i in "$1" "$2" "$3"; do
             [ -e "$i" ] && [ ! -L "$i" ] && mv -v "$i" "$i.$today";
         done
@@ -160,6 +160,11 @@ setup_fork_mode() {
 setup_plug() {
     local system_shell="$SHELL"
     export SHELL='/bin/sh'
+    cd "$HOME/.vim/bundle/vim-plug" || return 1
+    mkdir autoload 
+    cd autoload || return 1
+    ln -sv ../plug.vim .
+    cd "$APP_PATH" || return 1
 
     vim \
         -u "$1" \
@@ -203,4 +208,4 @@ sync_repo       "$HOME/.vim/bundle/vim-plug" \
 setup_plug    "$APP_PATH/.vimrc.bundles.default"
 
 msg             "\nThanks for installing $app_name."
-msg             "© `date +%Y` http://vim.spf13.com/"
+msg             "© $(date +%Y) http://vim.spf13.com/"
