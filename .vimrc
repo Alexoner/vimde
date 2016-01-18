@@ -1384,10 +1384,16 @@
         " clang_complete
         let g:clang_use_library                        = 1
         let g:clang_library_path                       = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
-        let g:clang_snippets_engine                    = "ultisnips"
+        let g:clang_complete_auto                      = 0
         let g:clang_complete_optional_args_in_snippets = 1
         let g:clang_snippets                           = 1
-        let g:clang_complete_auto                      = 0
+        let g:clang_snippets_engine                    = "ultisnips"
+        
+        " vim-inccomplete, not needed anymore
+        " let g:inccomplete_showdirs             = 1
+        " let g:deoplete#omni#input_patterns.cpp = ['[^. *\t]\.\w*', '[^. *\t]\::\w*', '[^. *\t]\->\w*', '[<"].*/']
+        " Add the last one, otherwise `<../` and `"../` won't trigger omnifunc
+
 
     " }
 
