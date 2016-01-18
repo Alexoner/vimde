@@ -119,7 +119,7 @@
             Plug 'terryma/vim-multiple-cursors'
             Plug 'vim-scripts/sessionman.vim'
             Plug 'matchit.zip'
-            Plug 'Shougo/vimproc.vim'
+            Plug 'Shougo/vimproc.vim', {'do': 'make'}
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
@@ -275,7 +275,7 @@
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
-            Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
+            Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
             "Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
@@ -323,6 +323,7 @@
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1
         endif
+        Plug 'nvim-ruby'
     " }
 
     " Puppet {

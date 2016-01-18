@@ -795,7 +795,7 @@
             "let g:neomake_javascript_enabled_makers = ['eslint']
             "let g:neomake_python_enabled_makers      = ['python', 'pylint', 'flake8']
             let g:neomake_python_enabled_makers      = ['pylint']
-            let g:neomake_objc_enabled_makers      = ['clang']
+            " let g:neomake_objc_enabled_makers      = ['clang']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
             " let g:neomake_logfile                    = '/tmp/neomake/error.log'
@@ -945,7 +945,7 @@
                 autocmd!
                 autocmd FileType c setlocal omnifunc=ccomplete#Complete
                 autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
-                autocmd FileType objc setlocal omnifunc=ccomplete#Complete
+                autocmd FileType objc,objcpp setlocal omnifunc=ccomplete#Complete
                 autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
                 autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
                 autocmd FileType go setlocal omnifunc=gocomplete#Complete
@@ -1382,11 +1382,12 @@
 
     " c {
         " clang_complete
-        let g:clang_library_path="/Users/Alex/.vim/bundle/YouCompleteMe//third_party/ycmd/libclang.dylib"
-        let g:clang_snippets_engine="ultisnips"
-        let g:clang_complete_optional_args_in_snippets=1
-        let g:clang_snippets=1
-        let g:clang_complete_auto=0
+        let g:clang_use_library                        = 1
+        let g:clang_library_path                       = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
+        let g:clang_snippets_engine                    = "ultisnips"
+        let g:clang_complete_optional_args_in_snippets = 1
+        let g:clang_snippets                           = 1
+        let g:clang_complete_auto                      = 0
 
     " }
 
