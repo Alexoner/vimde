@@ -247,11 +247,14 @@
         Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
     " }
     " Objective-c {
-        Plug 'b4winckler/vim-objc', { 'for': ['objc', 'objcpp'] }
-        Plug 'eraserhd/vim-ios', { 'for': ['objc', 'objcpp'] }
-        Plug 'gfontenot/vim-xcode', { 'for': ['objc', 'objcpp'] }
+        Plug 'b4winckler/vim-objc', { 'for': ['objc', 'objcpp', 'swift'] }
+        Plug 'eraserhd/vim-ios', { 'for': ['objc', 'objcpp', 'swift'] }
+        Plug 'gfontenot/vim-xcode', { 'for': ['objc', 'objcpp', 'swift'] }
         " method list, documentation
         " Plug 'msanders/cocoa.vim', { 'for': ['objc', 'objcpp'] }
+    " }
+    " swift {
+        Plug 'keith/swift.vim', { 'for': ['swift'] }
     " }
 
 
@@ -271,10 +274,11 @@
             "Plug 'pythoncomplete', { 'for': ['python'] }
             Plug 'davidhalter/jedi-vim', { 'for': 'python' }
             "Plug 'klen/python-mode', { 'for': ['python'] }
+            Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
             Plug 'bfredl/nvim-ipy', {'for': ['python', 'r']}
         endif
     " }
-    
+
     " R {
         if count(g:spf13_bundle_groups, 'R')
             Plug 'jalvesaq/Nvim-R', { 'for': ['r'] }

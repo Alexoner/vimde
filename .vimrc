@@ -809,7 +809,7 @@
 
         endif
     " }
-    
+
     " Syntastic {
         if isdirectory(expand("~/.vim/bundle/syntastic/"))
             let g:syntastic_mode_map = { 
