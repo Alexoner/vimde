@@ -125,7 +125,6 @@
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/vim-powerline'
             else
-                "Plug 'bling/vim-airline'
                 Plug 'bling/vim-airline'
             endif
             Plug 'powerline/fonts'
