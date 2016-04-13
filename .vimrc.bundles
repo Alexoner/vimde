@@ -125,7 +125,7 @@
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/vim-powerline'
             else
-                Plug 'bling/vim-airline'
+                Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
             endif
             Plug 'powerline/fonts'
             "Plug 'bling/vim-bufferline'
@@ -181,6 +181,8 @@
             " CVS/SVN/SVK/git/hk/bzr integration
             "Plug 'vim-scripts/vcscommand.vim'
             Plug 'qstrahl/vim-matchmaker'
+            " a solid language pack for vim
+            Plug 'sheerun/vim-polyglot'
             if executable('ctags')
                 Plug 'majutsushi/tagbar'
             endif
@@ -236,6 +238,8 @@
             " use ultisnips snippet engine
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
             "Plug 'Shougo/echodoc'
+            Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+            Plug 'zchee/deoplete-go',{ 'for': ['go'] }
         endif
     " }
 
@@ -254,6 +258,7 @@
     " }
     " swift {
         Plug 'keith/swift.vim', { 'for': ['swift'] }
+        Plug 'toyamarinyon/vim-swift', {'for': ['swift']}
     " }
 
 
@@ -352,7 +357,6 @@
         if count(g:spf13_bundle_groups, 'go')
             Plug 'Blackrush/vim-gocode', { 'for': ['go'] }
             Plug 'fatih/vim-go', { 'for': ['go']}
-            Plug 'zchee/deoplete-go',{ 'for': ['go'] }
         endif
     " }
 

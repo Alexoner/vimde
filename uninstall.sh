@@ -11,8 +11,8 @@ die() {
     exit 1
 }
 
-rm $HOME/.vimrc
-rm $HOME/.vimrc.bundles
-rm $HOME/.vim
+rm "$HOME/.vimrc"
+rm "$HOME/.vimrc.bundles"
+rm "$HOME/.vim"
 
-rm -rf $app_dir
+rm -rf "$app_dir"

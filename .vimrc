@@ -132,6 +132,25 @@
     set iskeyword-=#                    " '#' is an end of word designator
     set iskeyword-=-                    " '-' is an end of word designator
 
+    "set autoread
+    set autoread
+    " Check for file modifications automatically
+    " (current buffer only).
+    " Use :NoAutoChecktime to disable it (uses b:autochecktime)
+    fun! AutoCheckTime()
+      " only check timestamp for normal files
+      if &buftype != '' | return | endif
+      if ! exists('b:autochecktime') || b:autochecktime
+        checktime %
+        let b:autochecktime = 1
+      endif
+    endfun
+    command! NoAutoChecktime let b:autochecktime=0
+    augroup autoCheckTime
+        au!
+        au CursorHold,FocusGained,BufEnter * checktime
+    augroup end
+
     " Instead of reverting the cursor to the last position in the buffer, we
     " set it to the first line when editing a git commit message
     au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
@@ -238,6 +257,7 @@
 " Formatting {
 
     set nowrap                      " Do not wrap long lines
+    set wrap                        " wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
@@ -256,7 +276,7 @@
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,html,css setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,html,xml,css setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -1305,16 +1325,17 @@
         autocmd FileType python setlocal makeprg=python
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
-            " use jedi-vim implemented omnifunc
-            autocmd FileType python setlocal omnifunc=jedi#completions
+            " using deoplete-vim source for completion, not jedi-vim's omnifunc
+            " autocmd FileType python setlocal omnifunc=jedi#completions
+
             " use make to run the current file
             " disable completion to avoid conflicts with completion engine
             " plugins like YCM and deoplete
             let g:jedi#completions_enabled      = 0
             let g:jedi#auto_vim_configuration   = 0
             let g:jedi#smart_auto_mappings      = 0
-            let g:jedi#show_call_signatures     = 0
-            "let g:jedi#show_call_signatures    = "1"
+            " let g:jedi#show_call_signatures     = 0
+            let g:jedi#show_call_signatures    = "1"
             let g:jedi#popup_on_dot             = 0
             let g:jedi#use_tabs_not_buffers     = 1
             "let g:jedi#goto_command             = "<leader>d"
