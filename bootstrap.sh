@@ -167,7 +167,12 @@ setup_plug() {
     ln -sv ../plug.vim .
     cd "$APP_PATH" || return 1
 
-    vim \
+    VIM=vim
+    if program_exists "nvim"; then
+        VIM=nvim
+    fi
+
+    $VIM \
         -u "$1" \
         "+set nomore" \
         "+PlugInstall!" \

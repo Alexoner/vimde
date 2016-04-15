@@ -23,7 +23,7 @@ Lastly (and perhaps, most importantly) It is completely cross platform. It works
 
 # Installation
 ## Requirements
-To make all the plugins work, specifically [neocomplete](https://github.com/Shougo/neocomplete.vim), you need [vim with lua](https://github.com/Shougo/neocomplete.vim#requirements).
+To make all the plugins work, specifically [deoplete](https://github.com/Shougo/deoplete.nvim) and [vim-plug], you need [neovim](https://github.com/neovim/neovim).
 
 ## Linux, \*nix, Mac OSX Installation
 
@@ -32,6 +32,9 @@ The easiest way to install spf13-vim is to use our [automatic installer](https:/
 *Requires Git 1.7+ and Vim 7.3+*
 
 ```bash
+    # for Mac OSX with homebrew
+    brew install neovim/neovim/neovim
+    pip3 install neovim && pip2 install neovim
 
     curl https://raw.githubusercontent.com/Alexoner/spf13-vim/3.0/bootstrap.sh -L > spf13-vim.sh && sh spf13-vim.sh
 ```
