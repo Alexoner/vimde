@@ -276,7 +276,7 @@
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,html,xml,css setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,jsx,html,xhtml,xml,css setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -820,7 +820,7 @@
             let g:neomake_serialize_abort_on_error   = 1
             " let g:neomake_logfile                    = '/tmp/neomake/error.log'
             let g:neomake_airline                    = 1
-            let g:neomake_open_list                  = 2
+            let g:neomake_open_list                  = 0
             let g:neomake_verbose                    = 1
             let g:neomake_error_sign                 = {
                 \ 'text': '✗',
@@ -956,11 +956,13 @@
             inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 
             " <CR>: close popup and save indent.
-            inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-            function! s:my_cr_function()
-                return deoplete#mappings#close_popup() . "\<CR>"
-            endfunction
+            " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+            " function! s:my_cr_function()
+                " return deoplete#mappings#close_popup() . "\<CR>"
+            " endfunction
 
+            " actually, we don't need these settings anymore, omnifunc are
+            " managed by deoplete sources automatically
             aug omnicomplete
                 autocmd!
                 autocmd FileType c setlocal omnifunc=ccomplete#Complete
@@ -1415,6 +1417,9 @@
         " let g:deoplete#omni#input_patterns.cpp = ['[^. *\t]\.\w*', '[^. *\t]\::\w*', '[^. *\t]\->\w*', '[<"].*/']
         " Add the last one, otherwise `<../` and `"../` won't trigger omnifunc
 
+        " deoplete-clang
+        let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
+        let g:deoplete#sources#clang#clang_header  = "/Library/Developer/CommandLineTools/usr/lib/clang"
 
     " }
 

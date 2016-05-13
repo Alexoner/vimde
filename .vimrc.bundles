@@ -171,7 +171,7 @@
             Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
             Plug 'godlygeek/tabular'
-            Plug 'benekastah/neomake'
+            Plug 'benekastah/neomake', { 'do': 'pip install pylint'}
             Plug 'Chiel92/vim-autoformat'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
@@ -228,8 +228,11 @@
             Plug 'Shougo/neosnippet-snippets'
             Plug 'honza/vim-snippets'
         endif
+        function! DoRemote(arg)
+          UpdateRemotePlugins
+        endfunction
         if count(g:spf13_bundle_groups, 'deoplete')
-            Plug 'Shougo/deoplete.nvim'
+            Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
             Plug 'Shougo/neco-vim'
             "Plug 'Shougo/neosnippet.vim'
             "Plug 'Shougo/neosnippet-snippets'
@@ -240,13 +243,15 @@
             "Plug 'Shougo/echodoc'
             Plug 'zchee/deoplete-jedi', { 'for': 'python' }
             Plug 'zchee/deoplete-go',{ 'for': ['go'] }
+            " Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
+            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
         endif
     " }
 
     " C, CPP, objc, objcpp {
         Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
                     \ "we don't need this plugin to complete header file anymore
-                    \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
+                    " \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
         Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
     " }
     " Objective-c {
@@ -296,7 +301,7 @@
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
-            Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
+            " Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
             "Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
