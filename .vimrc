@@ -481,6 +481,13 @@
     map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
     "autocmd FileType text,help,vim nnoremap <C-]> :tjump<CR>
 
+    " universal INSERT MODE editting key mappings to be compatible with editors
+    " Ctrl-S to save in insert mode
+    imap <c-s> <Esc>:w<CR>a
+    " Map Ctrl-A -> Start of line, Ctrl-E -> End of line
+    imap <C-a> <Home>
+    imap <C-e> <End>
+
 " }
 
 
@@ -522,7 +529,11 @@
         endif
     " }
     " nerdcommenter {
-        let NERDSpaceDelims=1
+        let NERDSpaceDelims=0
+        let g:NERDCustomDelimiters = {
+            \ 'javascript': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
+            \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
+        \ }
     " }
 
     " PIV {
@@ -746,7 +757,7 @@
                     \ '%-G%.%#'
                 \ }
             let g:neomake_python_pylint2_maker = {
-                \ 'exe': 'python2',
+                \ 'exe': 'PYTHONPATH=$PYTHONPATH:`pwd` python2',
                 \ 'args': [
                     \ '-m', 'pylint', '--rcfile=~/.pylintrc',
                     \ '-f', 'text',
@@ -946,6 +957,9 @@
             let g:deoplete#enable_smart_case = 1
             set completeopt-=preview
             set completeopt+=menuone
+            inoremap <silent><expr> <Tab>
+                    \ pumvisible() ? "\<C-n>" :
+                    \ deoplete#mappings#manual_complete()
             " use tab to forward cycle
             inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
             " use tab to backward cycle
@@ -953,7 +967,9 @@
             " Enable omni completion.
             " <C-h>, <BS>: close popup and delete backword char.
             inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-            inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+            " disable this key mapping because it causes basic vim backspace
+            " key functions with error if deoplete not enabled
+            "inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 
             " <CR>: close popup and save indent.
             " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -1446,9 +1462,10 @@
     " }
 
     " markdown {
-        "vim-markdown plugin
+        "plugin vim-markdown
         let g:vim_markdown_folding_disabled=1
         let g:vim_markdown_math=1
+        let g:vim_markdown_math = 1
     " }
 
     " lua {

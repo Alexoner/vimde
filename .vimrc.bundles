@@ -143,6 +143,7 @@
             Plug 'kana/vim-textobj-indent'
             Plug 'gcmt/wildfire.vim'
             "Plug 'cazador481/fakeclip.neovim'
+            Plug 'zenbro/mirror.vim'
         endif
     " }
 
@@ -349,7 +350,6 @@
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1
         endif
-        Plug 'nvim-ruby'
     " }
 
     " Puppet {
@@ -375,7 +375,6 @@
 
     " Misc {
         if count(g:spf13_bundle_groups, 'misc')
-            "Plug 'tpope/vim-markdown',{ 'for': ['markdown'] }
             Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
             Plug 'tpope/vim-cucumber'
             Plug 'cespare/vim-toml', { 'for': ['toml'] }
@@ -390,7 +389,9 @@
               endif
             endfunction
 
-            Plug 'euclio/vim-markdown-composer', { 'for': ['markdown'], 'do': function('BuildComposer') }
+            " FIXME: plugin not working
+            "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'npm install -g instant-markdown-d'}
+            "autocmd Filetype markdown set shell=bash\ -i
         endif
     " }
     
@@ -442,6 +443,10 @@
     endif
 
 " }
+
+    " LaTex {
+        Plug 'lervag/vimtex', {'for': ['tex']}
+    " }
 
 " Plugins {
     " Setup vim-plug Support {
