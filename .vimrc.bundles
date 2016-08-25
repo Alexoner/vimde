@@ -107,8 +107,8 @@
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
             Plug 'scrooloose/nerdtree'
             Plug 'jistr/vim-nerdtree-tabs'
-            Plug 'altercation/vim-colors-solarized'
-            Plug 'spf13/vim-colors'
+            Plug 'flazz/vim-colorschemes'
+            "Plug 'altercation/vim-colors-solarized'
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
@@ -130,7 +130,6 @@
             Plug 'powerline/fonts'
             "Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
-            Plug 'flazz/vim-colorschemes'
             Plug 'mbbill/undotree'
             Plug 'nathanaelkane/vim-indent-guides'
             if !exists('g:spf13_no_views')
@@ -172,8 +171,8 @@
             Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
             Plug 'godlygeek/tabular'
-            Plug 'benekastah/neomake', { 'do': 'pip install pylint'}
-            Plug 'Chiel92/vim-autoformat'
+            Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint'}
+            Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
             Plug 'thinca/vim-quickrun'
@@ -245,7 +244,7 @@
             Plug 'zchee/deoplete-jedi', { 'for': 'python' }
             Plug 'zchee/deoplete-go',{ 'for': ['go'] }
             " Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
-            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
+            "Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
         endif
     " }
 
@@ -277,16 +276,15 @@
     " }
 
     " Python {
-        if count(g:spf13_bundle_groups, 'python')
-            " Pick either python-mode or pyflakes & pydoc
-            Plug 'yssource/python.vim', { 'for': ['python'] }
-            Plug 'python_match.vim', { 'for': ['python'] }
-            "Plug 'pythoncomplete', { 'for': ['python'] }
-            Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-            "Plug 'klen/python-mode', { 'for': ['python'] }
-            Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
-            Plug 'bfredl/nvim-ipy', {'for': ['python', 'r']}
-        endif
+        " Pick either python-mode or pyflakes & pydoc
+        Plug 'yssource/python.vim', { 'for': ['python'] }
+        Plug 'python_match.vim', { 'for': ['python'] }
+        "Plug 'pythoncomplete', { 'for': ['python'] }
+        Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+        "Plug 'klen/python-mode', { 'for': ['python'] }
+        Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
+        Plug 'bfredl/nvim-ipy', {'for': ['python', 'r']}
+        Plug 'hdima/python-syntax', {'for': ['python']}
     " }
 
     " R {
@@ -302,7 +300,7 @@
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
-            " Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
+             Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install -g tern && npm install' }
             "Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
@@ -337,7 +335,7 @@
         if count(g:spf13_bundle_groups, 'html')
             Plug 'amirh/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
             Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'javascript']}
-            Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'html', 'javascript']}
+            Plug 'gorodinskiy/vim-coloresque', { 'for': ['css', 'html', 'javascript', 'javascript.jsx', 'jsx']}
             Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
         endif
         Plug 'mattn/emmet-vim', {'for': ['html','javascript', 'css', 'jsx', 'javascript.jsx' ]}

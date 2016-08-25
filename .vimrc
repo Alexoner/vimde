@@ -103,6 +103,7 @@
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
+    set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
     if has('clipboard')
         if has('unnamedplus')  " When possible use + register for copy-paste
@@ -276,7 +277,7 @@
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,jsx,html,xhtml,xml,css setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -498,7 +499,7 @@
              "vim-autoformat
             noremap <F3> :Autoformat<CR>
             "au BufWrite * :Autoformat
-            
+
             "rainbow_parentheses.vim
             au VimEnter * RainbowParenthesesToggle
             au Syntax * RainbowParenthesesLoadRound
@@ -664,7 +665,7 @@
             nnoremap <silent> <D-t> :CtrlP<CR>
             nnoremap <silent> <D-r> :CtrlPMRU<CR>
             let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$|node_modules$',
                 \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
 
             if executable('ag')
@@ -843,7 +844,7 @@
 
     " Syntastic {
         if isdirectory(expand("~/.vim/bundle/syntastic/"))
-            let g:syntastic_mode_map = { 
+            let g:syntastic_mode_map = {
                 \ 'mode': 'passive',
                    \ 'passive_filetypes':
                    \ [
@@ -856,7 +857,7 @@
                        \ 'javascript.jsx',
                        \ 'markdown',
                        \ 'sh'
-                   \ ] 
+                   \ ]
                \ }
             set statusline+=%#warningmsg#
             "set statusline+=%{SyntasticStatuslineFlag()}
@@ -1342,6 +1343,9 @@
         endif
         autocmd FileType python setlocal makeprg=python
 
+        " highlight
+        let python_highlight_all = 1
+
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " using deoplete-vim source for completion, not jedi-vim's omnifunc
             " autocmd FileType python setlocal omnifunc=jedi#completions
@@ -1403,7 +1407,7 @@
             let g:pymode_rope_rename_bind            = '<C-c>rr'
         endif
     " }
-    
+
     " javascript {
         if count(g:spf13_bundle_groups, 'javascript')
             if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
@@ -1427,7 +1431,7 @@
         let g:clang_complete_optional_args_in_snippets = 1
         let g:clang_snippets                           = 1
         let g:clang_snippets_engine                    = "ultisnips"
-        
+
         " vim-inccomplete, not needed anymore
         " let g:inccomplete_showdirs             = 1
         " let g:deoplete#omni#input_patterns.cpp = ['[^. *\t]\.\w*', '[^. *\t]\::\w*', '[^. *\t]\->\w*', '[<"].*/']

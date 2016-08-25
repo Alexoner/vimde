@@ -128,8 +128,8 @@ create_symlinks() {
 
     # if program_exists "nvim"; then
     # maybe nvim is installed later
-    mkdir -p "$target_path/.config"
-    lnif "$source_path/.vim"       "$target_path/.config/nvim"
+    mkdir -p "$target_path/.config/nvim"
+    #lnif "$source_path/.vim"       "$target_path/.config/nvim"
     lnif "$source_path/.vimrc"     "$target_path/.config/nvim/init.vim"
     # fi
 
