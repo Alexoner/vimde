@@ -107,8 +107,8 @@
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
             Plug 'scrooloose/nerdtree'
             Plug 'jistr/vim-nerdtree-tabs'
+            Plug 'altercation/vim-colors-solarized'
             Plug 'flazz/vim-colorschemes'
-            "Plug 'altercation/vim-colors-solarized'
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
@@ -137,6 +137,8 @@
             endif
             Plug 'mhinz/vim-signify'
             Plug 'tpope/vim-abolish'
+            " Plugin to move lines and selections up and down
+            Plug 'matze/vim-move'
             Plug 'osyo-manga/vim-over'
             Plug 'kana/vim-textobj-user'
             Plug 'kana/vim-textobj-indent'
@@ -171,7 +173,7 @@
             Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
             Plug 'godlygeek/tabular'
-            Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint'}
+            Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react'}
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
@@ -204,13 +206,16 @@
               " - status: 'installed', 'updated', or 'unchanged'
               " - force:  set on PlugInstall! or PlugUpdate!
               if a:info.status == 'installed' || a:info.force
-                !./install.py --clang-completer  --gocode-completer
+                  " Mac 
+                  " TODO: Ubuntu
+                !./install.py --clang-completer --gocode-completer --racer-completer --tern-completer
               endif
             endfunction
 
             Plug 'Valloric/YouCompleteMe',
                     \ { 
-                        \ 'do': function('BuildYCM')
+                        \ 'do': function('BuildYCM'),
+                        \ 'for': ['c', 'cpp', 'javascript'],
                     \ }
             " Using a non-master branch
             Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
@@ -228,32 +233,34 @@
             Plug 'Shougo/neosnippet-snippets'
             Plug 'honza/vim-snippets'
         endif
+
         function! DoRemote(arg)
           UpdateRemotePlugins
         endfunction
+
         if count(g:spf13_bundle_groups, 'deoplete')
             Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-            Plug 'Shougo/neco-vim'
-            "Plug 'Shougo/neosnippet.vim'
-            "Plug 'Shougo/neosnippet-snippets'
-            Plug 'Shougo/neoinclude.vim'
-            Plug 'Shougo/neco-syntax'
             " use ultisnips snippet engine
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
-            "Plug 'Shougo/echodoc'
             Plug 'zchee/deoplete-jedi', { 'for': 'python' }
             Plug 'zchee/deoplete-go',{ 'for': ['go'] }
-            " Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
-            "Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
+            "Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
+            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
+            Plug 'pbogut/deoplete-padawan', { 'for': ['php'] }
+            Plug 'landaire/deoplete-swift', { 'for': ['swifth'] }
+            Plug 'Shougo/neco-vim', { 'for': ['vim'] }
+            Plug 'Shougo/neoinclude.vim'
+            Plug 'Shougo/neco-syntax'
         endif
     " }
 
     " C, CPP, objc, objcpp {
-        Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
+        "Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
                     \ "we don't need this plugin to complete header file anymore
                     " \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
         Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
     " }
+    
     " Objective-c {
         Plug 'b4winckler/vim-objc', { 'for': ['objc', 'objcpp', 'swift'] }
         Plug 'eraserhd/vim-ios', { 'for': ['objc', 'objcpp', 'swift'] }
@@ -261,6 +268,7 @@
         " method list, documentation
         " Plug 'msanders/cocoa.vim', { 'for': ['objc', 'objcpp'] }
     " }
+    
     " swift {
         Plug 'keith/swift.vim', { 'for': ['swift'] }
         Plug 'toyamarinyon/vim-swift', {'for': ['swift']}

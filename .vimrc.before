@@ -131,6 +131,9 @@ let g:spf13_no_views = 1
             "\ 'youcompleteme',
             "\ 'deoplete',
             "\ ]
+
+"
+" Use 'deoplete' or 'youcompleteme' as auto-completion engine
 let g:spf13_bundle_groups=[
             \ 'general',
             \ 'writting',
@@ -145,9 +148,10 @@ let g:spf13_bundle_groups=[
             \ 'scala',
             \ 'R',
             \ 'java',
+            \ 'autocomplete',
+            \ 'youcompleteme',
             \ 'deoplete',
             \ ]
-"let g:spf13_bundle_groups=['general', 'programming', 'misc', 'youcompleteme']
 
 let g:airline_powerline_fonts=1
 let g:airline_theme='luna'

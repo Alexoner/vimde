@@ -825,12 +825,14 @@
                 \ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
-            "let g:neomake_python_enabled_makers      = ['python', 'pylint', 'flake8']
+            "let g:neomake_python_enabled_makers     = ['python', 'pylint', 'flake8']
             let g:neomake_python_enabled_makers      = ['pylint']
-            " let g:neomake_objc_enabled_makers      = ['clang']
+            let g:neomake_cpp_enable_markers         = ['clang']
+            let g:neomake_cpp_clang_args             = ["-std=c++14", "-Wextra", "-Wall", "-g"]
+            "let g:neomake_objc_enabled_makers       = ['clang']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
-            " let g:neomake_logfile                    = '/tmp/neomake/error.log'
+            let g:neomake_logfile                   = '/tmp/neomake/error.log'
             let g:neomake_airline                    = 1
             let g:neomake_open_list                  = 0
             let g:neomake_verbose                    = 1
@@ -897,11 +899,38 @@
         endif
 
     " }
+    
+    " autocomplete {
+        if count(g:spf13_bundle_groups, 'autocomplete')
+            aug omnicomplete
+                autocmd!
+                autocmd FileType c setlocal omnifunc=ccomplete#Complete
+                autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
+                autocmd FileType objc,objcpp setlocal omnifunc=ccomplete#Complete
+                autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
+                autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
+                autocmd FileType go setlocal omnifunc=gocomplete#Complete
+                autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+                autocmd FileType html,htmldjango,jinja,markdown setlocal omnifunc=emmet#completeTag
+                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
+                " python2 complete,defined in runtime/autoload/pythoncomplete.vim
+                "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+                " python3 complete, defined in runtime/autoload/python3complete.vim
+                autocmd FileType python setlocal omnifunc=python3complete#Complete
+                autocmd FileType r setlocal omnifunc=rubycomplete#Complete
+                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+                autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+                autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+            aug END
+        endif
+    " }
 
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
             let g:acp_enableAtStartup = 0
 
+            let g:ycm_server_python_interpreter = 'python'
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files = 1
             let g:ycm_global_ycm_extra_conf               = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
@@ -918,16 +947,6 @@
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
             autocmd FileType c,cpp,objc,objcpp,python,cs  nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,objc,objcpp,python,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
-
-            " Enable omni completion.
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            " User tern_for_vim for javascript completion
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
             " Haskell post write lint and check with ghcmod
             " $ `cabal install ghcmod` if missing and ensure
@@ -980,27 +999,6 @@
 
             " actually, we don't need these settings anymore, omnifunc are
             " managed by deoplete sources automatically
-            aug omnicomplete
-                autocmd!
-                autocmd FileType c setlocal omnifunc=ccomplete#Complete
-                autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
-                autocmd FileType objc,objcpp setlocal omnifunc=ccomplete#Complete
-                autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
-                autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
-                autocmd FileType go setlocal omnifunc=gocomplete#Complete
-                autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-                autocmd FileType html,htmldjango,jinja,markdown setlocal omnifunc=emmet#completeTag
-                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
-                " python2 complete,defined in runtime/autoload/pythoncomplete.vim
-                autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-                " python3 complete, defined in runtime/autoload/python3complete.vim
-                autocmd FileType python setlocal omnifunc=python3complete#Complete
-                "autocmd FileType r setlocal omnifunc=rubycomplete#Complete
-                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-                autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
-                autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            aug END
             if !exists('g:deoplete#omni#input_patterns')
                 let g:deoplete#omni#input_patterns = {}
             endif
@@ -1348,7 +1346,8 @@
 
         if isdirectory(expand("~/.vim/bundle/jedi-vim"))
             " using deoplete-vim source for completion, not jedi-vim's omnifunc
-            " autocmd FileType python setlocal omnifunc=jedi#completions
+            " but using jedi's key mapping
+             "autocmd FileType python setlocal omnifunc=jedi#completions
 
             " use make to run the current file
             " disable completion to avoid conflicts with completion engine
@@ -1431,6 +1430,7 @@
         let g:clang_complete_optional_args_in_snippets = 1
         let g:clang_snippets                           = 1
         let g:clang_snippets_engine                    = "ultisnips"
+        let g:clang_user_options                       = '-std=c++11 -stdlib=libc++'
 
         " vim-inccomplete, not needed anymore
         " let g:inccomplete_showdirs             = 1
@@ -1441,6 +1441,12 @@
         let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
         let g:deoplete#sources#clang#clang_header  = "/Library/Developer/CommandLineTools/usr/lib/clang"
 
+    " }
+    
+    " {
+        " vim-clang (not installed yet)
+        let g:clang_c_options                          = '-std=gnu11'
+        let g:clang_cpp_options                        = '-std=c++11 -stdlib=libc++'
     " }
 
     " GoLang {
@@ -1490,6 +1496,13 @@
             nmap <F4> <Plug>(JavaComplete-Imports-Add)
             imap <F4> <Plug>(JavaComplete-Imports-Add)
 
+        endif
+    " }
+
+    " swift {
+        if count(g:spf13_bundle_groups, 'deoplete')
+            " Jump to the first placeholder by typing `<C-j>`.
+            autocmd FileType swift imap <buffer> <C-j> <Plug>(deoplete_swift_jump_to_placeholder)
         endif
     " }
 
