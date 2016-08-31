@@ -926,6 +926,8 @@
         endif
     " }
 
+    " Use YouCompleteMe with deoplete: the former one's key binding and the
+    " latter one's auto completion, and the former one's clang completion
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
             let g:acp_enableAtStartup = 0

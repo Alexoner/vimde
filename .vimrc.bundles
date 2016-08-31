@@ -215,7 +215,7 @@
             Plug 'Valloric/YouCompleteMe',
                     \ { 
                         \ 'do': function('BuildYCM'),
-                        \ 'for': ['c', 'cpp', 'javascript'],
+                        \ 'for': ['c', 'cpp', 'python', 'javascript', 'jsx', 'javascript.jsx', 'objc', 'objcpp'],
                     \ }
             " Using a non-master branch
             Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
@@ -244,10 +244,10 @@
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
             Plug 'zchee/deoplete-jedi', { 'for': 'python' }
             Plug 'zchee/deoplete-go',{ 'for': ['go'] }
-            "Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
+            Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
             Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
             Plug 'pbogut/deoplete-padawan', { 'for': ['php'] }
-            Plug 'landaire/deoplete-swift', { 'for': ['swifth'] }
+            Plug 'landaire/deoplete-swift', { 'for': ['swift'] }
             Plug 'Shougo/neco-vim', { 'for': ['vim'] }
             Plug 'Shougo/neoinclude.vim'
             Plug 'Shougo/neco-syntax'
@@ -288,7 +288,7 @@
         Plug 'yssource/python.vim', { 'for': ['python'] }
         Plug 'python_match.vim', { 'for': ['python'] }
         "Plug 'pythoncomplete', { 'for': ['python'] }
-        Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+        "Plug 'davidhalter/jedi-vim', { 'for': 'python' }
         "Plug 'klen/python-mode', { 'for': ['python'] }
         Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
         Plug 'bfredl/nvim-ipy', {'for': ['python', 'r']}
