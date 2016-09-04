@@ -113,6 +113,32 @@
 " Disable views
 let g:spf13_no_views = 1
 
+" omni autocomplete {
+    if !exists('g:spf13_no_omni_complete')
+        aug omnicomplete
+            autocmd!
+            autocmd FileType c setlocal omnifunc=ccomplete#Complete
+            autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
+            autocmd FileType objc,objcpp setlocal omnifunc=ccomplete#Complete
+            autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
+            autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType go setlocal omnifunc=gocomplete#Complete
+            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType html,htmldjango,jinja,markdown setlocal omnifunc=emmet#completeTag
+            autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
+            " python2 complete,defined in runtime/autoload/pythoncomplete.vim
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            " python3 complete, defined in runtime/autoload/python3complete.vim
+            autocmd FileType python setlocal omnifunc=python3complete#Complete
+            autocmd FileType r setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+        aug END
+    endif
+" }
+
 " default setting
 "let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
 "let g:spf13_bundle_groups=[
@@ -136,6 +162,7 @@ let g:spf13_no_views = 1
 " Use 'deoplete' or 'youcompleteme' as auto-completion engine
 let g:spf13_bundle_groups=[
             \ 'general',
+            \ 'colorscheme',
             \ 'writting',
             \ 'programming',
             \ 'python',

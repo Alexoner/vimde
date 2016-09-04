@@ -107,8 +107,8 @@
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
             Plug 'scrooloose/nerdtree'
             Plug 'jistr/vim-nerdtree-tabs'
-            Plug 'altercation/vim-colors-solarized'
-            Plug 'flazz/vim-colorschemes'
+            Plug 'Xuyuanp/nerdtree-git-plugin'
+            "Plug 'ryanoasis/vim-devicons', { 'do': '' }
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
@@ -127,7 +127,7 @@
             else
                 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
             endif
-            Plug 'powerline/fonts'
+            Plug 'powerline/fonts', { 'do': ''}
             "Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
             Plug 'mbbill/undotree'
@@ -135,22 +135,36 @@
             if !exists('g:spf13_no_views')
                 Plug 'vim-scripts/restore_view.vim'
             endif
-            Plug 'mhinz/vim-signify'
             Plug 'tpope/vim-abolish'
             " Plugin to move lines and selections up and down
             Plug 'matze/vim-move'
             Plug 'osyo-manga/vim-over'
-            Plug 'kana/vim-textobj-user'
-            Plug 'kana/vim-textobj-indent'
             Plug 'gcmt/wildfire.vim'
+            Plug 'mhinz/vim-startify'
             "Plug 'cazador481/fakeclip.neovim'
-            Plug 'zenbro/mirror.vim'
+        endif
+    " }
+
+    " colorscheme {
+        if count(g:spf13_bundle_groups, 'colorscheme')
+            "Plug 'flazz/vim-colorschemes'
+            Plug 'altercation/vim-colors-solarized'
+            Plug 'lifepillar/vim-solarized8'
+            Plug 'freeo/vim-kalisi'
+            Plug 'romainl/flattened'
+            "Plug 'frankier/neovim-colors-solarized-truecolor-only'
+            Plug 'morhetz/gruvbox'
+            Plug 'tomasr/molokai'
+            Plug 'w0ng/vim-hybrid'
+            Plug 'mhartington/oceanic-next'
         endif
     " }
 
     " Writing {
         if count(g:spf13_bundle_groups, 'writing')
             Plug 'reedes/vim-litecorrect'
+            Plug 'kana/vim-textobj-user'
+            Plug 'kana/vim-textobj-indent'
             Plug 'reedes/vim-textobj-sentence'
             Plug 'reedes/vim-textobj-quote'
             Plug 'reedes/vim-wordy'
@@ -168,26 +182,30 @@
             " Pick one of the checksyntax, jslint, or syntastic
             "Plug 'scrooloose/syntastic', { 'for': [] }
             Plug 'tpope/vim-fugitive'
+            Plug 'mhinz/vim-signify'
             Plug 'mattn/webapi-vim'
             Plug 'mattn/gist-vim'
             Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
             Plug 'godlygeek/tabular'
-            Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react'}
-            Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
+            Plug 'junegunn/vim-easy-align'
+            Plug 'benekastah/neomake', { 'do': 'pip install pylint && cnpm install -g eslint babel-eslint eslint-plugin-react'}
+            Plug 'Chiel92/vim-autoformat', { 'do': 'cnpm install -g esformatter esformatter-jsx' }
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
             Plug 'thinca/vim-quickrun'
             Plug 'janko-m/vim-test'
-            Plug 'Xuyuanp/nerdtree-git-plugin'
             " CVS/SVN/SVK/git/hk/bzr integration
             "Plug 'vim-scripts/vcscommand.vim'
             Plug 'qstrahl/vim-matchmaker'
             " a solid language pack for vim
             Plug 'sheerun/vim-polyglot'
+            "for javascript with tagbar, { 'do': 'cnpm install -g git+https://github.com/ramitos/jsctags.git' }
             if executable('ctags')
                 Plug 'majutsushi/tagbar'
             endif
+            Plug 'zenbro/mirror.vim'
+            Plug 'editorconfig/editorconfig-vim'
         endif
     " }
 
@@ -215,7 +233,7 @@
             Plug 'Valloric/YouCompleteMe',
                     \ { 
                         \ 'do': function('BuildYCM'),
-                        \ 'for': ['c', 'cpp', 'python', 'javascript', 'jsx', 'javascript.jsx', 'objc', 'objcpp'],
+                        \ 'for': ['c', 'cpp', 'objc', 'objcpp', 'rust', 'go', 'javascript', 'python'],
                     \ }
             " Using a non-master branch
             Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
@@ -243,9 +261,9 @@
             " use ultisnips snippet engine
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
             Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-            Plug 'zchee/deoplete-go',{ 'for': ['go'] }
+            Plug 'zchee/deoplete-go',{ 'for': ['go'], 'do': 'go get -u github.com/nsf/gocode && make' }
             Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
-            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
+            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install' }
             Plug 'pbogut/deoplete-padawan', { 'for': ['php'] }
             Plug 'landaire/deoplete-swift', { 'for': ['swift'] }
             Plug 'Shougo/neco-vim', { 'for': ['vim'] }
@@ -255,9 +273,11 @@
     " }
 
     " C, CPP, objc, objcpp {
-        "Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
-                    \ "we don't need this plugin to complete header file anymore
-                    " \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
+        if !count(g:spf13_bundle_groups, 'youcompleteme') && !count(g:spf13_bundle_groups, 'deoplete')
+            Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
+                        \ we don't need this plugin to complete header file anymore
+                         \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
+        endif
         Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
     " }
     
@@ -288,7 +308,9 @@
         Plug 'yssource/python.vim', { 'for': ['python'] }
         Plug 'python_match.vim', { 'for': ['python'] }
         "Plug 'pythoncomplete', { 'for': ['python'] }
-        "Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+        if !count(g:spf13_bundle_groups, 'youcompleteme') && !count(g:spf13_bundle_groups, 'deoplete')
+            Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+        endif
         "Plug 'klen/python-mode', { 'for': ['python'] }
         Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
         Plug 'bfredl/nvim-ipy', {'for': ['python', 'r']}
@@ -304,16 +326,25 @@
 
     " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
-            Plug 'groenewege/vim-less', { 'for': ['javascript'] }
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+            Plug 'sheerun/vim-polyglot'
+            if !count(g:spf13_bundle_groups, 'youcompleteme') && !count(g:spf13_bundle_groups, 'deoplete')
+                Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install && cnpm install -g tern' }
+            endif
+            Plug 'moll/vim-node', { 'for': ['javascript'] }
+            Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
+            Plug 'othree/yajs.vim', { 'for': ['javascript'] }
+            Plug 'groenewege/vim-less', { 'for': ['javascript'] }
             "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
-             Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install -g tern && npm install' }
             "Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
-            Plug 'othree/yajs.vim', { 'for': ['javascript'] }
-            Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
-            Plug 'moll/vim-node', { 'for': ['javascript'] }
+            Plug 'othree/jspc.vim', { 'for': ['javascript'] }
+            Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
         endif
+    " }
+    
+    " typescript {
+        Plug 'mhartington/deoplete-typescript', { 'do': 'cnpm install -g typescript' }
     " }
 
     " Scala {
@@ -366,16 +397,17 @@
 
     " Go Lang {
         if count(g:spf13_bundle_groups, 'go')
-            Plug 'Blackrush/vim-gocode', { 'for': ['go'] }
+            Plug 'Blackrush/vim-gocode', { 'for': ['go'], 'do': 'go get github.com/nsf/gocode' }
             Plug 'fatih/vim-go', { 'for': ['go']}
         endif
     " }
 
     " Elixir {
         if count(g:spf13_bundle_groups, 'elixir')
-            Plug 'elixir-lang/vim-elixir'
-            Plug 'carlosgaldino/elixir-snippets'
-            Plug 'mattreduce/vim-mix'
+            Plug 'elixir-lang/vim-elixir', { 'for': ['elixir'] }
+            Plug 'carlosgaldino/elixir-snippets', { 'for': ['elixir'] }
+            Plug 'mattreduce/vim-mix', { 'for': ['elixir'] }
+            Plug 'archSeer/elixir.nvim', { 'for': ['elixir'] }
         endif
     " }
 
@@ -395,8 +427,9 @@
               endif
             endfunction
 
+            Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
             " FIXME: plugin not working
-            "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'npm install -g instant-markdown-d'}
+            "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'cnpm install -g instant-markdown-d'}
             "autocmd Filetype markdown set shell=bash\ -i
         endif
     " }
@@ -408,16 +441,18 @@
           " - name:   name of the plugin
           " - status: 'installed', 'updated', or 'unchanged'
           " - force:  set on PlugInstall! or PlugUpdate!
-          if a:info.status == 'installed' || a:info.force
-            !git clone git@github.com:rust-lang/rust.git ${HOME}/.rust/src;
-            !echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.zshrc
-            !echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.bashrc
+          if a:info.status == 'installed'
+            !git clone https://github.com/rust-lang/rust.git ${HOME}/.rust/src
+            "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.zshrc
+            "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.bashrc
+          elseif a:info.force
+            !cd ${HOME}/.rust/src && git pull
           endif
         endfunction
         Plug 'ebfe/vim-racer',
                     \ {
                         \ 'for': ['rust'],
-                        \ 'do': 'DownloadRust'
+                        \ 'do': function('DownloadRust'),
                     \ }
     " }
 
@@ -436,7 +471,7 @@
 
     " lua {
         Plug 'xolox/vim-misc' | Plug 'xolox/vim-lua-ftplugin', {'for':['lua']}
-    "
+    " }
 
     " java {
         Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
@@ -446,13 +481,14 @@
         Plug 'elzr/vim-json', { 'for': ['json'] }
     " }
 
-    endif
-
-" }
-
     " LaTex {
         Plug 'lervag/vimtex', {'for': ['tex']}
     " }
+
+    endif
+" }
+
+
 
 " Plugins {
     " Setup vim-plug Support {

@@ -146,6 +146,7 @@
         let b:autochecktime = 1
       endif
     endfun
+
     command! NoAutoChecktime let b:autochecktime=0
     augroup autoCheckTime
         au!
@@ -198,6 +199,11 @@
 " Vim UI {
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+        if has('gui_running')
+            set background=light
+        else
+            set background=dark
+        endif
         let g:solarized_termcolors=256
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
@@ -565,6 +571,7 @@
             endif
 
             hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+            hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
             hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
             hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
@@ -625,6 +632,7 @@
     " }
 
     " Tabularize {
+    " DEPRECATED, favoring vim-easy-align
         if isdirectory(expand("~/.vim/bundle/tabular"))
             nmap <Leader>a& :Tabularize /&<CR>
             vmap <Leader>a& :Tabularize /&<CR>
@@ -642,6 +650,16 @@
             vmap <Leader>a,, :Tabularize /,\zs<CR>
             nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
             vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        endif
+    " }
+
+    " vim-easy-align {
+        if isdirectory(expand('~/.vim/bundle/vim-easy-align'))
+            " Start interactive EasyAlign in visual mode (e.g. vipga)
+            xmap ga <Plug>(EasyAlign)
+
+            " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+            nmap ga <Plug>(EasyAlign)
         endif
     " }
 
@@ -832,7 +850,7 @@
             "let g:neomake_objc_enabled_makers       = ['clang']
             let g:neomake_serialize                  = 1
             let g:neomake_serialize_abort_on_error   = 1
-            let g:neomake_logfile                   = '/tmp/neomake/error.log'
+            let g:neomake_logfile                   = '/tmp/neomake.error.log'
             let g:neomake_airline                    = 1
             let g:neomake_open_list                  = 0
             let g:neomake_verbose                    = 1
@@ -899,56 +917,41 @@
         endif
 
     " }
-    
-    " autocomplete {
-        if count(g:spf13_bundle_groups, 'autocomplete')
-            aug omnicomplete
-                autocmd!
-                autocmd FileType c setlocal omnifunc=ccomplete#Complete
-                autocmd FileType cpp setlocal omnifunc=ccomplete#Complete
-                autocmd FileType objc,objcpp setlocal omnifunc=ccomplete#Complete
-                autocmd FileType clojure setlocal omnifunc=clojurecomplete#Complete
-                autocmd FileType css,sass,scss,stylus,less setlocal omnifunc=csscomplete#CompleteCSS
-                autocmd FileType go setlocal omnifunc=gocomplete#Complete
-                autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-                autocmd FileType html,htmldjango,jinja,markdown setlocal omnifunc=emmet#completeTag
-                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=javascriptcomplete#CompleteJS
-                " python2 complete,defined in runtime/autoload/pythoncomplete.vim
-                "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-                " python3 complete, defined in runtime/autoload/python3complete.vim
-                autocmd FileType python setlocal omnifunc=python3complete#Complete
-                autocmd FileType r setlocal omnifunc=rubycomplete#Complete
-                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-                autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
-                autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            aug END
-        endif
-    " }
 
     " Use YouCompleteMe with deoplete: the former one's key binding and the
-    " latter one's auto completion, and the former one's clang completion
+    " latter one's auto completion, and the former one's clang completion for
+    " C-family language completion
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
             let g:acp_enableAtStartup = 0
 
-            let g:ycm_server_python_interpreter = 'python'
+            " TODO: customize it according to your machine's file system
+            " hierarchy
+            let g:ycm_server_python_interpreter                          = "/usr/local/bin/python"
+            let g:ycm_auto_trigger                                       = 0
+            autocmd FileType c,cpp,objc,objcpp,cs let g:ycm_auto_trigger = 1
             " enable completion from tags
-            let g:ycm_collect_identifiers_from_tags_files = 1
-            let g:ycm_global_ycm_extra_conf               = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
-            let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-            let g:ycm_use_ultisnips_completer             = 1 " Default 1, just ensure
-            let g:ycm_seed_identifiers_with_syntax        = 1 " Completion for programming language's keyword
-            let g:ycm_complete_in_comments                = 1 " Completion in comments
-            let g:ycm_complete_in_strings                 = 1 " Completion in string
-            let g:ycm_goto_buffer_command                 = 'new-tab' "where GoTo* commands result should be opened.
-            let g:ycm_key_list_select_completion          = ['<TAB>', '<Down>']
-            let g:ycm_key_list_previous_completion        = ['<S-TAB>', '<Up>']
-            let g:ycm_show_diagnostics_ui                 = 0 " enable syntastic checker
+            let g:ycm_collect_identifiers_from_tags_files                = 1
+            let g:ycm_global_ycm_extra_conf                              = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+            let g:ycm_collect_identifiers_from_tags_files                = 1 " Let YCM read tags from Ctags file
+            let g:ycm_use_ultisnips_completer                            = 1 " Default 1, just ensure
+            let g:ycm_seed_identifiers_with_syntax                       = 1 " Completion for programming language's keyword
+            let g:ycm_complete_in_comments                               = 1 " Completion in comments
+            let g:ycm_complete_in_strings                                = 1 " Completion in string
+            let g:ycm_goto_buffer_command                                = 'new-tab' "where GoTo* commands result should be opened.
+            let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
+            let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
+            let g:ycm_show_diagnostics_ui                                = 0 " enable syntastic checker
+            let g:ycm_server_keep_logfiles                               = 1
+            let g:ycm_server_use_vim_stdout                              = 0
+            " python option
+            let g:ycm_path_to_python_interpreter                         = "python"
+            " rust option
+            let g:ycm_rust_src_path                                      = '~/.rust/src/src'
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-            autocmd FileType c,cpp,objc,objcpp,python,cs  nnoremap <C-]> :YcmCompleter GoTo<CR>
-            autocmd FileType c,cpp,objc,objcpp,python,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
+            autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript  nnoremap <C-]> :YcmCompleter GoTo<CR>
+            autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
 
             " Haskell post write lint and check with ghcmod
             " $ `cabal install ghcmod` if missing and ensure
@@ -978,6 +981,7 @@
             " Use smartcase.
             let g:deoplete#enable_smart_case = 1
             set completeopt-=preview
+            autocmd FileType javascript set completeopt+=preview
             set completeopt+=menuone
             inoremap <silent><expr> <Tab>
                     \ pumvisible() ? "\<C-n>" :
@@ -991,10 +995,11 @@
             inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
             " disable this key mapping because it causes basic vim backspace
             " key functions with error if deoplete not enabled
-            "inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+            inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 
+            inoremap <silent><expr><CR> pumvisible() ?  deoplete#mappings#close_popup() : "\<CR>"
             " <CR>: close popup and save indent.
-            " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+             "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
             " function! s:my_cr_function()
                 " return deoplete#mappings#close_popup() . "\<CR>"
             " endfunction
@@ -1299,6 +1304,7 @@
             let g:indent_guides_start_level = 2
             let g:indent_guides_guide_size = 1
             let g:indent_guides_enable_on_vim_startup = 1
+            hi IndentGuidesOdd  ctermbg=white
         endif
     " }
 
@@ -1346,10 +1352,10 @@
         " highlight
         let python_highlight_all = 1
 
-        if isdirectory(expand("~/.vim/bundle/jedi-vim"))
+        if isdirectory(expand("~/.vim/bundle/jedi-vim")) && !count(g:spf13_bundle_groups, 'youcompleteme')
             " using deoplete-vim source for completion, not jedi-vim's omnifunc
             " but using jedi's key mapping
-             "autocmd FileType python setlocal omnifunc=jedi#completions
+             autocmd FileType python setlocal omnifunc=jedi#completions
 
             " use make to run the current file
             " disable completion to avoid conflicts with completion engine
@@ -1371,7 +1377,7 @@
             let g:jedi#rename_command           = "<leader>r"
         endif
 
-        if isdirectory(expand("~/.vim/bundle/python-mode"))
+        if isdirectory(expand("~/.vim/bundle/python-mode")) && !count(g:spf13_bundle_groups, 'youcompleteme')
             "python-mode
             let g:pymode            = 1
             let g:pymode_python     = 'python3'
@@ -1411,9 +1417,9 @@
 
     " javascript {
         if count(g:spf13_bundle_groups, 'javascript')
-            if isdirectory(expand("~/.vim/bundle/tern_for_vim"))
+            if isdirectory(expand("~/.vim/bundle/tern_for_vim")) && !count(g:spf13_bundle_groups, 'youcompleteme')
                 " User tern_for_vim for javascript completion
-                autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=tern#Complete
+                "autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=tern#Complete
                 let g:tern_show_argument_hints   = 'on_hold'
                 let g:tern_show_signature_in_pum = 1
                 autocmd FileType javascript,jsx,javascript.jsx  nnoremap <C-]> :TernDef<CR>
@@ -1442,7 +1448,6 @@
         " deoplete-clang
         let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
         let g:deoplete#sources#clang#clang_header  = "/Library/Developer/CommandLineTools/usr/lib/clang"
-
     " }
     
     " {
@@ -1453,14 +1458,14 @@
 
     " GoLang {
         if count(g:spf13_bundle_groups, 'go')
-            let g:go_highlight_functions = 1
-            let g:go_highlight_methods = 1
-            let g:go_highlight_structs = 1
-            let g:go_highlight_operators = 1
+            let g:go_highlight_functions         = 1
+            let g:go_highlight_methods           = 1
+            let g:go_highlight_structs           = 1
+            let g:go_highlight_operators         = 1
             let g:go_highlight_build_constraints = 1
-            let g:go_fmt_command = "goimports"
-            let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-            let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+            let g:go_fmt_command                 = "goimports"
+            let g:syntastic_go_checkers          = ['golint', 'govet', 'errcheck']
+            let g:syntastic_mode_map             = { 'mode': 'active', 'passive_filetypes': ['go'] }
             au FileType go nmap <Leader>s <Plug>(go-implements)
             au FileType go nmap <Leader>i <Plug>(go-info)
             au FileType go nmap <Leader>e <Plug>(go-rename)
@@ -1471,6 +1476,12 @@
             au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
             au FileType go nmap <leader>co <Plug>(go-coverage)
         endif
+    " }
+    
+    " Swift {
+        " landaire/deoplete-swift
+        " Jump to the first placeholder by typing `<C-j>`.
+        autocmd FileType swift imap <buffer> <C-j> <Plug>(deoplete_swift_jump_to_placeholder)
     " }
 
     " markdown {
@@ -1527,6 +1538,8 @@
         endif
     else
         if &term == 'xterm' || &term == 'screen'
+            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        elseif &term == 'nvim' 
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
         endif
         "set term=builtin_ansi       " Make arrow and other keys work
@@ -1647,7 +1660,11 @@
     endfunction
      
     function! s:EditSpf13Config()
-        call <SID>ExpandFilenameAndExecute("tabedit", "~/.vimrc")
+        if has('nvim')
+            call <SID>ExpandFilenameAndExecute("tabedit", "~/.config/nvim/init.vim")
+        else
+            call <SID>ExpandFilenameAndExecute("tabedit", "~/.vimrc")
+        endif
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.before")
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.bundles")
      
@@ -1671,7 +1688,11 @@
     endfunction
      
     execute "noremap " . s:spf13_edit_config_mapping " :call <SID>EditSpf13Config()<CR>"
-    execute "noremap " . s:spf13_apply_config_mapping . " :source ~/.vimrc<CR>"
+    if has('nvim')
+        execute "noremap " . s:spf13_apply_config_mapping . " :source ~/.config/nvim/init.vim<CR>"
+    else
+        execute "noremap " . s:spf13_apply_config_mapping . " :source ~/.vimrc<CR>"
+    endif
 " }
 
 " Use fork vimrc if available {
