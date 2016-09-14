@@ -397,6 +397,8 @@
     if !exists('g:spf13_no_fastTabs')
         map <S-H> gT
         map <S-L> gt
+        nmap <C-T> :tabnew<CR>
+        nmap <C-W> :tabclose<CR>
     endif
 
     " Stupid shift key fixes
@@ -535,6 +537,7 @@
             augroup END
         endif
     " }
+
     " nerdcommenter {
         let NERDSpaceDelims=0
         let g:NERDCustomDelimiters = {
@@ -980,9 +983,11 @@
             let g:deoplete#enable_at_startup = 1
             " Use smartcase.
             let g:deoplete#enable_smart_case = 1
+
             set completeopt-=preview
             autocmd FileType javascript set completeopt+=preview
             set completeopt+=menuone
+
             inoremap <silent><expr> <Tab>
                     \ pumvisible() ? "\<C-n>" :
                     \ deoplete#mappings#manual_complete()
@@ -997,8 +1002,9 @@
             " key functions with error if deoplete not enabled
             inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 
-            inoremap <silent><expr><CR> pumvisible() ?  deoplete#mappings#close_popup() : "\<CR>"
-            " <CR>: close popup and save indent.
+            " <CR>: close popup and save indent or newline.
+            inoremap <silent><expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
+            inoremap <silent><expr><C-e> pumvisible() ? deoplete#undo_completion() : "<End>"
              "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
             " function! s:my_cr_function()
                 " return deoplete#mappings#close_popup() . "\<CR>"
@@ -1517,6 +1523,10 @@
             " Jump to the first placeholder by typing `<C-j>`.
             autocmd FileType swift imap <buffer> <C-j> <Plug>(deoplete_swift_jump_to_placeholder)
         endif
+    " }
+    
+    " vim-move {
+        "let g:move_key_modifier = 'C'
     " }
 
 " }
