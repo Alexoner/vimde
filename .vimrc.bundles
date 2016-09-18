@@ -112,8 +112,8 @@
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
-            "Plug 'jiangmiao/auto-pairs'
-            Plug 'Raimondi/delimitMate'
+            Plug 'jiangmiao/auto-pairs'
+            "Plug 'Raimondi/delimitMate'
             Plug 'ctrlpvim/ctrlp.vim'
             Plug 'tacahiroy/ctrlp-funky'
             Plug 'terryma/vim-multiple-cursors'
@@ -327,22 +327,21 @@
     " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
-            Plug 'sheerun/vim-polyglot'
-            if !count(g:spf13_bundle_groups, 'youcompleteme') && !count(g:spf13_bundle_groups, 'deoplete')
-                Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install && cnpm install -g tern' }
-            endif
+            "Plug 'sheerun/vim-polyglot'
+            Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install && cnpm install -g tern' }
             Plug 'moll/vim-node', { 'for': ['javascript'] }
+            "Plug 'justinj/vim-react-snippets', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript'] }
             Plug 'groenewege/vim-less', { 'for': ['javascript'] }
-            "Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
+            Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
-            "Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
+            Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
             Plug 'othree/jspc.vim', { 'for': ['javascript'] }
             Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
         endif
     " }
-    
+
     " typescript {
         Plug 'mhartington/deoplete-typescript', { 'do': 'cnpm install -g typescript' }
     " }
@@ -427,7 +426,7 @@
               endif
             endfunction
 
-            Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+            "Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
             " FIXME: plugin not working
             "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'cnpm install -g instant-markdown-d'}
             "autocmd Filetype markdown set shell=bash\ -i

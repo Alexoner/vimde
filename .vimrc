@@ -397,8 +397,8 @@
     if !exists('g:spf13_no_fastTabs')
         map <S-H> gT
         map <S-L> gt
-        nmap <C-T> :tabnew<CR>
-        nmap <C-W> :tabclose<CR>
+        "nmap <C-T> :tabnew<CR>
+        "nmap <C-W> :tabclose<CR>
     endif
 
     " Stupid shift key fixes
@@ -495,6 +495,7 @@
     imap <c-s> <Esc>:w<CR>a
     " Map Ctrl-A -> Start of line, Ctrl-E -> End of line
     imap <C-a> <Home>
+    "inoremap <C-a> <C-U>call WrapRelativeMotion("^", 1)<CR>
     imap <C-e> <End>
 
 " }
@@ -634,6 +635,11 @@
         endif
     " }
 
+    " auto-pairs {
+        let g:AutoPairsFlyMode            = 0
+        let g:AutoPairsShortcutBackInsert = '<M-b>'
+    " }
+
     " Tabularize {
     " DEPRECATED, favoring vim-easy-align
         if isdirectory(expand("~/.vim/bundle/tabular"))
@@ -737,6 +743,7 @@
 
     " Fugitive {
         if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+            nnoremap <silent> <leader>ga :Git add %<CR>
             nnoremap <silent> <leader>gs :Gstatus<CR>
             nnoremap <silent> <leader>gd :Gdiff<CR>
             nnoremap <silent> <leader>gc :Gcommit<CR>
