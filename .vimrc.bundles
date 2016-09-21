@@ -326,13 +326,14 @@
 
     " Javascript {
         if count(g:spf13_bundle_groups, 'javascript')
-            Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
-            "Plug 'sheerun/vim-polyglot'
+            Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+            Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+            Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+			"Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'], 'do': 'rm ~/.vim/bundle/vim-jsx/after/indent/jsx.vim' }
+			Plug 'sheerun/vim-polyglot'
             Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install && cnpm install -g tern' }
             Plug 'moll/vim-node', { 'for': ['javascript'] }
-            "Plug 'justinj/vim-react-snippets', { 'for': ['javascript'] }
-            Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
-            Plug 'othree/yajs.vim', { 'for': ['javascript'] }
+            Plug 'justinj/vim-react-snippets', { 'for': ['javascript'] }
             Plug 'groenewege/vim-less', { 'for': ['javascript'] }
             Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }

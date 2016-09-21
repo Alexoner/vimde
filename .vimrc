@@ -283,7 +283,7 @@
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,javascript,javascript.jsx,jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -544,6 +544,7 @@
         let g:NERDCustomDelimiters = {
             \ 'javascript': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
             \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
+            \ 'jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
         \ }
     " }
 
@@ -1439,7 +1440,8 @@
                 autocmd FileType javascript,jsx,javascript.jsx  nnoremap <S-K> :TernDoc<CR>
             endif
             "vim-jsx
-            let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+            let g:jsx_ext_required    = 0 " Allow JSX in normal JS files
+			"let g:jsx_pragma_required = 1
         endif
     " }
 
