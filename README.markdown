@@ -332,6 +332,13 @@ Neocomplete is an amazing autocomplete plugin with additional support for snippe
 
 ![neocomplete image][autocomplete-img]
 
+## [deoplete]
+### [deoplete-jedi]
+### [deoplete-tern]
+### [deoplete-rust]
+### [deoplete-go]
+### [deoplete-clang]
+
 ## [YouCompleteMe]
 
 YouCompleteMe is another amazing completion engine. It is slightly more involved to set up as it contains a binary component that the user needs to compile before it will work. As a result of this however it is very fast.
@@ -356,6 +363,14 @@ Syntastic is a syntax checking plugin that runs buffers through external syntax
 checkers as they are saved and opened. If syntax errors are detected, the user
 is notified and is happy because they didn't have to compile their code or
 execute their script to find them.
+
+## [Neomake]
+:Neomake
+
+## [vim-quickrun]
+<leader>r 
+
+## [auto-pairs]
 
 ## [AutoClose]
 

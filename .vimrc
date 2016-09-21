@@ -546,6 +546,13 @@
             \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
             \ 'jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
         \ }
+        "map <C-/> <Esc><plug>NERDCommenterToggle<CR>i
+        if OSX()
+            " Do Mac stuff here
+            "map <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+            "imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+            "imap <C-/> <Esc><plug>NERDCommenterToggle<CR>i
+        endif
     " }
 
     " PIV {
@@ -943,7 +950,7 @@
             autocmd FileType c,cpp,objc,objcpp,cs let g:ycm_auto_trigger = 1
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files                = 1
-            let g:ycm_global_ycm_extra_conf                              = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+            let g:ycm_global_ycm_extra_conf                              = $HOME."/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
             let g:ycm_collect_identifiers_from_tags_files                = 1 " Let YCM read tags from Ctags file
             let g:ycm_use_ultisnips_completer                            = 1 " Default 1, just ensure
             let g:ycm_seed_identifiers_with_syntax                       = 1 " Completion for programming language's keyword
@@ -958,7 +965,7 @@
             " python option
             let g:ycm_path_to_python_interpreter                         = "python"
             " rust option
-            let g:ycm_rust_src_path                                      = '~/.rust/src/src'
+            let g:ycm_rust_src_path                                      = $RUST_SRC_PATH.'/'
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
             autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript  nnoremap <C-]> :YcmCompleter GoTo<CR>
@@ -1294,6 +1301,7 @@
         let g:UltiSnipsExpandTrigger       = '<C-j>'
         let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
         let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+		autocmd FileType js UltiSnipsAddFiletypes javascript-es6
 
     " }
 
@@ -1355,6 +1363,7 @@
             endif
         endif
     " }
+    
 
     " Python {
         " Disable if python support not present
@@ -1388,7 +1397,7 @@
             let g:jedi#documentation_command    = "K"
             let g:jedi#usages_command           = "<leader>n"
             let g:jedi#completions_command      = "<C-Space>"
-            let g:jedi#rename_command           = "<leader>r"
+            "let g:jedi#rename_command           = "<leader>r"
         endif
 
         if isdirectory(expand("~/.vim/bundle/python-mode")) && !count(g:spf13_bundle_groups, 'youcompleteme')
@@ -1403,7 +1412,7 @@
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options          = 0
             let g:pymode_run              = 1
-            let g:pymode_run_bind         = '<leader>r'
+            "let g:pymode_run_bind         = '<leader>r'
             let g:pymode_breakpoint_cmd   = ''
             let g:pymode_lint_on_fly      = 1
             "if using neomake, then disable pymode lint
@@ -1445,7 +1454,18 @@
         endif
     " }
 
-    " c {
+    " rust {
+
+        " rust.vim
+         let g:rustfmt_autosave = 1
+
+        " deoplete-rust 
+        "let g:deoplete#sources#rust#racer_binary     = "$(which racer)"
+        let g:deoplete#sources#rust#racer_binary     = $HOME.'/.cargo/bin/racer'
+		"let g:deoplete#sources#rust#rust_source_path = $RUST_SRC_PATH.'/'
+    " }
+
+    " C, CPP {
         " clang_complete
         let g:clang_use_library                        = 1
         let g:clang_library_path                       = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
@@ -1481,15 +1501,20 @@
             let g:go_fmt_command                 = "goimports"
             let g:syntastic_go_checkers          = ['golint', 'govet', 'errcheck']
             let g:syntastic_mode_map             = { 'mode': 'active', 'passive_filetypes': ['go'] }
+            " vim-go
             au FileType go nmap <Leader>s <Plug>(go-implements)
             au FileType go nmap <Leader>i <Plug>(go-info)
             au FileType go nmap <Leader>e <Plug>(go-rename)
-            au FileType go nmap <leader>r <Plug>(go-run)
+            "au FileType go nmap <leader>r <Plug>(go-run)
             au FileType go nmap <leader>b <Plug>(go-build)
             au FileType go nmap <leader>t <Plug>(go-test)
             au FileType go nmap <Leader>gd <Plug>(go-doc)
             au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
             au FileType go nmap <leader>co <Plug>(go-coverage)
+
+            " deoplete-go
+            let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+            "let g:deoplete#sources#go#cgo           = 1
         endif
     " }
     

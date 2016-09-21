@@ -256,14 +256,30 @@
           UpdateRemotePlugins
         endfunction
 
+        function! BuildRacer(info)
+          " info is a dictionary with 3 fields
+          " - name:   name of the plugin
+          " - status: 'installed', 'updated', or 'unchanged'
+          " - force:  set on PlugInstall! or PlugUpdate!
+          if a:info.status == 'installed'
+            !git clone https://github.com/rust-lang/rust.git ${HOME}/.rust/src
+            "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.zshrc
+            "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.bashrc
+          elseif a:info.force
+            !cd ${HOME}/.rust/src && git pull
+          endif
+          !cargo install racer
+        endfunction
+
         if count(g:spf13_bundle_groups, 'deoplete')
             Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
             " use ultisnips snippet engine
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
             Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-            Plug 'zchee/deoplete-go',{ 'for': ['go'], 'do': 'go get -u github.com/nsf/gocode && make' }
+            Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust', 'do': function('BuildRacer') }
             Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
             Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install' }
+            Plug 'zchee/deoplete-go',{ 'for': ['go'], 'do': 'go get -u github.com/nsf/gocode && make' }
             Plug 'pbogut/deoplete-padawan', { 'for': ['php'] }
             Plug 'landaire/deoplete-swift', { 'for': ['swift'] }
             Plug 'Shougo/neco-vim', { 'for': ['vim'] }
@@ -397,8 +413,8 @@
 
     " Go Lang {
         if count(g:spf13_bundle_groups, 'go')
-            Plug 'Blackrush/vim-gocode', { 'for': ['go'], 'do': 'go get github.com/nsf/gocode' }
-            Plug 'fatih/vim-go', { 'for': ['go']}
+            "Plug 'Blackrush/vim-gocode', { 'for': ['go'], 'do': 'go get github.com/nsf/gocode' }
+            "Plug 'fatih/vim-go', { 'for': ['go']}
         endif
     " }
 
@@ -436,24 +452,11 @@
     
     " Rust {
         Plug 'rust-lang/rust.vim', { 'for': ['rust']}
-        function! DownloadRust(info)
-          " info is a dictionary with 3 fields
-          " - name:   name of the plugin
-          " - status: 'installed', 'updated', or 'unchanged'
-          " - force:  set on PlugInstall! or PlugUpdate!
-          if a:info.status == 'installed'
-            !git clone https://github.com/rust-lang/rust.git ${HOME}/.rust/src
-            "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.zshrc
-            "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.bashrc
-          elseif a:info.force
-            !cd ${HOME}/.rust/src && git pull
-          endif
-        endfunction
-        Plug 'ebfe/vim-racer',
-                    \ {
-                        \ 'for': ['rust'],
-                        \ 'do': function('DownloadRust'),
-                    \ }
+        "Plug 'ebfe/vim-racer',
+                    "\ {
+                        "\ 'for': ['rust'],
+                        "\ 'do': function('BuildRacer'),
+                    "\ }
     " }
 
     " github {
