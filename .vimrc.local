@@ -1,0 +1,39 @@
+" COLORSCHEME
+" terminal config
+set background=dark
+"colorscheme solarized
+"colorscheme gruvbox
+colorscheme flattened_dark
+"colorscheme onedark
+"colorscheme molokai
+"colorscheme solarized8_dark
+"colorscheme Monokai
+"colorscheme OceanicNext
+"colorscheme hybrid
+"if has('nvim')
+  "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+  "set background=dark
+  "let g:solarized_italic=0
+  "au VimEnter * colorscheme solarized
+  "colorscheme solarized
+"endif
+"colorscheme solarized8_dark
+"colorscheme kalisi
+
+
+" Spelling errors are higlighted using SpellBad highlighting group
+" set spell checking highlight styles after alternating color scheme or
+" background
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+
+" highlight pop up menu
+hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=cyan ctermbg=8
+hi PmenuSel cterm=bold ctermfg=239 ctermbg=green gui=bold guifg=#504945 guibg=#83a598
+
+" highlight 
+highlight clear SignColumn      " SignColumn should match background
+highlight clear VertSplit      " SignColumn should match background

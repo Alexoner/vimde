@@ -23,7 +23,7 @@ Lastly (and perhaps, most importantly) It is completely cross platform. It works
 
 # Installation
 ## Requirements
-To make all the plugins work, specifically [deoplete](https://github.com/Shougo/deoplete.nvim) and [vim-plug], you need [neovim](https://github.com/neovim/neovim).
+To make all the plugins work, specifically [deoplete.nvim](https://github.com/Shougo/deoplete.nvim) and [vim-plug](https://github.com/junegunn/vim-plug), you need [Neovim](https://github.com/neovim/neovim).
 
 ## Linux, \*nix, Mac OSX Installation
 
@@ -332,12 +332,29 @@ Neocomplete is an amazing autocomplete plugin with additional support for snippe
 
 ![neocomplete image][autocomplete-img]
 
-## [deoplete]
-### [deoplete-jedi]
-### [deoplete-tern]
-### [deoplete-rust]
-### [deoplete-go]
-### [deoplete-clang]
+## [deoplete.nvim]
+
+Auto-completion engine
+
+## [deoplete-jedi]
+
+Auto-completion engine source for python
+
+## [deoplete-ternjs]
+
+Auto-completion engine source for javascript
+
+## [deoplete-rust]
+
+Auto-completion engine source for rust
+
+## [deoplete-go]
+
+Auto-completion engine source for go
+
+## [deoplete-clang]
+
+Auto-completion engine source for clang, but *YouCompleteMe* is recommended.
 
 ## [YouCompleteMe]
 
@@ -365,12 +382,16 @@ is notified and is happy because they didn't have to compile their code or
 execute their script to find them.
 
 ## [Neomake]
-:Neomake
+
+`:Neomake` to run lint code
 
 ## [vim-quickrun]
-<leader>r 
+
+`<leader>r` to run
 
 ## [auto-pairs]
+
+Automatically insert pairs, such as '', "", (), [], {}
 
 ## [AutoClose]
 
@@ -477,6 +498,9 @@ Airline provides a lightweight themable statusline with no external dependencies
 
 To enable powerline symbols first install one of the [Powerline Fonts] or patch your favorite font using the provided instructions. Configure your terminal, MacVim, or Gvim to use the desired font. Finally add `let g:airline_powerline_fonts=1` to your `.vimrc.before.local`.
 
+## [vim-autoformat]
+In normal mode, press`<F3>` to format.
+
 ## Additional Syntaxes
 
 spf13-vim ships with a few additional syntaxes:
@@ -543,6 +567,7 @@ Here's some tips if you've never used VIM before:
 
 [Git]:http://git-scm.com
 [Curl]:http://curl.haxx.se
+[Neovim]:https://neovim.io
 [Vim]:http://www.vim.org/download.php#pc
 [msysgit]:http://msysgit.github.io
 [Chocolatey]: http://chocolatey.org/
@@ -562,8 +587,18 @@ Here's some tips if you've never used VIM before:
 [Fugitive]:https://github.com/tpope/vim-fugitive
 [Surround]:https://github.com/tpope/vim-surround
 [Tagbar]:https://github.com/majutsushi/tagbar
+[Neomake]:https://github.com/neomake/neomake
+[auto-pairs]:https://github.com/jiangmiao/auto-pairs
+[vim-quickrun]:https://github.com/thinca/vim-quickrun
 [Syntastic]:https://github.com/scrooloose/syntastic
 [vim-easymotion]:https://github.com/Lokaltog/vim-easymotion
+[deoplete.nvim]:https://github.com/Shougo/deoplete.nvim
+[deoplete-jedi]:https://github.com/zchee/deoplete-jedi
+[deoplete-ternjs]:https://github.com/carlitux/deoplete-ternjs
+[deoplete-rust]:https://github.com/sebastianmarkow/deoplete-rust
+[deoplete-go]:https://github.com/zchee/deoplete-go
+[deoplete-clang]:https://github.com/zchee/deoplete-clang
+[deoplete-padawan]:https://github.com/pbogut/deoplete-padawan
 [YouCompleteMe]:https://github.com/Valloric/YouCompleteMe
 [Matchit]:http://www.vim.org/scripts/script.php?script_id=39
 [Tabularize]:https://github.com/godlygeek/tabular
@@ -573,6 +608,7 @@ Here's some tips if you've never used VIM before:
 [Powerline Fonts]:https://github.com/Lokaltog/powerline-fonts
 [AutoClose]:https://github.com/spf13/vim-autoclose
 [Ack.vim]:https://github.com/mileszs/ack.vim
+[vim-autoformat]:https://github.com/Chiel92/vim-autoformat
 
 [spf13-vim-img]:https://i.imgur.com/UKToY.png
 [spf13-vimrc-img]:https://i.imgur.com/kZWj1.png

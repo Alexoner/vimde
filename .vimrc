@@ -133,6 +133,12 @@
     set iskeyword-=#                    " '#' is an end of word designator
     set iskeyword-=-                    " '-' is an end of word designator
 
+    " Spelling errors are higlighted using SpellBad highlighting group
+    " set spell checking highlight styles after alternating color scheme or
+    " background
+    hi clear SpellBad
+    hi SpellBad cterm=underline
+
     "set autoread
     set autoread
     " Check for file modifications automatically
@@ -197,6 +203,22 @@
 " }
 
 " Vim UI {
+
+    "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+    "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+    "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+    if (empty($TMUX))
+      if (has("nvim"))
+        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+      endif
+      "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+      "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+      " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+      if (has("termguicolors"))
+        set termguicolors
+      endif
+    endif
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         if has('gui_running')
@@ -484,6 +506,7 @@
 
     " Easier formatting
     nnoremap <silent> <leader>q gwip
+    nnoremap <silent> <leader>m :%s/\r//g<CR>
 
     " FIXME: Revert this f70be548
     " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH
@@ -582,10 +605,15 @@
                     \endif
             endif
 
+            " highlight pop up menu
             hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
             hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
             hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
             hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+            " maybe this setting is better
+            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=cyan ctermbg=8
+            hi PmenuSel cterm=bold ctermfg=239 ctermbg=green gui=bold guifg=#504945 guibg=#83a598
 
             " Some convenient mappings
             "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
@@ -622,7 +650,7 @@
     " SnipMate {
         " Setting the author var
         " If forking, please overwrite in your .vimrc.local file
-        let g:snips_author = 'Steve Francia <steve.francia@gmail.com>'
+        let g:snips_author = 'Alex Hacker <alex.h.hacker@gmail.com>'
     " }
 
     " NerdTree {

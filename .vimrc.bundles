@@ -149,14 +149,15 @@
         if count(g:spf13_bundle_groups, 'colorscheme')
             "Plug 'flazz/vim-colorschemes'
             Plug 'altercation/vim-colors-solarized'
+            Plug 'morhetz/gruvbox'
+            Plug 'joshdick/onedark.vim'
+            Plug 'tomasr/molokai'
+            Plug 'w0ng/vim-hybrid'
+            Plug 'mhartington/oceanic-next'
             Plug 'lifepillar/vim-solarized8'
             Plug 'freeo/vim-kalisi'
             Plug 'romainl/flattened'
             "Plug 'frankier/neovim-colors-solarized-truecolor-only'
-            Plug 'morhetz/gruvbox'
-            Plug 'tomasr/molokai'
-            Plug 'w0ng/vim-hybrid'
-            Plug 'mhartington/oceanic-next'
         endif
     " }
 
