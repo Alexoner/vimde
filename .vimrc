@@ -57,7 +57,7 @@
           set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
         endif
     " }
-    
+
     " Arrow Key Fix {
         " https://github.com/spf13/spf13-vim/issues/780
         if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
@@ -210,14 +210,15 @@
     if (empty($TMUX))
       if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+        let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
+        let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
       endif
       "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
       "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
       " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-      if (has("termguicolors"))
+    endif
+    if (has("termguicolors"))
         set termguicolors
-      endif
     endif
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -521,6 +522,11 @@
     "inoremap <C-a> <C-U>call WrapRelativeMotion("^", 1)<CR>
     imap <C-e> <End>
 
+    " redo, undo in insert mode
+    inoremap <C-Z> <Esc>ua
+    "inoremap <C-Z> <Esc>:undo<CR>a
+    inoremap <C-R> <Esc>:redo<CR>a
+
 " }
 
 
@@ -710,11 +716,11 @@
 
     " Session List {
         set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
-            nmap <leader>sl :SessionList<CR>
-            nmap <leader>ss :SessionSave<CR>
-            nmap <leader>sc :SessionClose<CR>
-        endif
+        "if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
+            "nmap <leader>sl :SessionList<CR>
+            "nmap <leader>ss :SessionSave<CR>
+            "nmap <leader>sc :SessionClose<CR>
+        "endif
     " }
 
     " JSON {
@@ -1329,7 +1335,7 @@
         let g:UltiSnipsExpandTrigger       = '<C-j>'
         let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
         let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-		autocmd FileType js UltiSnipsAddFiletypes javascript-es6
+        autocmd FileType js UltiSnipsAddFiletypes javascript-es6
 
     " }
 
@@ -1391,7 +1397,7 @@
             endif
         endif
     " }
-    
+
 
     " Python {
         " Disable if python support not present
@@ -1478,7 +1484,7 @@
             endif
             "vim-jsx
             let g:jsx_ext_required    = 0 " Allow JSX in normal JS files
-			"let g:jsx_pragma_required = 1
+            "let g:jsx_pragma_required = 1
         endif
     " }
 
@@ -1487,10 +1493,10 @@
         " rust.vim
          let g:rustfmt_autosave = 1
 
-        " deoplete-rust 
+        " deoplete-rust
         "let g:deoplete#sources#rust#racer_binary     = "$(which racer)"
         let g:deoplete#sources#rust#racer_binary     = $HOME.'/.cargo/bin/racer'
-		"let g:deoplete#sources#rust#rust_source_path = $RUST_SRC_PATH.'/'
+        "let g:deoplete#sources#rust#rust_source_path = $RUST_SRC_PATH.'/'
     " }
 
     " C, CPP {
@@ -1512,7 +1518,7 @@
         let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
         let g:deoplete#sources#clang#clang_header  = "/Library/Developer/CommandLineTools/usr/lib/clang"
     " }
-    
+
     " {
         " vim-clang (not installed yet)
         let g:clang_c_options                          = '-std=gnu11'
@@ -1545,7 +1551,7 @@
             "let g:deoplete#sources#go#cgo           = 1
         endif
     " }
-    
+
     " Swift {
         " landaire/deoplete-swift
         " Jump to the first placeholder by typing `<C-j>`.
@@ -1569,7 +1575,7 @@
         "let g:deoplete#omni#functions.lua = 'xolox#lua#completefunc'
 
     " }
-    
+
     " java {
         if isdirectory(expand("~/.vim/bundle/vim-javacomplete2"))
             autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -1586,11 +1592,35 @@
             autocmd FileType swift imap <buffer> <C-j> <Plug>(deoplete_swift_jump_to_placeholder)
         endif
     " }
-    
+
     " vim-move {
         "let g:move_key_modifier = 'C'
     " }
 
+    " vim-startify {
+        if isdirectory(expand("~/.vim/bundle/vim-startify/"))
+            "nmap <leader>sl :SessionList<CR>
+            nmap <leader>ss :SSave<CR>
+            nmap <leader>sc :SClose<CR>
+
+            if has('nvim')
+                    "au! TabNewEntered * Startify
+
+            "let g:startify_list_order = [
+                    "\ ['   MRU'],
+                    "\ 'files',
+                    "\ ['   MRU(dir)'],
+                    "\ 'dir',
+                    "\ ['   These are my sessions:'],
+                    "\ 'sessions',
+                    "\ ['   These are my bookmarks:'],
+                    "\ 'bookmarks',
+                    "\ ['   These are my commands:'],
+                    "\ 'commands',
+                    "\ ]
+            endif
+        endif
+    " }
 " }
 
 " GUI Settings {
@@ -1611,7 +1641,7 @@
     else
         if &term == 'xterm' || &term == 'screen'
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-        elseif &term == 'nvim' 
+        elseif &term == 'nvim'
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
         endif
         "set term=builtin_ansi       " Make arrow and other keys work
@@ -1726,11 +1756,11 @@
         endfor
         return s:is_fork
     endfunction
-     
+
     function! s:ExpandFilenameAndExecute(command, file)
         execute a:command . " " . expand(a:file, ":p")
     endfunction
-     
+
     function! s:EditSpf13Config()
         if has('nvim')
             call <SID>ExpandFilenameAndExecute("tabedit", "~/.config/nvim/init.vim")
@@ -1739,14 +1769,14 @@
         endif
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.before")
         call <SID>ExpandFilenameAndExecute("vsplit", "~/.vimrc.bundles")
-     
+
         execute bufwinnr(".vimrc") . "wincmd w"
         call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.local")
         wincmd l
         call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.before.local")
         wincmd l
         call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.bundles.local")
-     
+
         if <SID>IsSpf13Fork()
             execute bufwinnr(".vimrc") . "wincmd w"
             call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.fork")
@@ -1755,10 +1785,10 @@
             wincmd l
             call <SID>ExpandFilenameAndExecute("split", "~/.vimrc.bundles.fork")
         endif
-     
+
         execute bufwinnr(".vimrc.local") . "wincmd w"
     endfunction
-     
+
     execute "noremap " . s:spf13_edit_config_mapping " :call <SID>EditSpf13Config()<CR>"
     if has('nvim')
         execute "noremap " . s:spf13_apply_config_mapping . " :source ~/.config/nvim/init.vim<CR>"

@@ -513,6 +513,9 @@ spf13-vim ships with a few additional syntaxes:
 
 spf13-vim includes [solarized] and [spf13 vim color pack](https://github.com/spf13/vim-colors/):
 
+* NeoSolarized
+* flattened_dark/flattened_light
+* gruvbox
 * ir_black
 * molokai
 * peaksea
@@ -582,6 +585,7 @@ Here's some tips if you've never used VIM before:
 [Undotree]:https://github.com/mbbill/undotree
 [NERDTree]:https://github.com/scrooloose/nerdtree
 [ctrlp]:https://github.com/kien/ctrlp.vim
+[eugen0329/vim-esearch]:https://github.com/eugen0329/vim-esearch
 [solarized]:https://github.com/altercation/vim-colors-solarized
 [neocomplete]:https://github.com/shougo/neocomplete
 [Fugitive]:https://github.com/tpope/vim-fugitive
@@ -609,6 +613,8 @@ Here's some tips if you've never used VIM before:
 [AutoClose]:https://github.com/spf13/vim-autoclose
 [Ack.vim]:https://github.com/mileszs/ack.vim
 [vim-autoformat]:https://github.com/Chiel92/vim-autoformat
+[romainl/flattened]:https://github.com/romainl/flattened
+[iCyMind/NeoSolarized]:https://github.com/iCyMind/NeoSolarized
 
 [spf13-vim-img]:https://i.imgur.com/UKToY.png
 [spf13-vimrc-img]:https://i.imgur.com/kZWj1.png
