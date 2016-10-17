@@ -1,51 +1,24 @@
 " COLORSCHEME
-" NeoSolarized {
-    " default value is "normal", Setting this option to "high" or "low" does use the 
-    " same Solarized palette but simply shifts some values up or down in order to 
-    " expand or compress the tonal range displayed.
-    let g:neosolarized_contrast = "normal"
-
-    " Special characters such as trailing whitespace, tabs, newlines, when displayed 
-    " using ":set list" can be set to one of three levels depending on your needs. 
-    " Default value is "normal". Provide "high" and "low" options.
-    let g:neosolarized_visibility = "normal"
-
-    " If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized 
-    " typefaces, simply assign 1 or 0 to the appropriate variable.
-    let g:neosolarized_bold = 1
-    let g:neosolarized_underline = 1
-    let g:neosolarized_italic = 0
-" }
 " terminal config
-set background=dark
-"colorscheme solarized
+"set background=dark
+"colorscheme NeoSolarized
 "colorscheme gruvbox
 "colorscheme onedark
+"colorscheme solarized
 "autocmd FileType javascript,jsx,html,css colorscheme molokai
 "colorscheme flattened_dark
-colorscheme NeoSolarized
-"colorscheme solarized8_dark
+"colorscheme molokai
 "colorscheme Monokai
 "colorscheme OceanicNext
 "colorscheme hybrid
-"if has('nvim')
-  "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  "let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
-  "set background=dark
-  "let g:solarized_italic=0
-  "au VimEnter * colorscheme solarized
-  "colorscheme solarized
-"endif
-"colorscheme solarized8_dark
 "colorscheme kalisi
 
 
 " Spelling errors are higlighted using SpellBad highlighting group
 " set spell checking highlight styles after alternating color scheme or
 " background
-hi clear SpellBad
-hi SpellBad cterm=underline
+"hi clear SpellBad
+"hi SpellBad cterm=underline
 
 " highlight 
 "highlight clear SignColumn      " SignColumn should match background

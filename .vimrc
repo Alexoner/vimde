@@ -101,6 +101,7 @@
     filetype plugin indent on   " Automatically detect file types.
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
+    set mouse=n                 " no mouse when editing
     set mousehide               " Hide the mouse cursor while typing
     scriptencoding utf-8
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
@@ -207,18 +208,24 @@
     "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
     "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
     "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-    if (empty($TMUX))
+    if (empty($TMUX) || 1)
       if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
+        "let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
         let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
       endif
       "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
       "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
       " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+      if (has("termguicolors"))
+          set termguicolors
+      endif
     endif
-    if (has("termguicolors"))
-        set termguicolors
+
+    "NeoVim handles ESC keys as alt+key, set this to solve the problem
+    if has('nvim')
+      set ttimeoutlen=0
+      set ttimeout
     endif
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -231,8 +238,42 @@
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
         let g:solarized_visibility="normal"
-        color solarized             " Load a colorscheme
+        "color solarized             " Load a colorscheme
     endif
+
+    " OmniComplete menu highlighting{
+        " highlight pop up menu
+        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
+        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+        " maybe this setting is better
+        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=cyan ctermbg=8
+        hi PmenuSel cterm=bold ctermfg=239 ctermbg=green gui=bold guifg=#504945 guibg=#83a598
+    "}
+
+    " NeoSolarized {
+        if filereadable(expand("~/.vim/bundle/NeoSolarized/colors/NeoSolarized.vim"))
+            " default value is "normal", Setting this option to "high" or "low" does use the
+            " same Solarized palette but simply shifts some values up or down in order to
+            " expand or compress the tonal range displayed.
+            let g:neosolarized_contrast = "high"
+
+            " Special characters such as trailing whitespace, tabs, newlines, when displayed
+            " using ":set list" can be set to one of three levels depending on your needs.
+            " Default value is "normal". Provide "high" and "low" options.
+            let g:neosolarized_visibility = "normal"
+
+            " If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized
+            " typefaces, simply assign 1 or 0 to the appropriate variable.
+            let g:neosolarized_bold      = 1
+            let g:neosolarized_underline = 1
+            let g:neosolarized_italic    = 0
+            colorscheme NeoSolarized    " Load a colorcheme
+        endif
+    " }
+
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
@@ -242,6 +283,9 @@
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
     "highlight clear CursorLineNr    " Remove highlight color from current line number
+    highlight clear SignColumn      " SignColumn should match background
+    highlight clear VertSplit      " SignColumn should match background
+
 
     if has('cmdline_info')
         set ruler                   " Show the ruler
@@ -279,8 +323,15 @@
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set foldenable                  " Auto fold code
+    "list feature can be used to reveal hidden characters
     set list
-    set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    "type unicode characters: press <ctrl-v>u, followed by its unicode number
+    "set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set listchars=tab:¦\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    "set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
+    "Invisible character colors, but it's overriden by colorscheme plugins
+    highlight NonText guifg=#4a4a59
+    highlight SpecialKey guifg=#4a4a59
 
 " }
 
@@ -290,7 +341,7 @@
     set wrap                        " wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
-    set expandtab                   " Tabs are spaces, not tabs
+    set noexpandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
     set softtabstop=4               " Let backspace delete indent
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
@@ -304,9 +355,10 @@
     " .vimrc.before.local file:
     "   let g:spf13_keep_trailing_whitespace = 1
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    autocmd FileType c,cpp,objc,objcpp setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -543,6 +595,10 @@
             au Syntax * RainbowParenthesesLoadRound
             au Syntax * RainbowParenthesesLoadSquare
             au Syntax * RainbowParenthesesLoadBraces
+
+            " sideways.vim
+            nnoremap <, :SidewaysLeft<cr>
+            nnoremap >. :SidewaysRight<cr>
         endif
     "}
 
@@ -611,16 +667,6 @@
                     \endif
             endif
 
-            " highlight pop up menu
-            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-            hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
-            hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-            hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-            " maybe this setting is better
-            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=cyan ctermbg=8
-            hi PmenuSel cterm=bold ctermfg=239 ctermbg=green gui=bold guifg=#504945 guibg=#83a598
-
             " Some convenient mappings
             "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
             if exists('g:spf13_map_cr_omni_complete')
@@ -666,14 +712,16 @@
             nmap <leader>nt :NERDTreeFind<CR>
 
             let NERDTreeShowBookmarks=1
-            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-            let NERDTreeChDirMode=0
-            let NERDTreeQuitOnOpen=1
-            let NERDTreeMouseMode=2
-            let NERDTreeShowHidden=1
-            let NERDTreeKeepTreeInNewTab=1
-            let g:nerdtree_tabs_open_on_gui_startup=0
-            let g:nerdtree_tabs_autofind=0
+            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '.DS_Store', '\.out']
+            let NERDTreeChDirMode        = 2
+            let NERDTreeQuitOnOpen       = 0
+            let NERDTreeMouseMode        = 2
+            let NERDTreeShowHidden       = 1
+            let NERDTreeKeepTreeInNewTab = 1
+
+            let g:nerdtree_tabs_open_on_gui_startup = 0
+            let g:nerdtree_tabs_autofind            = 0
+            let g:nerdtree_tabs_focus_on_files      = 1
         endif
     " }
 
@@ -706,11 +754,13 @@
 
     " vim-easy-align {
         if isdirectory(expand('~/.vim/bundle/vim-easy-align'))
-            " Start interactive EasyAlign in visual mode (e.g. vipga)
-            xmap ga <Plug>(EasyAlign)
+            " Start interactive EasyAlign in visual mode (e.g. vipga), default
+            " ga
+            xmap <leader>a <Plug>(EasyAlign)
+            vmap <leader>a <Plug>(EasyAlign)
 
-            " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-            nmap ga <Plug>(EasyAlign)
+            " Start interactive EasyAlign for a motion/text object (e.g. gaip), default ga
+            nmap <leader>a <Plug>(EasyAlign)
         endif
     " }
 
@@ -808,6 +858,7 @@
                 " Details about autocmd see :help autocmd
                 "autocmd! InsertLeave,BufWrite,BufWinEnter * Neomake
                 autocmd! BufWritePost,BufWinEnter * Neomake
+                "autocmd! CursorHold,CursorHoldI * Neomake
             augroup END
             let g:neomake_python_flake82_maker = {
                 \ 'exe': 'python2',
@@ -883,16 +934,18 @@
                 \ ],
                 \ 'errorformat': '%E%f:%l:%c: %m',
                 \ }
-            let g:neomake_javascript_eslint_maker = {
-                \ 'args': ['-f', 'compact'],
-                \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-                \ '%W%f: line %l\, col %c\, Warning - %m'
-                \ }
-            let g:neomake_jsx_eslint_maker = {
-                \ 'args': ['-f', 'compact'],
-                \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-                \ '%W%f: line %l\, col %c\, Warning - %m'
-                \ }
+            "let g:neomake_javascript_eslint_maker = {
+                "\ 'pipe': 1,
+                "\ 'args': ['-f', 'compact', '--stdin', '--stdin-filename'],
+                "\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+                "\ '%W%f: line %l\, col %c\, Warning - %m'
+                "\ }
+            "let g:neomake_jsx_eslint_maker = {
+                "\ 'pipe': 1,
+                "\ 'args': ['-f', 'compact', '--stdin', '--stdin-filename'],
+                "\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+                "\ '%W%f: line %l\, col %c\, Warning - %m'
+                "\ }
 
             "let g:neomake_javascript_enabled_makers = ['eslint']
             "let g:neomake_python_enabled_makers     = ['python', 'pylint', 'flake8']
@@ -993,7 +1046,8 @@
             let g:ycm_goto_buffer_command                                = 'new-tab' "where GoTo* commands result should be opened.
             let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
             let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
-            let g:ycm_show_diagnostics_ui                                = 0 " enable syntastic checker
+            let g:ycm_show_diagnostics_ui                                = 1 " YCM's diagnostic, supporting custome configs
+            let g:ycm_error_symbol                                       = '✗'
             let g:ycm_server_keep_logfiles                               = 1
             let g:ycm_server_use_vim_stdout                              = 0
             " python option
@@ -1386,9 +1440,9 @@
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
-            let g:airline#extensions#tabline#enabled = 1
-            let g:airline#extensions#virtualenv#enabled = 1
-            let g:airline#extensions#wordcount#enabled = 1
+            let g:airline#extensions#tabline#enabled         = 1
+            let g:airline#extensions#virtualenv#enabled      = 1
+            let g:airline#extensions#wordcount#enabled       = 1
             let g:airline#extensions#tabline#buffer_idx_mode = 1
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations
@@ -1560,9 +1614,8 @@
 
     " markdown {
         "plugin vim-markdown
-        let g:vim_markdown_folding_disabled=1
-        let g:vim_markdown_math=1
-        let g:vim_markdown_math = 1
+        let g:vim_markdown_folding_disabled = 1
+        let g:vim_markdown_math             = 1
     " }
 
     " lua {
@@ -1594,7 +1647,7 @@
     " }
 
     " vim-move {
-        "let g:move_key_modifier = 'C'
+        let g:move_key_modifier = 'C'
     " }
 
     " vim-startify {

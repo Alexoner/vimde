@@ -132,32 +132,69 @@
             "Plug 'bling/vim-bufferline'
             Plug 'easymotion/vim-easymotion'
             Plug 'mbbill/undotree'
-            Plug 'nathanaelkane/vim-indent-guides'
             if !exists('g:spf13_no_views')
                 Plug 'vim-scripts/restore_view.vim'
             endif
             Plug 'tpope/vim-abolish'
             " Plugin to move lines and selections up and down
-            Plug 'matze/vim-move'
+            "Plug 'matze/vim-move'
             Plug 'osyo-manga/vim-over'
             Plug 'gcmt/wildfire.vim'
             Plug 'mhinz/vim-startify'
+            Plug 'tpope/vim-characterize' " extend 'ga'
             "Plug 'cazador481/fakeclip.neovim'
+        endif
+    " }
+
+    " General Programming {
+        if count(g:spf13_bundle_groups, 'programming')
+            " Pick one of the checksyntax, jslint, or syntastic
+            "Plug 'scrooloose/syntastic', { 'for': [] }
+            Plug 'sheerun/vim-polyglot'
+            Plug 'tpope/vim-fugitive'
+            Plug 'mhinz/vim-signify'
+            Plug 'mattn/gist-vim'
+            Plug 'scrooloose/nerdcommenter'
+            Plug 'tpope/vim-commentary'
+            "Plug 'godlygeek/tabular'
+            Plug 'junegunn/vim-easy-align'
+            Plug 'benekastah/neomake', { 'do': 'pip install pylint && cnpm install -g eslint babel-eslint eslint-plugin-react'}
+            Plug 'Chiel92/vim-autoformat', { 'do': 'cnpm install -g esformatter esformatter-jsx' }
+            Plug 'nathanaelkane/vim-indent-guides'
+            Plug 'luochen1990/rainbow'
+            Plug 'kien/rainbow_parentheses.vim'
+            Plug 'thinca/vim-quickrun'
+            Plug 'janko-m/vim-test'
+            " CVS/SVN/SVK/git/hk/bzr integration
+            "Plug 'vim-scripts/vcscommand.vim'
+            Plug 'qstrahl/vim-matchmaker'
+            " a solid language pack for vim
+            "for javascript with tagbar, { 'do': 'cnpm install -g git+https://github.com/ramitos/jsctags.git' }
+            if executable('ctags')
+                Plug 'majutsushi/tagbar'
+            endif
+            Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj']}                 " automatically detect and set buffer indentation options
+            Plug 'mattn/webapi-vim'
+            "Plug 'PeterRincker/vim-argumentative'
+            Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
+            Plug 'zenbro/mirror.vim'
+            Plug 'editorconfig/editorconfig-vim'
         endif
     " }
 
     " colorscheme {
         if count(g:spf13_bundle_groups, 'colorscheme')
             Plug 'flazz/vim-colorschemes'
+            Plug 'iCyMind/NeoSolarized'
             Plug 'altercation/vim-colors-solarized'
             Plug 'morhetz/gruvbox'
-            Plug 'iCyMind/NeoSolarized'
-            Plug 'romainl/flattened'
+            "Plug 'romainl/flattened'
             Plug 'joshdick/onedark.vim'
             Plug 'tomasr/molokai'
             Plug 'w0ng/vim-hybrid'
             Plug 'mhartington/oceanic-next'
             Plug 'freeo/vim-kalisi'
+            Plug 'chriskempson/vim-tomorrow-theme'
             "Plug 'frankier/neovim-colors-solarized-truecolor-only'
         endif
     " }
@@ -176,38 +213,6 @@
     " Pandoc {
         if count(g:spf13_bundle_groups, 'pandoc')
             Plug 'vim-pandoc/vim-pandoc-syntax'
-        endif
-    " }
-
-    " General Programming {
-        if count(g:spf13_bundle_groups, 'programming')
-            " Pick one of the checksyntax, jslint, or syntastic
-            "Plug 'scrooloose/syntastic', { 'for': [] }
-            Plug 'tpope/vim-fugitive'
-            Plug 'mhinz/vim-signify'
-            Plug 'mattn/webapi-vim'
-            Plug 'mattn/gist-vim'
-            Plug 'scrooloose/nerdcommenter'
-            Plug 'tpope/vim-commentary'
-            Plug 'godlygeek/tabular'
-            Plug 'junegunn/vim-easy-align'
-            Plug 'benekastah/neomake', { 'do': 'pip install pylint && cnpm install -g eslint babel-eslint eslint-plugin-react'}
-            Plug 'Chiel92/vim-autoformat', { 'do': 'cnpm install -g esformatter esformatter-jsx' }
-            Plug 'luochen1990/rainbow'
-            Plug 'kien/rainbow_parentheses.vim'
-            Plug 'thinca/vim-quickrun'
-            Plug 'janko-m/vim-test'
-            " CVS/SVN/SVK/git/hk/bzr integration
-            "Plug 'vim-scripts/vcscommand.vim'
-            Plug 'qstrahl/vim-matchmaker'
-            " a solid language pack for vim
-            Plug 'sheerun/vim-polyglot'
-            "for javascript with tagbar, { 'do': 'cnpm install -g git+https://github.com/ramitos/jsctags.git' }
-            if executable('ctags')
-                Plug 'majutsushi/tagbar'
-            endif
-            Plug 'zenbro/mirror.vim'
-            Plug 'editorconfig/editorconfig-vim'
         endif
     " }
 
@@ -286,7 +291,7 @@
             Plug 'landaire/deoplete-swift', { 'for': ['swift'] }
             Plug 'Shougo/neco-vim', { 'for': ['vim'] }
             Plug 'Shougo/neoinclude.vim'
-            Plug 'Shougo/neco-syntax'
+            Plug 'Shougo/neco-syntax', { 'for': ['vim'] }
         endif
     " }
 
