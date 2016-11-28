@@ -108,18 +108,21 @@
             Plug 'scrooloose/nerdtree'
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'Xuyuanp/nerdtree-git-plugin'
+            Plug 'ctrlpvim/ctrlp.vim'
+            Plug 'tacahiroy/ctrlp-funky'
+            Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
+            "Plug 'dyng/ctrlsf.vim' " project-wide/global search, similar to ctrl-shift-f in sublime
+            Plug 'terryma/vim-multiple-cursors'
+            Plug 'jiangmiao/auto-pairs'
+            Plug 'mbbill/undotree'
+            Plug 'easymotion/vim-easymotion'
+            Plug 'matchit.zip'
             "Plug 'ryanoasis/vim-devicons', { 'do': '' }
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
-            Plug 'jiangmiao/auto-pairs'
             "Plug 'Raimondi/delimitMate'
-            Plug 'ctrlpvim/ctrlp.vim'
-            Plug 'tacahiroy/ctrlp-funky'
-            Plug 'eugen0329/vim-esearch'
-            Plug 'terryma/vim-multiple-cursors'
             "Plug 'vim-scripts/sessionman.vim'
-            Plug 'matchit.zip'
             Plug 'Shougo/vimproc.vim', {'do': 'make'}
             if (has("python") || has("python3")) && exists('g:spf13_use_powerline') && !exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
@@ -130,17 +133,16 @@
             endif
             Plug 'powerline/fonts', { 'do': ''}
             "Plug 'bling/vim-bufferline'
-            Plug 'easymotion/vim-easymotion'
-            Plug 'mbbill/undotree'
             if !exists('g:spf13_no_views')
                 Plug 'vim-scripts/restore_view.vim'
             endif
             Plug 'tpope/vim-abolish'
             " Plugin to move lines and selections up and down
-            "Plug 'matze/vim-move'
+            Plug 'matze/vim-move'
             Plug 'osyo-manga/vim-over'
             Plug 'gcmt/wildfire.vim'
             Plug 'mhinz/vim-startify'
+            "Plug 'MattesGroeger/vim-bookmarks'
             Plug 'tpope/vim-characterize' " extend 'ga'
             "Plug 'cazador481/fakeclip.neovim'
         endif
@@ -164,6 +166,7 @@
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
             Plug 'thinca/vim-quickrun'
+            Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
             Plug 'janko-m/vim-test'
             " CVS/SVN/SVK/git/hk/bzr integration
             "Plug 'vim-scripts/vcscommand.vim'

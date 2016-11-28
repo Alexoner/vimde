@@ -201,6 +201,12 @@
         endif
     " }
 
+    "NeoVim handles ESC keys as alt+key, set this to solve the problem
+    if has('nvim')
+      set ttimeoutlen=0
+      set ttimeout
+    endif
+
 " }
 
 " Vim UI {
@@ -220,12 +226,6 @@
       if (has("termguicolors"))
           set termguicolors
       endif
-    endif
-
-    "NeoVim handles ESC keys as alt+key, set this to solve the problem
-    if has('nvim')
-      set ttimeoutlen=0
-      set ttimeout
     endif
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -368,7 +368,8 @@
     " Workaround broken colour highlighting in Haskell
     autocmd FileType haskell,rust setlocal nospell
     " Note: this could be override by vim-autoformat plugin
-    au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --aggressive\ --ignore\ E302
+    "au FileType python setlocal formatprg=autopep8\ -\ --aggressive\ --aggressive\ --ignore\ E302
+    au FileType javascript setlocal formatprg=esformatter
 
 " }
 
@@ -424,6 +425,10 @@
     " Wrapped lines goes down/up to next row, rather than next line in file.
     noremap j gj
     noremap k gk
+
+    " selecte last changed text
+    "nnoremap <expr> gp `[v`]
+    nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
     " End/Start of line motion keys act relative to row/wrap width in the
     " presence of `:set wrap`, and relative to line for `:set nowrap`.
@@ -586,10 +591,6 @@
 
     "General Programming  {
          if count(g:spf13_bundle_groups, 'programming')
-             "vim-autoformat
-            noremap <F3> :Autoformat<CR>
-            "au BufWrite * :Autoformat
-
             "rainbow_parentheses.vim
             au VimEnter * RainbowParenthesesToggle
             au Syntax * RainbowParenthesesLoadRound
@@ -638,6 +639,14 @@
             "imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
             "imap <C-/> <Esc><plug>NERDCommenterToggle<CR>i
         endif
+    " }
+
+    " { vim-autoformat
+        "vim-autoformat
+        noremap <F3> :Autoformat<CR>
+        "au BufWrite * :Autoformat
+        let g:formatter_yapf_style = 'pep8'
+
     " }
 
     " PIV {
@@ -707,12 +716,12 @@
 
     " NerdTree {
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
-            map <C-e> <plug>NERDTreeTabsToggle<CR>
+            "map <C-e> <plug>NERDTreeTabsToggle<CR>
             map <leader>e :NERDTreeFind<CR>
             nmap <leader>nt :NERDTreeFind<CR>
 
-            let NERDTreeShowBookmarks=1
-            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '.DS_Store', '\.out']
+            let NERDTreeShowBookmarks    = 1
+            let NERDTreeIgnore           = ['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '.DS_Store', '\.out']
             let NERDTreeChDirMode        = 2
             let NERDTreeQuitOnOpen       = 0
             let NERDTreeMouseMode        = 2
@@ -1647,7 +1656,16 @@
     " }
 
     " vim-move {
-        let g:move_key_modifier = 'C'
+        "let g:move_map_keys = 0
+        let g:move_key_modifier = 'A'
+        " FIXME: map <A-key> not working for Alt modifier, directly type
+        " Alt+key would do the trick
+        "vmap <A-j> <Plug>MoveBlockDown
+        "vmap <A-k> <Plug>MoveBlockUp
+        nmap ∆ <Plug>MoveLineDown
+        nmap ˚ <Plug>MoveLineUp " <A-K>, i.e. Alt+K
+        vmap ∆ <Plug>MoveBlockDown
+        vmap ˚ <Plug>MoveBlockUp " <A-K>, i.e. Alt+K
     " }
 
     " vim-startify {
@@ -1659,19 +1677,12 @@
             if has('nvim')
                     "au! TabNewEntered * Startify
 
-            "let g:startify_list_order = [
-                    "\ ['   MRU'],
-                    "\ 'files',
-                    "\ ['   MRU(dir)'],
-                    "\ 'dir',
-                    "\ ['   These are my sessions:'],
-                    "\ 'sessions',
-                    "\ ['   These are my bookmarks:'],
-                    "\ 'bookmarks',
-                    "\ ['   These are my commands:'],
-                    "\ 'commands',
-                    "\ ]
             endif
+            "let g:startify_list_order = [
+                    "\ 'sessions',
+                    "\ 'dir',
+                    "\ 'files',
+                    "\ ]
         endif
     " }
 " }
