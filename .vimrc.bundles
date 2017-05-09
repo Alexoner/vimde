@@ -160,8 +160,8 @@
             Plug 'tpope/vim-commentary'
             "Plug 'godlygeek/tabular'
             Plug 'junegunn/vim-easy-align'
-            Plug 'benekastah/neomake', { 'do': 'pip install pylint && cnpm install -g eslint babel-eslint eslint-plugin-react'}
-            Plug 'Chiel92/vim-autoformat', { 'do': 'cnpm install -g esformatter esformatter-jsx' }
+            Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react'}
+            Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
             Plug 'nathanaelkane/vim-indent-guides'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
@@ -172,7 +172,7 @@
             "Plug 'vim-scripts/vcscommand.vim'
             Plug 'qstrahl/vim-matchmaker'
             " a solid language pack for vim
-            "for javascript with tagbar, { 'do': 'cnpm install -g git+https://github.com/ramitos/jsctags.git' }
+            "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
             if executable('ctags')
                 Plug 'majutsushi/tagbar'
             endif
@@ -191,9 +191,10 @@
             Plug 'iCyMind/NeoSolarized'
             Plug 'altercation/vim-colors-solarized'
             Plug 'morhetz/gruvbox'
-            "Plug 'romainl/flattened'
             Plug 'joshdick/onedark.vim'
-            Plug 'tomasr/molokai'
+            Plug 'sickill/vim-monokai'
+            "Plug 'romainl/flattened'
+            "Plug 'tomasr/molokai'
             Plug 'w0ng/vim-hybrid'
             Plug 'mhartington/oceanic-next'
             Plug 'freeo/vim-kalisi'
@@ -272,7 +273,7 @@
           " - status: 'installed', 'updated', or 'unchanged'
           " - force:  set on PlugInstall! or PlugUpdate!
           if a:info.status == 'installed'
-            !git clone https://github.com/rust-lang/rust.git ${HOME}/.rust/src
+            "!git clone https://github.com/rust-lang/rust.git ${HOME}/.rust/src
             "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.zshrc
             "!echo "export RUST_SRC_PATH=${HOME}/.rust/src/src" >> ~/.bashrc
           elseif a:info.force
@@ -285,10 +286,10 @@
             Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
             " use ultisnips snippet engine
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
-            Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+            Plug 'zchee/deoplete-jedi', { 'for': 'python', 'do': '' }
             Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust', 'do': function('BuildRacer') }
             Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
-            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install' }
+            Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install' }
             Plug 'zchee/deoplete-go',{ 'for': ['go'], 'do': 'go get -u github.com/nsf/gocode && make' }
             Plug 'pbogut/deoplete-padawan', { 'for': ['php'] }
             Plug 'landaire/deoplete-swift', { 'for': ['swift'] }
@@ -355,21 +356,21 @@
             Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
             Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
-			"Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'], 'do': 'rm ~/.vim/bundle/vim-jsx/after/indent/jsx.vim' }
-            Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'cnpm install && cnpm install -g tern' }
+            Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'], 'do': 'rm ~/.vim/bundle/vim-jsx/after/indent/jsx.vim' }
+            "Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install && npm install -g tern' }
             Plug 'moll/vim-node', { 'for': ['javascript'] }
             Plug 'justinj/vim-react-snippets', { 'for': ['javascript'] }
             Plug 'groenewege/vim-less', { 'for': ['javascript'] }
             Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
             Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
-            Plug 'othree/jspc.vim', { 'for': ['javascript'] }
-            Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
+            "Plug 'othree/jspc.vim', { 'for': ['javascript'] }
+            "Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
         endif
     " }
 
     " typescript {
-        Plug 'mhartington/deoplete-typescript', { 'for': ['typescript'], 'do': 'cnpm install -g typescript' }
+        Plug 'mhartington/deoplete-typescript', { 'for': ['typescript'], 'do': 'npm install -g typescript' }
     " }
 
     " Scala {
@@ -397,7 +398,7 @@
 
     " HTML {
         if count(g:spf13_bundle_groups, 'html')
-            Plug 'amirh/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
+            Plug 'vim-scripts/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
             Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'javascript']}
             Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'javascript'] }
             Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
@@ -454,7 +455,7 @@
 
             "Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
             " FIXME: plugin not working
-            "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'cnpm install -g instant-markdown-d'}
+            "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'npm install -g instant-markdown-d'}
             "autocmd Filetype markdown set shell=bash\ -i
         endif
     " }

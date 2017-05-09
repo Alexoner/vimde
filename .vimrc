@@ -220,12 +220,12 @@
         "let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
         let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
       endif
-      "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-      "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-      " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-      if (has("termguicolors"))
-          set termguicolors
-      endif
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+        set termguicolors
     endif
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -238,7 +238,7 @@
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
         let g:solarized_visibility="normal"
-        "color solarized             " Load a colorscheme
+        color solarized             " Load a colorscheme
     endif
 
     " OmniComplete menu highlighting{
@@ -475,8 +475,8 @@
     " .vimrc.before.local file:
     "   let g:spf13_no_fastTabs = 1
     if !exists('g:spf13_no_fastTabs')
-        map <S-H> gT
-        map <S-L> gt
+        nmap <S-H> gT
+        nmap <S-L> gt
         "nmap <C-T> :tabnew<CR>
         "nmap <C-W> :tabclose<CR>
     endif
@@ -583,6 +583,26 @@
     inoremap <C-Z> <Esc>ua
     "inoremap <C-Z> <Esc>:undo<CR>a
     inoremap <C-R> <Esc>:redo<CR>a
+
+    "digraphs alphsubs ---------------------- {{{
+            execute "digraphs as " . 0x2090
+            execute "digraphs es " . 0x2091
+            execute "digraphs hs " . 0x2095
+            execute "digraphs is " . 0x1D62
+            execute "digraphs js " . 0x2C7C
+            execute "digraphs ks " . 0x2096
+            execute "digraphs ls " . 0x2097
+            execute "digraphs ms " . 0x2098
+            execute "digraphs ns " . 0x2099
+            execute "digraphs os " . 0x2092
+            execute "digraphs ps " . 0x209A
+            execute "digraphs rs " . 0x1D63
+            execute "digraphs ss " . 0x209B
+            execute "digraphs ts " . 0x209C
+            execute "digraphs us " . 0x1D64
+            execute "digraphs vs " . 0x1D65
+            execute "digraphs xs " . 0x2093
+    "}}}
 
 " }
 
@@ -716,7 +736,7 @@
 
     " NerdTree {
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
-            "map <C-e> <plug>NERDTreeTabsToggle<CR>
+            map <C-e> <plug>NERDTreeTabsToggle<CR>
             map <leader>e :NERDTreeFind<CR>
             nmap <leader>nt :NERDTreeFind<CR>
 
@@ -832,6 +852,7 @@
     " TagBar {
         if isdirectory(expand("~/.vim/bundle/tagbar/"))
             let updatetime=600
+            let g:tagbar_sort = 0
             nnoremap <silent> <leader>tt :TagbarToggle<CR>
         endif
     "}
@@ -1041,9 +1062,8 @@
 
             " TODO: customize it according to your machine's file system
             " hierarchy
-            let g:ycm_server_python_interpreter                          = "/usr/local/bin/python"
-            let g:ycm_auto_trigger                                       = 0
-            autocmd FileType c,cpp,objc,objcpp,cs let g:ycm_auto_trigger = 1
+            "let g:ycm_server_python_interpreter                          = "/usr/local/bin/python3"
+            let g:ycm_auto_trigger                                       = 1
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files                = 1
             let g:ycm_global_ycm_extra_conf                              = $HOME."/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
@@ -1060,11 +1080,13 @@
             let g:ycm_server_keep_logfiles                               = 1
             let g:ycm_server_use_vim_stdout                              = 0
             " python option
-            let g:ycm_path_to_python_interpreter                         = "python"
+            "let g:ycm_path_to_python_interpreter                         = "python3"
+            let g:ycm_python_binary_path                                 = "python"
             " rust option
             let g:ycm_rust_src_path                                      = $RUST_SRC_PATH.'/'
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+            autocmd FileType c,cpp,objc,objcpp,cs,python,javascript let g:ycm_auto_trigger = 1
             autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript  nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
 
@@ -1548,6 +1570,16 @@
             "vim-jsx
             let g:jsx_ext_required    = 0 " Allow JSX in normal JS files
             "let g:jsx_pragma_required = 1
+            
+            let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+
+            "Add extra filetypes
+            let g:tern#filetypes = [
+                            \ 'javascript',
+                            \ 'jsx',
+                            \ 'javascript.jsx',
+                            \ 'vue',
+                            \ ]
         endif
     " }
 
@@ -1633,7 +1665,7 @@
         let g:lua_complete_dynamic = 0
         let g:lua_define_completion_mappings = 0
 
-        let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
+        "let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
         "let g:deoplete#omni#functions.lua = 'xolox#lua#completefunc'
 
     " }

@@ -177,7 +177,6 @@ let g:spf13_bundle_groups=[
             \ 'java',
             \ 'autocomplete',
             \ 'youcompleteme',
-            \ 'deoplete',
             \ 'github',
             \ ]
 
@@ -191,8 +190,8 @@ if !exists("b:color_pattern")
 endif
 
 " neovim python support
-let g:python_host_prog = 'python2'
-let g:python3_host_prog = 'python3'
+"let g:python_host_prog = 'python2' # auto detected
+"let g:python3_host_prog = 'python3' # auto detected
 
 " vim-autoformat settings
 "let g:formatters_javascript = ['esformatter', 'jsbeautify_javascript', 'pyjsbeautify_javascript', 'jscs']
