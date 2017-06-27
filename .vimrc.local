@@ -3,12 +3,12 @@
 "set background=dark
 "colorscheme NeoSolarized
 "colorscheme gruvbox
+"colorscheme molokai
+"colorscheme Monokai
 "colorscheme onedark
 "colorscheme solarized
 "autocmd FileType javascript,jsx,html,css colorscheme molokai
 "colorscheme flattened_dark
-"colorscheme molokai
-"colorscheme Monokai
 "colorscheme OceanicNext
 "colorscheme hybrid
 "colorscheme kalisi

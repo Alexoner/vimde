@@ -140,10 +140,15 @@
     hi clear SpellBad
     hi SpellBad cterm=underline
 
-    "set autoread
-    set autoread
+    "disable autoread/auto reloading but enable auto check
+    set noautoread
     " Check for file modifications automatically
     " (current buffer only).
+    augroup autoCheckTime
+        au!
+        au CursorHold,FocusGained,BufEnter * checktime
+    augroup end
+
     " Use :NoAutoChecktime to disable it (uses b:autochecktime)
     fun! AutoCheckTime()
       " only check timestamp for normal files
@@ -155,10 +160,6 @@
     endfun
 
     command! NoAutoChecktime let b:autochecktime=0
-    augroup autoCheckTime
-        au!
-        au CursorHold,FocusGained,BufEnter * checktime
-    augroup end
 
     " Instead of reverting the cursor to the last position in the buffer, we
     " set it to the first line when editing a git commit message
@@ -214,17 +215,23 @@
     "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
     "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
     "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+    if (has("nvim"))
+        let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+    endif
     if (empty($TMUX) || 1)
       if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        "let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
-        let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+        "set t_8f=^[[38;2;%lu;%lu;%lum  " Needed in tmux
+        "set t_8b=^[[48;2;%lu;%lu;%lum  " Ditto
+        let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
       endif
     endif
     "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
     "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
     if (has("termguicolors"))
+        "set t_8f=^[[38;2;%lu;%lu;%lum  " Needed in tmux
+        "set t_8b=^[[48;2;%lu;%lu;%lum  " Ditto
         set termguicolors
     endif
 
@@ -238,7 +245,7 @@
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
         let g:solarized_visibility="normal"
-        color solarized             " Load a colorscheme
+        "color solarized             " Load a colorscheme
     endif
 
     " OmniComplete menu highlighting{
@@ -757,6 +764,7 @@
     " auto-pairs {
         let g:AutoPairsFlyMode            = 0
         let g:AutoPairsShortcutBackInsert = '<M-b>'
+        let g:AutoPairsMapCR              = 0       " <Enter> is mapped to select completion result in insert mode
     " }
 
     " Tabularize {
@@ -884,10 +892,11 @@
     " Neomake {
         if isdirectory(expand("~/.vim/bundle/neomake"))
             augroup lint
-                autocmd!
+                autocmd! FileType python,javascript
+                            \ autocmd! BufWritePost,BufWinEnter * Neomake
                 " Details about autocmd see :help autocmd
                 "autocmd! InsertLeave,BufWrite,BufWinEnter * Neomake
-                autocmd! BufWritePost,BufWinEnter * Neomake
+                "autocmd! BufWritePost,BufWinEnter * Neomake
                 "autocmd! CursorHold,CursorHoldI * Neomake
             augroup END
             let g:neomake_python_flake82_maker = {
@@ -1053,42 +1062,43 @@
 
     " }
 
-    " Use YouCompleteMe with deoplete: the former one's key binding and the
-    " latter one's auto completion, and the former one's clang completion for
-    " C-family language completion
+
+    " A code-completion engine for Vim
+    " Use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix. 
     " YouCompleteMe {
         if count(g:spf13_bundle_groups, 'youcompleteme')
-            let g:acp_enableAtStartup = 0
 
-            " TODO: customize it according to your machine's file system
-            " hierarchy
-            "let g:ycm_server_python_interpreter                          = "/usr/local/bin/python3"
             let g:ycm_auto_trigger                                       = 1
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files                = 1
             let g:ycm_global_ycm_extra_conf                              = $HOME."/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+            let g:ycm_confirm_extra_conf                                 = 0
             let g:ycm_collect_identifiers_from_tags_files                = 1 " Let YCM read tags from Ctags file
             let g:ycm_use_ultisnips_completer                            = 1 " Default 1, just ensure
             let g:ycm_seed_identifiers_with_syntax                       = 1 " Completion for programming language's keyword
             let g:ycm_complete_in_comments                               = 1 " Completion in comments
             let g:ycm_complete_in_strings                                = 1 " Completion in string
             let g:ycm_goto_buffer_command                                = 'new-tab' "where GoTo* commands result should be opened.
-            let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
-            let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
+            "let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
+            "let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
+            "let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
+            let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
             let g:ycm_show_diagnostics_ui                                = 1 " YCM's diagnostic, supporting custome configs
             let g:ycm_error_symbol                                       = '✗'
+            let g:ycm_enable_diagnostic_signs                            = 1
             let g:ycm_server_keep_logfiles                               = 1
             let g:ycm_server_use_vim_stdout                              = 0
             " python option
             "let g:ycm_path_to_python_interpreter                         = "python3"
-            let g:ycm_python_binary_path                                 = "python"
+            "let g:ycm_python_binary_path                                 = "python"
             " rust option
             let g:ycm_rust_src_path                                      = $RUST_SRC_PATH.'/'
 
             nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-            autocmd FileType c,cpp,objc,objcpp,cs,python,javascript let g:ycm_auto_trigger = 1
-            autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript  nnoremap <C-]> :YcmCompleter GoTo<CR>
-            autocmd FileType c,cpp,objc,objcpp,python,javascript,go,rust,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
+            "inoremap <silent><expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+            "autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript let g:ycm_auto_trigger = 1
+            autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <C-]> :YcmCompleter GoTo<CR>
+            autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
 
             " Haskell post write lint and check with ghcmod
             " $ `cabal install ghcmod` if missing and ensure
@@ -1104,10 +1114,10 @@
                 endif
             endif
 
-            " Disable the neosnippet preview candidate window
-            " When enabled, there can be too much visual noise
-            " especially when splits are used.
+            " Disable the preview  window
+            " When enabled, there can be too much visual noise especially when splits are used.
             set completeopt-=preview
+            "let g:ycm_add_preview_to_completeopt = 1
         endif
     " }
 
