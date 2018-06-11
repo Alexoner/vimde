@@ -221,17 +221,17 @@
     if (empty($TMUX) || 1)
       if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        "set t_8f=^[[38;2;%lu;%lu;%lum  " Needed in tmux
-        "set t_8b=^[[48;2;%lu;%lu;%lum  " Ditto
+        "set t_8f=[38;2;%lu;%lu;%lum  " Needed in tmux
+        "set t_8b=[48;2;%lu;%lu;%lum  " Ditto
         let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
       endif
     endif
     "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
     "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    set t_8f=[38;2;%lu;%lu;%lum  " Needed in tmux
+    set t_8b=[48;2;%lu;%lu;%lum  " Ditto
     if (has("termguicolors"))
-        "set t_8f=^[[38;2;%lu;%lu;%lum  " Needed in tmux
-        "set t_8b=^[[48;2;%lu;%lu;%lum  " Ditto
         set termguicolors
     endif
 
@@ -1110,7 +1110,7 @@
             " For snippet_complete marker.
             if !exists("g:spf13_no_conceal")
                 if has('conceal')
-                    set conceallevel=2 concealcursor=i
+                    set conceallevel=2 concealcursor=n " conceal only in normal mode
                 endif
             endif
 
@@ -1413,7 +1413,7 @@
             " For snippet_complete marker.
             if !exists("g:spf13_no_conceal")
                 if has('conceal')
-                    set conceallevel=2 concealcursor=i
+                    set conceallevel=2 concealcursor=n " conceal only in normal mode
                 endif
             endif
 
@@ -1667,6 +1667,7 @@
         "plugin vim-markdown
         let g:vim_markdown_folding_disabled = 1
         let g:vim_markdown_math             = 1
+        autocmd FileType markdown set conceallevel=2 concealcursor=n
     " }
 
     " lua {
