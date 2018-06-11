@@ -129,6 +129,9 @@
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/vim-powerline'
             else
+                " FIXME: vim-airline causes bug(suspended tty output while
+                " opening markdown files). This is due to conflicts with
+                " 'vim-fugitive' or 'majutsushi/tagbar'
                 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
             endif
             Plug 'powerline/fonts', { 'do': ''}
@@ -152,8 +155,9 @@
         if count(g:spf13_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
             "Plug 'scrooloose/syntastic', { 'for': [] }
+            
             Plug 'sheerun/vim-polyglot'
-            Plug 'tpope/vim-fugitive'
+            "Plug 'tpope/vim-fugitive' " XXX: conflicts with airline
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
             Plug 'scrooloose/nerdcommenter'
@@ -174,7 +178,7 @@
             " a solid language pack for vim
             "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
             if executable('ctags')
-                Plug 'majutsushi/tagbar'
+                "Plug 'majutsushi/tagbar'
             endif
             Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj']}                 " automatically detect and set buffer indentation options
             Plug 'mattn/webapi-vim'
