@@ -520,6 +520,8 @@
     nmap <leader>f8 :set foldlevel=8<CR>
     nmap <leader>f9 :set foldlevel=9<CR>
 
+    " search for visually selected text
+    vnoremap / y/<C-R>"<CR>
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
     " and off, add the following to your .vimrc.before.local file:
@@ -591,7 +593,7 @@
     "inoremap <C-Z> <Esc>:undo<CR>a
     inoremap <C-R> <Esc>:redo<CR>a
 
-    "digraphs alphsubs ---------------------- {{{
+    "digraphs alphsubs ---------------------- {
             execute "digraphs as " . 0x2090
             execute "digraphs es " . 0x2091
             execute "digraphs hs " . 0x2095
@@ -609,11 +611,9 @@
             execute "digraphs us " . 0x1D64
             execute "digraphs vs " . 0x1D65
             execute "digraphs xs " . 0x2093
-    "}}}
+    "}
 
 " }
-
-
 
 " Plugins {
 
@@ -671,7 +671,8 @@
 
     " vim-autoformat {
         "vim-autoformat
-        noremap <F3> :Autoformat<CR>
+        "noremap <F3> :Autoformat<CR>
+        noremap <F7> :Autoformat<CR>
         "au BufWrite * :Autoformat
         let g:formatter_yapf_style = 'pep8'
 
@@ -1462,13 +1463,6 @@
         endif
     " }
 
-    " Wildfire {
-    let g:wildfire_objects = {
-                \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
-                \ "html,xml" : ["at"],
-                \ }
-    " }
-
     " vim-airline {
         " Set configuration options for the statusline plugin vim-airline.
         " Use the powerline theme and optionally enable powerline symbols.
@@ -1633,9 +1627,6 @@
         " deoplete-clang
         let g:deoplete#sources#clang#libclang_path = "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib"
         let g:deoplete#sources#clang#clang_header  = "/Library/Developer/CommandLineTools/usr/lib/clang"
-    " }
-
-    " {
         " vim-clang (not installed yet)
         let g:clang_c_options                          = '-std=gnu11'
         let g:clang_cpp_options                        = '-std=c++11 -stdlib=libc++'
@@ -1738,6 +1729,14 @@
                     "\ 'files',
                     "\ ]
         endif
+    " }
+
+    " Wildfire {
+    let g:wildfire_objects =
+                \ {
+                \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
+                \ "html,xml" : ["at"],
+                \ }
     " }
 " }
 

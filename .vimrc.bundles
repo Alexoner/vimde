@@ -75,7 +75,6 @@
     " }
 " }
 
-
 " Plugins {
 
     " Deps {
@@ -103,6 +102,7 @@
             Plug 'ctrlpvim/ctrlp.vim'
             Plug 'tacahiroy/ctrlp-funky'
             Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
+            Plug 'google/vim-searchindex' "vim-searchindex: display number of search matches & index of a current match
             "Plug 'dyng/ctrlsf.vim' " project-wide/global search, similar to ctrl-shift-f in sublime
             if executable('ag')
                 Plug 'mileszs/ack.vim'
@@ -227,14 +227,7 @@
     " }
 
     " Snippets & AutoComplete {
-        if count(g:spf13_bundle_groups, 'snipmate')
-            Plug 'garbas/vim-snipmate'
-            Plug 'honza/vim-snippets'
-            " Source support_function.vim to support vim-snippets.
-            if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-                source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-            endif
-        elseif count(g:spf13_bundle_groups, 'youcompleteme')
+        if count(g:spf13_bundle_groups, 'youcompleteme')
             function! BuildYCM(info)
               " info is a dictionary with 3 fields
               " - name:   name of the plugin
@@ -257,6 +250,13 @@
 
             " Group dependencies, vim-snippets depends on ultisnips
             Plug 'SirVer/ultisnips' |  Plug 'honza/vim-snippets'
+        elseif count(g:spf13_bundle_groups, 'snipmate')
+            Plug 'garbas/vim-snipmate'
+            Plug 'honza/vim-snippets'
+            " Source support_function.vim to support vim-snippets.
+            if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
+                source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
+            endif
         elseif count(g:spf13_bundle_groups, 'neocomplcache')
             Plug 'Shougo/neocomplcache'
             Plug 'Shougo/neosnippet'
@@ -467,7 +467,7 @@
             "autocmd Filetype markdown set shell=bash\ -i
         endif
     " }
-    
+
     " Rust {
         Plug 'rust-lang/rust.vim', { 'for': ['rust']}
         "Plug 'ebfe/vim-racer',
