@@ -614,6 +614,7 @@
 " }
 
 
+
 " Plugins {
 
     "General Programming  {
@@ -668,7 +669,7 @@
         endif
     " }
 
-    " { vim-autoformat
+    " vim-autoformat {
         "vim-autoformat
         noremap <F3> :Autoformat<CR>
         "au BufWrite * :Autoformat
@@ -1084,7 +1085,8 @@
             "let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
             let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
             let g:ycm_show_diagnostics_ui                                = 1 " YCM's diagnostic, supporting custome configs
-            let g:ycm_error_symbol                                       = '✗'
+            "let g:ycm_error_symbol                                       = '✗'
+            let g:ycm_error_symbol                                       = 'E'
             let g:ycm_enable_diagnostic_signs                            = 1
             let g:ycm_server_keep_logfiles                               = 1
             let g:ycm_server_use_vim_stdout                              = 0
@@ -1099,6 +1101,7 @@
             "autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript let g:ycm_auto_trigger = 1
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
+            cmap ycmfixit YcmCompleter FixIt
 
             " Haskell post write lint and check with ghcmod
             " $ `cabal install ghcmod` if missing and ensure
@@ -1493,6 +1496,14 @@
         endif
     " }
 
+    " lightline.vim {
+        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+            " status line
+            let g:lightline = {
+                  \ 'colorscheme': 'solarized',
+                  \ }
+        endif
+    " }
 
     " Python {
         " Disable if python support not present

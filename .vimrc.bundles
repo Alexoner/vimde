@@ -52,7 +52,10 @@
         endif
     " }
 
-    " Setup Bundle Support {
+
+" }
+
+" Setup Plugin Manager Support {
         " The next three lines ensure that the ~/.vim/bundle/ system works
         " filetype off
         " set rtp+=~/.vim/bundle/vundle
@@ -70,25 +73,14 @@
     " com! -nargs=+         UnBundle
     " \ call UnBundle(<args>)
     " }
-
 " }
 
-" Bundles {
+
+" Plugins {
 
     " Deps {
         " Bundle 'gmarik/vundle'
         Plug 'junegunn/vim-plug'
-        Plug 'MarcWeber/vim-addon-mw-utils'
-        Plug 'tomtom/tlib_vim'
-        if executable('ag')
-            Plug 'mileszs/ack.vim'
-            let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-        elseif executable('ack-grep')
-            let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Plug 'mileszs/ack.vim'
-        elseif executable('ack')
-            Plug 'mileszs/ack.vim'
-        endif
     " }
 
     " In your .vimrc.before.local file
@@ -112,6 +104,15 @@
             Plug 'tacahiroy/ctrlp-funky'
             Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
             "Plug 'dyng/ctrlsf.vim' " project-wide/global search, similar to ctrl-shift-f in sublime
+            if executable('ag')
+                Plug 'mileszs/ack.vim'
+                let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+            elseif executable('ack-grep')
+                let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+                Plug 'mileszs/ack.vim'
+            elseif executable('ack')
+                Plug 'mileszs/ack.vim'
+            endif
             Plug 'terryma/vim-multiple-cursors'
             Plug 'jiangmiao/auto-pairs'
             Plug 'mbbill/undotree'
@@ -129,10 +130,8 @@
             elseif exists('g:spf13_use_powerline') && exists('g:spf13_use_old_powerline')
                 Plug 'Lokaltog/vim-powerline'
             else
-                " FIXME: vim-airline causes bug(suspended tty output while
-                " opening markdown files). This is due to conflicts with
-                " 'vim-fugitive' or 'majutsushi/tagbar'
                 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+                "Plug 'itchyny/lightline.vim'
             endif
             Plug 'powerline/fonts', { 'do': ''}
             "Plug 'bling/vim-bufferline'
@@ -148,6 +147,9 @@
             "Plug 'MattesGroeger/vim-bookmarks'
             Plug 'tpope/vim-characterize' " extend 'ga'
             "Plug 'cazador481/fakeclip.neovim'
+            Plug 'MarcWeber/vim-addon-mw-utils'
+            Plug 'tomtom/tlib_vim'
+
         endif
     " }
 
@@ -157,7 +159,7 @@
             "Plug 'scrooloose/syntastic', { 'for': [] }
             
             Plug 'sheerun/vim-polyglot'
-            "Plug 'tpope/vim-fugitive' " XXX: conflicts with airline
+            Plug 'tpope/vim-fugitive' " XXX: conflicts with airline
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
             Plug 'scrooloose/nerdcommenter'
@@ -171,15 +173,15 @@
             Plug 'kien/rainbow_parentheses.vim'
             Plug 'thinca/vim-quickrun'
             Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
+            if executable('ctags')
+                Plug 'majutsushi/tagbar'
+            endif
             Plug 'janko-m/vim-test'
             " CVS/SVN/SVK/git/hk/bzr integration
             "Plug 'vim-scripts/vcscommand.vim'
             Plug 'qstrahl/vim-matchmaker'
             " a solid language pack for vim
             "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
-            if executable('ctags')
-                "Plug 'majutsushi/tagbar'
-            endif
             Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj']}                 " automatically detect and set buffer indentation options
             Plug 'mattn/webapi-vim'
             "Plug 'PeterRincker/vim-argumentative'
@@ -306,7 +308,7 @@
     " C, CPP, objc, objcpp {
         if !count(g:spf13_bundle_groups, 'youcompleteme') && !count(g:spf13_bundle_groups, 'deoplete')
             Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
-                        \ we don't need this plugin to complete header file anymore
+                        \ " we don't need this plugin to complete header file anymore
                          \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
         endif
         Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp', 'rust', 'go', 'objc', 'objcpp', 'swift'] }
@@ -324,7 +326,6 @@
         Plug 'keith/swift.vim', { 'for': ['swift'] }
         Plug 'toyamarinyon/vim-swift', {'for': ['swift']}
     " }
-
 
     " PHP {
         if count(g:spf13_bundle_groups, 'php')
@@ -508,9 +509,7 @@
     endif
 " }
 
-
-
-" Plugins {
+" Setup Plugin Manager Support end {
     " Setup vim-plug Support {
         " The next line ensures that the ~/.vim/bundle/ system works
         call plug#end()
