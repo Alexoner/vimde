@@ -168,7 +168,8 @@
             Plug 'junegunn/vim-easy-align'
             Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
-            Plug 'nathanaelkane/vim-indent-guides'
+            "Plug 'nathanaelkane/vim-indent-guides'
+            Plug 'Yggdroot/indentLine'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
             Plug 'thinca/vim-quickrun'
