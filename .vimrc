@@ -520,8 +520,23 @@
     nmap <leader>f8 :set foldlevel=8<CR>
     nmap <leader>f9 :set foldlevel=9<CR>
 
-    " search for visually selected text
-    vnoremap / y/<C-R>"<CR>
+    " easier search {
+        " search for visually selected text
+        vnoremap / y/<C-R>"<CR>
+
+        " Permanent very magic mode, like POSIX regular expression, see :help magic
+        " Refer to https://github.com/vim-scripts/Enchanted-Vim
+        nnoremap / /\v
+        nnoremap ? ?\v
+        "vnoremap / y/\v<C-R>"<CR>
+        "vnoremap ? y?\v<C-R>"<CR>
+        "cnoremap %s/ %smagic/
+        cnoremap %s/ %s/\v
+        cnoremap \>s/ \>smagic/
+        nnoremap :g/ :g/\v
+        nnoremap :g// :g//
+    " }
+
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
     " and off, add the following to your .vimrc.before.local file:
