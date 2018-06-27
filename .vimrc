@@ -505,6 +505,17 @@
         cmap Tabe tabe
     endif
 
+    " Yank/copy and paste {
+    "Paste in visual mode without copying
+        "xnoremap p pgvy
+        " use '"_', the blackhole register, see ':help "_'
+		" delete without yanking
+		"vnoremap <leader>d "_d
+		"nnoremap <leader>d "_d
+		" replace visually selected text without copying it: delete into black hole register, then paste
+        vnoremap p "_dP
+    " }
+
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
 
