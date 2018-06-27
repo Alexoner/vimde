@@ -543,11 +543,23 @@
         "vnoremap ? y?\v<C-R>"<CR>
         "cnoremap %s/ %smagic/
         cnoremap %s/ %s/\v
+        "cnoremap '<,'>s/ '<,'>s/\v " doesn't work
         cnoremap \>s/ \>smagic/
         nnoremap :g/ :g/\v
         nnoremap :g// :g//
     " }
 
+    " record: to apply the recorded macro over visually selected lines, 
+	" map visual at {
+        vnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+        function! ExecuteMacroOverVisualRange()
+            echo "@".getcmdline()
+            execute ":'<,'>normal @".nr2char(getchar())
+        endfunction
+
+    " }
+    
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
     " and off, add the following to your .vimrc.before.local file:
