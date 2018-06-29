@@ -196,17 +196,21 @@
         if count(g:spf13_bundle_groups, 'colorscheme')
             Plug 'flazz/vim-colorschemes'
             Plug 'iCyMind/NeoSolarized'
-            "Plug 'altercation/vim-colors-solarized'
-            Plug 'morhetz/gruvbox'
-            Plug 'joshdick/onedark.vim'
-            Plug 'tomasr/molokai'
             Plug 'sickill/vim-monokai'
+
+            " color schemes below are either included by 'flazz/vim-colorschemes', or
+            " ugly...
+            "Plug 'morhetz/gruvbox'
+            "Plug 'joshdick/onedark.vim'
+            "Plug 'tomasr/molokai'
+            "Plug 'mhartington/oceanic-next'
             "Plug 'romainl/flattened'
-            "Plug 'w0ng/vim-hybrid'
-            Plug 'mhartington/oceanic-next'
             "Plug 'freeo/vim-kalisi'
+            "Plug 'altercation/vim-colors-solarized'
+            "Plug 'w0ng/vim-hybrid'
             "Plug 'chriskempson/vim-tomorrow-theme'
             "Plug 'frankier/neovim-colors-solarized-truecolor-only'
+            "Plug 'raphamorim/lucario'
         endif
     " }
 
