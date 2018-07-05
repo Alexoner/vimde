@@ -461,6 +461,7 @@
             Plug 'quentindecock/vim-cucumber-align-pipes'
             Plug 'saltstack/salt-vim'
             Plug 'chrisbra/csv.vim', { 'for': ['csv'] }
+            Plug 'shime/vim-livedown', {'do': 'npm install -g livedown'} " Vim plugin for Livedown.
 
             function! BuildComposer(info)
               if a:info.status != 'unchanged' || a:info.force
