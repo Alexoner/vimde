@@ -898,6 +898,12 @@
         endif
     "}
 
+    " fzf.vim {
+        if isdirectory(expand("~/.vim/bundle/fzf.vim"))
+            nnoremap <c-p> :GFiles<cr>
+        endif
+    " }
+
     " TagBar {
         if isdirectory(expand("~/.vim/bundle/tagbar/"))
             let updatetime=600
@@ -932,14 +938,14 @@
 
     " Neomake {
         if isdirectory(expand("~/.vim/bundle/neomake"))
-            augroup lint
-                autocmd! FileType python,javascript
-                            \ autocmd! BufWritePost,BufWinEnter * Neomake
+            "augroup lint
+                "autocmd! FileType python,javascript
+                            "\ autocmd! BufWritePost,BufWinEnter * Neomake
                 " Details about autocmd see :help autocmd
                 "autocmd! InsertLeave,BufWrite,BufWinEnter * Neomake
                 "autocmd! BufWritePost,BufWinEnter * Neomake
                 "autocmd! CursorHold,CursorHoldI * Neomake
-            augroup END
+            "augroup END
             let g:neomake_python_flake82_maker = {
                 \ 'exe': 'python2',
                 \ 'args': [ '-m' , 'flake8'],

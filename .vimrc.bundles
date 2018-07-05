@@ -99,8 +99,10 @@
             Plug 'scrooloose/nerdtree'
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'Xuyuanp/nerdtree-git-plugin'
-            Plug 'ctrlpvim/ctrlp.vim'
-            Plug 'tacahiroy/ctrlp-funky'
+            "Plug 'ctrlpvim/ctrlp.vim'
+            "Plug 'tacahiroy/ctrlp-funky'
+            Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
+            Plug 'junegunn/fzf.vim'
             Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
             Plug 'google/vim-searchindex' "vim-searchindex: display number of search matches & index of a current match
             "Plug 'dyng/ctrlsf.vim' " project-wide/global search, similar to ctrl-shift-f in sublime
@@ -158,15 +160,16 @@
             " Pick one of the checksyntax, jslint, or syntastic
             "Plug 'scrooloose/syntastic', { 'for': [] }
             
-            Plug 'sheerun/vim-polyglot'
-            Plug 'tpope/vim-fugitive' " XXX: conflicts with airline
+            Plug 'sheerun/vim-polyglot' "A solid language pack for Vim.
+            Plug 'tpope/vim-fugitive' " 
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
             Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
             "Plug 'godlygeek/tabular'
             Plug 'junegunn/vim-easy-align'
-            Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
+            "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
+            Plug 'w0rp/ale' " Asynchronous Lint Engine
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
             "Plug 'nathanaelkane/vim-indent-guides'
             Plug 'Yggdroot/indentLine'
@@ -241,7 +244,7 @@
               if a:info.status == 'installed' || a:info.force
                   " Mac 
                   " TODO: Ubuntu
-                !./install.py --clang-completer --gocode-completer --racer-completer --tern-completer
+                !./install.py --clang-completer --gocode-completer --rust-completer --js-completer --java-completer
               endif
             endfunction
 
@@ -509,6 +512,7 @@
 
     " LaTex {
         Plug 'lervag/vimtex', {'for': ['tex']}
+        Plug 'donRaphaco/neotex', { 'for': 'tex' } "latex live preview - plugin for neovim and vim 8
     " }
 
     endif
