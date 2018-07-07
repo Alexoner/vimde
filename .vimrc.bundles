@@ -417,7 +417,7 @@
         if count(g:spf13_bundle_groups, 'html')
             Plug 'vim-scripts/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
             Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'javascript']}
-            Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'javascript'] }
+            Plug 'ap/vim-css-color' ", { 'for': ['css', 'scss', 'javascript'] }
             Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
             Plug 'mattn/emmet-vim', { 'for': ['css', 'scss', 'javascript'] }
         endif

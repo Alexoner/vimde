@@ -235,12 +235,18 @@
 
     if (has("nvim"))
         "let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-        " To enable mode shapes, "Cursor" highlight, and blinking: 
-        set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-          \,sm:block-blinkwait175-blinkoff150-blinkon175
     endif
+    " To enable mode shapes, "Cursor" highlight, and blinking: 
+    set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+                \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+                \,sm:block-blinkwait175-blinkoff150-blinkon175
 
+    " highlight cursor
+    "highlight Cursor         ctermfg=8 ctermbg=14 guifg=#002b36 guibg=#93a1a1
+    "highlight Cursor         ctermfg=8 ctermbg=14 guifg=#002b36 guibg=#303030
+
+    set cursorline                  " Highlight current line
+    set cursorcolumn                " Highlight current column
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         if has('gui_running')
@@ -291,9 +297,6 @@
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
-
-    set cursorline                  " Highlight current line
-    set cursorcolumn                " Highlight current column
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
