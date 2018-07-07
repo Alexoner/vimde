@@ -499,6 +499,8 @@
         nmap <S-L> gt
         "nmap <C-T> :tabnew<CR>
         "nmap <C-W> :tabclose<CR>
+        nnoremap <S-PageUp> :tabmove -1<CR>
+        nnoremap <S-PageDown> :tabmove +1<CR>
     endif
 
     " Stupid shift key fixes
