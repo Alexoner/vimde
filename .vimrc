@@ -215,9 +215,6 @@
     "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
     "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
     "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-    if (has("nvim"))
-        let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-    endif
     if (empty($TMUX) || 1)
       if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -234,6 +231,16 @@
     if (has("termguicolors"))
         set termguicolors
     endif
+
+
+    if (has("nvim"))
+        "let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+        " To enable mode shapes, "Cursor" highlight, and blinking: 
+        set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+          \,sm:block-blinkwait175-blinkoff150-blinkon175
+    endif
+
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         if has('gui_running')
@@ -340,6 +347,8 @@
     "Invisible character colors, but it's overriden by colorscheme plugins
     highlight NonText guifg=#4a4a59
     highlight SpecialKey guifg=#4a4a59
+
+    set concealcursor=n
 
 " }
 
@@ -510,10 +519,10 @@
     "Paste in visual mode without copying
         "xnoremap p pgvy
         " use '"_', the blackhole register, see ':help "_'
-		" delete without yanking
-		"vnoremap <leader>d "_d
-		"nnoremap <leader>d "_d
-		" replace visually selected text without copying it: delete into black hole register, then paste
+        " delete without yanking
+        "vnoremap <leader>d "_d
+        "nnoremap <leader>d "_d
+        " replace visually selected text without copying it: delete into black hole register, then paste
         vnoremap p "_dP
     " }
 
@@ -551,7 +560,7 @@
     " }
 
     " record: to apply the recorded macro over visually selected lines, 
-	" map visual at {
+    " map visual at {
         vnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
         function! ExecuteMacroOverVisualRange()
@@ -1715,6 +1724,7 @@
         let g:vim_markdown_folding_disabled = 1
         let g:vim_markdown_math             = 1
         autocmd FileType markdown set conceallevel=2 concealcursor=n
+        au FileType markdown au BufEnter set conceallevel=2 concealcursor=n
 
         " vim-livedown{
             " should markdown preview get shown automatically upon opening markdown buffer

@@ -192,6 +192,7 @@
             Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
             Plug 'zenbro/mirror.vim'
             Plug 'editorconfig/editorconfig-vim'
+            Plug 'tpope/vim-endwise' " endwise.vim: wisely add 'end' in ruby, endfunction/endif/more in vim script, etc
         endif
     " }
 
@@ -226,6 +227,7 @@
             Plug 'reedes/vim-textobj-quote'
             Plug 'reedes/vim-wordy'
         endif
+        Plug 'junegunn/goyo.vim' " distraction-free writing in Vim
     " }
     
     " Pandoc {
