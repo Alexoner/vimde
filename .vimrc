@@ -1164,7 +1164,7 @@
             "autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript let g:ycm_auto_trigger = 1
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
-            cmap ycmfixit YcmCompleter FixIt
+            "cmap ycmfixit YcmCompleter FixIt
 
             " Haskell post write lint and check with ghcmod
             " $ `cabal install ghcmod` if missing and ensure
@@ -2017,4 +2017,15 @@
             source ~/.gvimrc.local
         endif
     endif
+" }
+
+" update this repository {
+    function! UpdateSelf()
+        !cd ~/.spf13-vim-3 && git pull
+    endfunction
+
+    " FIXME: cmap doesn't work...
+    "cmap UpdateSelf <C-R>=UpdateSelf()<CR>
+    "cmap <expr> UpdateSelf UpdateSelf()
+    command! UpdateSelf call UpdateSelf()
 " }
