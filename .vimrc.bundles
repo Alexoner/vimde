@@ -105,6 +105,7 @@
             Plug 'junegunn/fzf.vim'
             Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
             Plug 'google/vim-searchindex' "vim-searchindex: display number of search matches & index of a current match
+            Plug 'lfv89/vim-interestingwords' " A vim plugin for highlighting and navigating through different words in a buffer.
             "Plug 'dyng/ctrlsf.vim' " project-wide/global search, similar to ctrl-shift-f in sublime
             if executable('ag')
                 Plug 'mileszs/ack.vim'
