@@ -495,13 +495,20 @@
     " .vimrc.before.local file:
     "   let g:spf13_no_fastTabs = 1
     if !exists('g:spf13_no_fastTabs')
-        nmap <S-H> gT
-        nmap <S-L> gt
-        "nmap <C-T> :tabnew<CR>
-        "nmap <C-W> :tabclose<CR>
-        nnoremap <S-PageUp> :tabmove -1<CR>
-        nnoremap <S-PageDown> :tabmove +1<CR>
+        nmap <M-h> gT
+        nmap <M-l> gt
+        nmap <M-t> :tabnew<CR>
+        nmap <M-w> :tabclose<CR>
+        "nnoremap <S-PageUp> :tabmove -1<CR>
+        "nnoremap <S-PageDown> :tabmove +1<CR>
+        nnoremap <C-M-PageUp> :tabmove -1<CR>
+        nnoremap <C-M-PageDown> :tabmove +1<CR>
+
     endif
+
+    " fast buffers
+    nnoremap <M-H> :bprevious<CR>
+    nnoremap <M-L> :bnext<CR>
 
     " Stupid shift key fixes
     if !exists('g:spf13_no_keyfixes')
@@ -918,6 +925,8 @@
     " fzf.vim {
         if isdirectory(expand("~/.vim/bundle/fzf.vim"))
             nnoremap <c-p> :GFiles<cr>
+            nnoremap <c-M-p> :Files<cr>
+            nnoremap <C-M-b> :Buffers<cr>
         endif
     " }
 
@@ -1500,6 +1509,8 @@
 
         " CompleteParameter.vim {
             inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+            "inoremap <silent><expr><m-j> complete_parameter#pre_complete("()")
+            "inoremap <silent><expr> <c-j> pumvisible() ? complete_parameter#pre_complete("()") : <Plug>(complete_parameter#goto_next_parameter)
             smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
             imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
             smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
@@ -1792,8 +1803,10 @@
         " Alt+key would do the trick
         "vmap <A-j> <Plug>MoveBlockDown
         "vmap <A-k> <Plug>MoveBlockUp
-        nmap ∆ <Plug>MoveLineDown
-        nmap ˚ <Plug>MoveLineUp " <A-K>, i.e. Alt+K
+        "nmap ∆ <Plug>MoveLineDown
+        nmap <M-j> <Plug>MoveLineDown " XXX: <M> is Alt modifier
+        "nmap ˚ <Plug>MoveLineUp " <A-K>, i.e. Alt+K
+        nmap <M-k> <Plug>MoveLineUp " <A-K>, i.e. Alt+K
         vmap ∆ <Plug>MoveBlockDown
         vmap ˚ <Plug>MoveBlockUp " <A-K>, i.e. Alt+K
     " }
