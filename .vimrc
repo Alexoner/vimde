@@ -673,6 +673,16 @@
             execute "digraphs xs " . 0x2093
     "}
 
+
+    " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev{
+    " map :e to :E, :cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
+        function! CommandCabbr(abbreviation, expansion)
+          execute 'cabbrev ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
+        endfunction
+        command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
+        " Use it on itself to define a simpler abbreviation for itself.
+        CommandCabbr alias CommandCabbr
+    " }
 " }
 
 " Plugins {
