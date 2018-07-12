@@ -937,6 +937,7 @@
             nnoremap <c-p> :GFiles<cr>
             nnoremap <c-M-p> :Files<cr>
             nnoremap <C-M-b> :Buffers<cr>
+            CommandCabbr buffers Buffers
         endif
     " }
 
