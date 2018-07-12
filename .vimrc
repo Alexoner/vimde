@@ -12,7 +12,7 @@
 "   While much of it is beneficial for general use, I would
 "   recommend picking out the parts you want and understand.
 "
-"   You can find me at http://spf13.com
+"   You can find me at http://vimde.com
 "
 "   Copyright 2014 Steve Francia
 "
@@ -59,7 +59,7 @@
     " }
 
     " Arrow Key Fix {
-        " https://github.com/spf13/spf13-vim/issues/780
+        " https://github.com/vimde/vimde-vim/issues/780
         if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
             inoremap <silent> <C-[>OC <RIGHT>
         endif
@@ -117,8 +117,8 @@
     " Most prefer to automatically switch to the current file directory when
     " a new buffer is opened; to prevent this behavior, add the following to
     " your .vimrc.before.local file:
-    "   let g:spf13_no_autochdir = 1
-    if !exists('g:spf13_no_autochdir')
+    "   let g:vimde_no_autochdir = 1
+    if !exists('g:vimde_no_autochdir')
         autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
         " Always switch to the current file directory
     endif
@@ -168,8 +168,8 @@
     " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
     " Restore cursor to file position in previous editing session
     " To disable this, add the following to your .vimrc.before.local file:
-    "   let g:spf13_no_restore_cursor = 1
-    if !exists('g:spf13_no_restore_cursor')
+    "   let g:vimde_no_restore_cursor = 1
+    if !exists('g:vimde_no_restore_cursor')
         function! ResCur()
             if line("'\"") <= line("$")
                 silent! normal! g`"
@@ -192,8 +192,8 @@
         endif
 
         " To disable views add the following to your .vimrc.before.local file:
-        "   let g:spf13_no_views = 1
-        if !exists('g:spf13_no_views')
+        "   let g:vimde_no_views = 1
+        if !exists('g:vimde_no_views')
             " Add exclusions to mkview and loadview
             " eg: *.*, svn-commit.tmp
             let g:skipview_files = [
@@ -248,7 +248,7 @@
     set cursorline                  " Highlight current line
     set cursorcolumn                " Highlight current column
 
-    if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    if !exists('g:override_vimde_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
         if has('gui_running')
             set background=light
         else
@@ -318,7 +318,7 @@
         " Broken down into easily includeable segments
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
-        if !exists('g:override_spf13_bundles')
+        if !exists('g:override_vimde_bundles')
             set statusline+=%{fugitive#statusline()} " Git Hotness
         endif
         set statusline+=\ [%{&ff}/%Y]            " Filetype
@@ -373,8 +373,8 @@
     " Remove trailing whitespaces and ^M chars
     " To disable the stripping of whitespace, add the following to your
     " .vimrc.before.local file:
-    "   let g:spf13_keep_trailing_whitespace = 1
-    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    "   let g:vimde_keep_trailing_whitespace = 1
+    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:vimde_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     autocmd FileType c,cpp,objc,objcpp setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
@@ -398,40 +398,40 @@
     " The default leader is '\', but many people prefer ',' as it's in a standard
     " location. To override this behavior and set it back to '\' (or any other
     " character) add the following to your .vimrc.before.local file:
-    "   let g:spf13_leader='\'
-    if !exists('g:spf13_leader')
+    "   let g:vimde_leader='\'
+    if !exists('g:vimde_leader')
         let mapleader = ','
     else
-        let mapleader=g:spf13_leader
+        let mapleader=g:vimde_leader
     endif
-    if !exists('g:spf13_localleader')
+    if !exists('g:vimde_localleader')
         let maplocalleader = '_'
     else
-        let maplocalleader=g:spf13_localleader
+        let maplocalleader=g:vimde_localleader
     endif
 
-    " The default mappings for editing and applying the spf13 configuration
+    " The default mappings for editing and applying the vimde configuration
     " are <leader>ev and <leader>sv respectively. Change them to your preference
     " by adding the following to your .vimrc.before.local file:
-    "   let g:spf13_edit_config_mapping='<leader>ec'
-    "   let g:spf13_apply_config_mapping='<leader>sc'
-    if !exists('g:spf13_edit_config_mapping')
-        let s:spf13_edit_config_mapping = '<leader>ev'
+    "   let g:vimde_edit_config_mapping='<leader>ec'
+    "   let g:vimde_apply_config_mapping='<leader>sc'
+    if !exists('g:vimde_edit_config_mapping')
+        let s:vimde_edit_config_mapping = '<leader>ev'
     else
-        let s:spf13_edit_config_mapping = g:spf13_edit_config_mapping
+        let s:vimde_edit_config_mapping = g:vimde_edit_config_mapping
     endif
-    if !exists('g:spf13_apply_config_mapping')
-        let s:spf13_apply_config_mapping = '<leader>sv'
+    if !exists('g:vimde_apply_config_mapping')
+        let s:vimde_apply_config_mapping = '<leader>sv'
     else
-        let s:spf13_apply_config_mapping = g:spf13_apply_config_mapping
+        let s:vimde_apply_config_mapping = g:vimde_apply_config_mapping
     endif
 
     " Easier moving in tabs and windows
     " The lines conflict with the default digraph mapping of <C-K>
     " If you prefer that functionality, add the following to your
     " .vimrc.before.local file:
-    "   let g:spf13_no_easyWindows = 1
-    if !exists('g:spf13_no_easyWindows')
+    "   let g:vimde_no_easyWindows = 1
+    if !exists('g:vimde_no_easyWindows')
         "map <C-J> <C-W>j<C-W>_
         "map <C-K> <C-W>k<C-W>_
         "map <C-L> <C-W>l<C-W>_
@@ -455,8 +455,8 @@
     " Default vim behaviour is to act relative to text line in both cases
     " If you prefer the default behaviour, add the following to your
     " .vimrc.before.local file:
-    "   let g:spf13_no_wrapRelMotion = 1
-    if !exists('g:spf13_no_wrapRelMotion')
+    "   let g:vimde_no_wrapRelMotion = 1
+    if !exists('g:vimde_no_wrapRelMotion')
         " Same for 0, home, end, etc
         function! WrapRelativeMotion(key, ...)
             let vis_sel=""
@@ -493,8 +493,8 @@
     " bottom of the screen
     " If you prefer that functionality, add the following to your
     " .vimrc.before.local file:
-    "   let g:spf13_no_fastTabs = 1
-    if !exists('g:spf13_no_fastTabs')
+    "   let g:vimde_no_fastTabs = 1
+    if !exists('g:vimde_no_fastTabs')
         nmap <M-h> gT
         nmap <M-l> gt
         nmap <M-t> :tabnew<CR>
@@ -511,7 +511,7 @@
     nnoremap <Tab> :bnext<CR> " go to previous buffer
 
     " Stupid shift key fixes
-    if !exists('g:spf13_no_keyfixes')
+    if !exists('g:vimde_no_keyfixes')
         if has("user_commands")
             command! -bang -nargs=* -complete=file E e<bang> <args>
             command! -bang -nargs=* -complete=file W w<bang> <args>
@@ -585,8 +585,8 @@
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
     " and off, add the following to your .vimrc.before.local file:
-    "   let g:spf13_clear_search_highlight = 1
-    if exists('g:spf13_clear_search_highlight')
+    "   let g:vimde_clear_search_highlight = 1
+    if exists('g:vimde_clear_search_highlight')
         nmap <silent> <leader>/ :nohlsearch<CR>
     else
         nmap <silent> <leader>/ :set invhlsearch<CR>
@@ -688,7 +688,7 @@
 " Plugins {
 
     "General Programming  {
-         if count(g:spf13_bundle_groups, 'programming')
+         if count(g:vimde_bundle_groups, 'programming')
             "rainbow_parentheses.vim
             au VimEnter * RainbowParenthesesToggle
             au Syntax * RainbowParenthesesLoadRound
@@ -702,7 +702,7 @@
     "}
 
     " TextObj Sentence {
-        if count(g:spf13_bundle_groups, 'writing')
+        if count(g:vimde_bundle_groups, 'writing')
             augroup textobj_sentence
               autocmd!
               autocmd FileType markdown call textobj#sentence#init()
@@ -713,7 +713,7 @@
     " }
 
     " TextObj Quote {
-        if count(g:spf13_bundle_groups, 'writing')
+        if count(g:vimde_bundle_groups, 'writing')
             augroup textobj_quote
                 autocmd!
                 autocmd FileType markdown call textobj#quote#init()
@@ -766,8 +766,8 @@
 
     " OmniComplete {
         " To disable omni complete, add the following to your .vimrc.before.local file:
-        "   let g:spf13_no_omni_complete = 1
-        if !exists('g:spf13_no_omni_complete')
+        "   let g:vimde_no_omni_complete = 1
+        if !exists('g:vimde_no_omni_complete')
             if has("autocmd") && exists("+omnifunc")
                 autocmd Filetype *
                     \if &omnifunc == "" |
@@ -777,7 +777,7 @@
 
             " Some convenient mappings
             "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-            if exists('g:spf13_map_cr_omni_complete')
+            if exists('g:vimde_map_cr_omni_complete')
                 inoremap <expr> <CR>     pumvisible() ? "\<C-y>" : "\<CR>"
             endif
             inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -1150,7 +1150,7 @@
     " A code-completion engine for Vim
     " Use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix. 
     " YouCompleteMe {
-        if count(g:spf13_bundle_groups, 'youcompleteme')
+        if count(g:vimde_bundle_groups, 'youcompleteme')
 
             let g:ycm_auto_trigger                                       = 1
             " enable completion from tags
@@ -1195,7 +1195,7 @@
             endif
 
             " For snippet_complete marker.
-            if !exists("g:spf13_no_conceal")
+            if !exists("g:vimde_no_conceal")
                 if has('conceal')
                     set conceallevel=2 concealcursor=n " conceal only in normal mode
                 endif
@@ -1209,7 +1209,7 @@
     " }
 
     " deoplete {
-        if count(g:spf13_bundle_groups, 'deoplete')
+        if count(g:vimde_bundle_groups, 'deoplete')
             " Use deoplete.
             let g:deoplete#enable_at_startup = 1
             " Use smartcase.
@@ -1258,7 +1258,7 @@
     " }
 
     " neocomplete {
-        if count(g:spf13_bundle_groups, 'neocomplete')
+        if count(g:vimde_bundle_groups, 'neocomplete')
             let g:acp_enableAtStartup = 0
             let g:neocomplete#enable_at_startup = 1
             let g:neocomplete#enable_smart_case = 1
@@ -1282,11 +1282,11 @@
 
             " Plugin key-mappings {
                 " These two lines conflict with the default digraph mapping of <C-K>
-                if !exists('g:spf13_no_neosnippet_expand')
+                if !exists('g:vimde_no_neosnippet_expand')
                     imap <C-k> <Plug>(neosnippet_expand_or_jump)
                     smap <C-k> <Plug>(neosnippet_expand_or_jump)
                 endif
-                if exists('g:spf13_noninvasive_completion')
+                if exists('g:vimde_noninvasive_completion')
                     inoremap <CR> <CR>
                     " <ESC> takes you out of insert mode
                     inoremap <expr> <Esc>   pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
@@ -1372,7 +1372,7 @@
             let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
     " }
     " neocomplcache {
-        elseif count(g:spf13_bundle_groups, 'neocomplcache')
+        elseif count(g:vimde_bundle_groups, 'neocomplcache')
             let g:acp_enableAtStartup = 0
             let g:neocomplcache_enable_at_startup = 1
             let g:neocomplcache_enable_camel_case_completion = 1
@@ -1399,7 +1399,7 @@
                 " These two lines conflict with the default digraph mapping of <C-K>
                 imap <C-k> <Plug>(neosnippet_expand_or_jump)
                 smap <C-k> <Plug>(neosnippet_expand_or_jump)
-                if exists('g:spf13_noninvasive_completion')
+                if exists('g:vimde_noninvasive_completion')
                     inoremap <CR> <CR>
                     " <ESC> takes you out of insert mode
                     inoremap <expr> <Esc>   pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
@@ -1473,8 +1473,8 @@
     " }
     " Normal Vim omni-completion {
     " To disable omni complete, add the following to your .vimrc.before.local file:
-    "   let g:spf13_no_omni_complete = 1
-        elseif !exists('g:spf13_no_omni_complete')
+    "   let g:vimde_no_omni_complete = 1
+        elseif !exists('g:vimde_no_omni_complete')
             " Enable omni-completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -1488,8 +1488,8 @@
     " }
 
     " Snippets {
-        if count(g:spf13_bundle_groups, 'neocomplcache') ||
-                    \ count(g:spf13_bundle_groups, 'neocomplete')
+        if count(g:vimde_bundle_groups, 'neocomplcache') ||
+                    \ count(g:vimde_bundle_groups, 'neocomplete')
 
             " Use honza's snippets.
             let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
@@ -1498,7 +1498,7 @@
             let g:neosnippet#enable_snipmate_compatibility = 1
 
             " For snippet_complete marker.
-            if !exists("g:spf13_no_conceal")
+            if !exists("g:vimde_no_conceal")
                 if has('conceal')
                     set conceallevel=2 concealcursor=n " conceal only in normal mode
                 endif
@@ -1602,7 +1602,7 @@
         " highlight
         let python_highlight_all = 1
 
-        if isdirectory(expand("~/.vim/bundle/jedi-vim")) && !count(g:spf13_bundle_groups, 'youcompleteme')
+        if isdirectory(expand("~/.vim/bundle/jedi-vim")) && !count(g:vimde_bundle_groups, 'youcompleteme')
             " using deoplete-vim source for completion, not jedi-vim's omnifunc
             " but using jedi's key mapping
              autocmd FileType python setlocal omnifunc=jedi#completions
@@ -1627,7 +1627,7 @@
             "let g:jedi#rename_command           = "<leader>r"
         endif
 
-        if isdirectory(expand("~/.vim/bundle/python-mode")) && !count(g:spf13_bundle_groups, 'youcompleteme')
+        if isdirectory(expand("~/.vim/bundle/python-mode")) && !count(g:vimde_bundle_groups, 'youcompleteme')
             "python-mode
             let g:pymode            = 1
             let g:pymode_python     = 'python3'
@@ -1666,8 +1666,8 @@
     " }
 
     " javascript {
-        if count(g:spf13_bundle_groups, 'javascript')
-            if isdirectory(expand("~/.vim/bundle/tern_for_vim")) && !count(g:spf13_bundle_groups, 'youcompleteme')
+        if count(g:vimde_bundle_groups, 'javascript')
+            if isdirectory(expand("~/.vim/bundle/tern_for_vim")) && !count(g:vimde_bundle_groups, 'youcompleteme')
                 " User tern_for_vim for javascript completion
                 "autocmd FileType javascript,jsx,javascript.jsx setlocal omnifunc=tern#Complete
                 let g:tern_show_argument_hints   = 'on_hold'
@@ -1726,7 +1726,7 @@
     " }
 
     " GoLang {
-        if count(g:spf13_bundle_groups, 'go')
+        if count(g:vimde_bundle_groups, 'go')
             let g:go_highlight_functions         = 1
             let g:go_highlight_methods           = 1
             let g:go_highlight_structs           = 1
@@ -1802,7 +1802,7 @@
     " }
 
     " swift {
-        if count(g:spf13_bundle_groups, 'deoplete')
+        if count(g:vimde_bundle_groups, 'deoplete')
             " Jump to the first placeholder by typing `<C-j>`.
             autocmd FileType swift imap <buffer> <C-j> <Plug>(deoplete_swift_jump_to_placeholder)
         endif
@@ -1856,7 +1856,7 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        if !exists("g:spf13_no_big_font")
+        if !exists("g:vimde_no_big_font")
             if LINUX() && has("gui_running")
                 set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
             elseif OSX() && has("gui_running")
@@ -1894,10 +1894,10 @@
         " To specify a different directory in which to place the vimbackup,
         " vimviews, vimundo, and vimswap files/directories, add the following to
         " your .vimrc.before.local file:
-        "   let g:spf13_consolidated_directory = <full path to desired directory>
-        "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
-        if exists('g:spf13_consolidated_directory')
-            let common_dir = g:spf13_consolidated_directory . prefix
+        "   let g:vimde_consolidated_directory = <full path to desired directory>
+        "   eg: let g:vimde_consolidated_directory = $HOME . '/.vim/'
+        if exists('g:vimde_consolidated_directory')
+            let common_dir = g:vimde_consolidated_directory . prefix
         else
             let common_dir = parent . '/.' . prefix
         endif
@@ -2016,11 +2016,11 @@
         execute bufwinnr(".vimrc.local") . "wincmd w"
     endfunction
 
-    execute "noremap " . s:spf13_edit_config_mapping " :call <SID>EditSpf13Config()<CR>"
+    execute "noremap " . s:vimde_edit_config_mapping " :call <SID>EditSpf13Config()<CR>"
     if has('nvim')
-        execute "noremap " . s:spf13_apply_config_mapping . " :source ~/.config/nvim/init.vim<CR>"
+        execute "noremap " . s:vimde_apply_config_mapping . " :source ~/.config/nvim/init.vim<CR>"
     else
-        execute "noremap " . s:spf13_apply_config_mapping . " :source ~/.vimrc<CR>"
+        execute "noremap " . s:vimde_apply_config_mapping . " :source ~/.vimrc<CR>"
     endif
 " }
 
@@ -2046,7 +2046,7 @@
 
 " update this repository {
     function! UpdateSelf()
-        !cd ~/.spf13-vim-3 && git pull
+        !cd ~/.vimde-vim-3 && git pull
         PlugUpdate
     endfunction
 
