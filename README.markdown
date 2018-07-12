@@ -224,15 +224,21 @@ let g:vimde_apply_config_mapping='<Leader>sv'
 ```
 # Key mapping
 
+## `<leader>`
+`<leader>` is mapped to ','.
+
 ## Fast tab navigation
-alt+h/l: previous/next tab
+- `alt+h/l`: previous/next tab
 
 ## switch buffer easily
-tab/shift+tab: next/previous buffer
+- `tab/shift+tab`: next/previous buffer
 
 ## fuzzy find
-ctrl+p: fuzzy find git files
-ctrl+alt+p: fuzzy find files in current directory
+- `ctrl+p`: fuzzy find git files
+- `ctrl+alt+p`: fuzzy find files in current directory
+
+## highlight words
+`<leader>k`
 
 # Plugins
 
@@ -454,10 +460,10 @@ file
  * `<leader>gw` :Gwrite<CR>
  * :Git ___ will pass anything along to git.
 
+    ![fugitive image][fugitive-img]
+
 ## [livedown](https://github.com/shime/vim-livedown)
 Preview markdown instantly.
-
-![fugitive image][fugitive-img]
 
 <!--## [PIV]-->
 
