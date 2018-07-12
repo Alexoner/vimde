@@ -501,14 +501,14 @@
         nmap <M-w> :tabclose<CR>
         "nnoremap <S-PageUp> :tabmove -1<CR>
         "nnoremap <S-PageDown> :tabmove +1<CR>
-        nnoremap <C-M-PageUp> :tabmove -1<CR>
-        nnoremap <C-M-PageDown> :tabmove +1<CR>
+        nnoremap <M-H> :tabmove -1<CR> " <M-H> is <M-S-H>
+        nnoremap <M-L> :tabmove +1<CR>
 
     endif
 
     " fast buffers
-    nnoremap <M-H> :bprevious<CR>
-    nnoremap <M-L> :bnext<CR>
+    nnoremap <S-Tab> :bprevious<CR>
+    nnoremap <Tab> :bnext<CR> " go to previous buffer
 
     " Stupid shift key fixes
     if !exists('g:spf13_no_keyfixes')
