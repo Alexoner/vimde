@@ -191,9 +191,9 @@
             Plug 'mattn/webapi-vim'
             "Plug 'PeterRincker/vim-argumentative'
             Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
-            Plug 'zenbro/mirror.vim'
-            Plug 'editorconfig/editorconfig-vim'
-            Plug 'tpope/vim-endwise' " endwise.vim: wisely add 'end' in ruby, endfunction/endif/more in vim script, etc
+            "Plug 'zenbro/mirror.vim'
+            "Plug 'editorconfig/editorconfig-vim'
+            "Plug 'tpope/vim-endwise' " endwise.vim: wisely add 'end' in ruby, endfunction/endif/more in vim script, etc
         endif
     " }
 
@@ -254,8 +254,8 @@
             Plug 'Valloric/YouCompleteMe',
                     \ { 
                         \ 'do': function('BuildYCM'),
-                        \ 'for': ['c', 'cpp', 'python', 'rust', 'go', 'objc', 'objcpp', 'javascript'],
                     \ }
+                    "\ 'for': ['c', 'cpp', 'python', 'rust', 'go', 'objc', 'objcpp', 'javascript', 'sh', 'thrift'],
             " Using a non-master branch
             Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
@@ -445,7 +445,7 @@
     " Go Lang {
         if count(g:spf13_bundle_groups, 'go')
             "Plug 'Blackrush/vim-gocode', { 'for': ['go'], 'do': 'go get github.com/nsf/gocode' }
-            Plug 'fatih/vim-go', { 'for': ['go']}
+            Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries'}
         endif
     " }
 
