@@ -2035,6 +2035,7 @@
 " update this repository {
     function! UpdateSelf()
         !cd ~/.spf13-vim-3 && git pull
+        PlugUpdate
     endfunction
 
     " FIXME: cmap doesn't work...
