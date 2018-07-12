@@ -15,7 +15,7 @@ REM    limitations under the License.
 @if not exist "%HOME%" @set HOME=%HOMEDRIVE%%HOMEPATH%
 @if not exist "%HOME%" @set HOME=%USERPROFILE%
 
-@set APP_PATH=%HOME%\.spf13-vim-3
+@set APP_PATH=%HOME%\.vimde-vim-3
 
 @if not exist "%APP_PATH%" (
     echo backing up existing vim config
@@ -28,12 +28,12 @@ REM    limitations under the License.
 
 @if exist "%APP_PATH%" (
     @set ORIGINAL_DIR=%CD%
-    echo updating spf13-vim
+    echo updating vimde-vim
     chdir /d "%APP_PATH%" && git pull
     chdir /d "%ORIGINAL_DIR%"
 ) else (
-    echo cloning spf13-vim
-    call git clone -b 3.0 git://github.com/spf13/spf13-vim.git "%APP_PATH%"
+    echo cloning vimde-vim
+    call git clone -b 3.0 git://github.com/vimde/vimde-vim.git "%APP_PATH%"
 )
 
 @if not exist  "%APP_PATH%\.vim\bundle" call mkdir "%APP_PATH%\.vim\bundle"

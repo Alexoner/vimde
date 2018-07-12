@@ -15,10 +15,10 @@
 #   limitations under the License.
 
 ############################  SETUP PARAMETERS
-app_name='spf13-vim'
-[ -z "$APP_PATH" ] && APP_PATH="$HOME/.spf13-vim-3"
-[ -z "$REPO_URI" ] && REPO_URI='https://github.com/Alexoner/spf13-vim.git'
-[ -z "$REPO_BRANCH" ] && REPO_BRANCH='3.0'
+app_name='vimde'
+[ -z "$APP_PATH" ] && APP_PATH="$HOME/.vimde"
+[ -z "$REPO_URI" ] && REPO_URI='https://github.com/Alexoner/vimde.git'
+[ -z "$REPO_BRANCH" ] && REPO_BRANCH='master'
 debug_mode='0'
 fork_maintainer='1'
 [ -z "$PLUG_URL" ] && PLUG_URL="https://github.com/junegunn/vim-plug.git"
@@ -216,4 +216,4 @@ sync_repo       "$HOME/.vim/bundle/vim-plug" \
 setup_plug    "$APP_PATH/.vimrc.bundles.default"
 
 msg             "\nThanks for installing $app_name."
-msg             "© $(date +%Y) http://vim.spf13.com/"
+msg             "© $(date +%Y) http://vim.vimde.com/"

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-app_dir="$HOME/.spf13-vim-3"
+app_dir="$HOME/.vimde-vim-3"
 
 warn() {
     echo "$1" >&2

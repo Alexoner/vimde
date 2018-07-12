@@ -1,12 +1,12 @@
-# vimde: Vim Distribution Elaborated For Developer, or Vim-IDE
+# vimde: Vim Development Environment
 
-```text
+
                         _
                 __   __(_)_ __ ___
                 \ \ / /| | '_ ` _ \
                  \ V / | | | | | | |
                   \_/  |_|_| |_| |_|
-```
+
 
 vimde is a distribution of vim plugins and resources for Neovim, Vim, Gvim and [MacVim].
 
