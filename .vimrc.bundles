@@ -342,7 +342,6 @@
 
     " PHP {
         if count(g:vimde_bundle_groups, 'php')
-            Plug 'vimde/PIV', { 'for': ['php'] }
             Plug 'arnaud-lb/vim-php-namespace', { 'for': ['php'] }
             Plug 'beyondwords/vim-twig', { 'for': ['php'] }
         endif

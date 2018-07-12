@@ -2046,7 +2046,7 @@
 
 " update this repository {
     function! UpdateSelf()
-        !cd ~/.vimde-vim-3 && git pull
+        !cd ~/.vimde && git pull
         PlugUpdate
     endfunction
 
