@@ -499,6 +499,7 @@
         nmap <M-l> gt
         nmap <M-t> :tabnew<CR>
         nmap <M-w> :tabclose<CR>
+        "nmap <M-S-t> :tabnew#<CR>
         "nnoremap <S-PageUp> :tabmove -1<CR>
         "nnoremap <S-PageDown> :tabmove +1<CR>
         nnoremap <M-H> :tabmove -1<CR> " <M-H> is <M-S-H>
@@ -1778,6 +1779,9 @@
             " the browser to use
             "let g:livedown_browser = "safari"
         " }
+        
+        " prevent indentLine overwrite
+        let g:indentLine_setConceal = 0
     " }
 
     " lua {
