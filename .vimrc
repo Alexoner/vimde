@@ -324,6 +324,24 @@
         set statusline+=\ [%{&ff}/%Y]            " Filetype
         set statusline+=\ [%{getcwd()}]          " Current dir
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+
+        " count of search occurrences
+        function! SearchCount()
+          let keyString=@/
+          let pos=getpos('.')
+          try
+            redir => nth
+              silent exe '0,.s/' . keyString . '//ne'
+            redir => cnt
+              silent exe '%s/' . keyString . '//ne'
+            redir END
+            return matchstr( nth, '\d\+' ) . '/' . matchstr( cnt, '\d\+' )
+          finally
+            call setpos('.', pos)
+          endtry
+        endfunction
+        set statusline+=[%{SearchCount()}] " Nth of N when searching
+
     endif
 
     set backspace=indent,eol,start  " Backspace for dummies
@@ -612,6 +630,7 @@
 
     " For when you forget to sudo.. Really Write the file.
     cmap w!! w !sudo tee % >/dev/null
+    cmap w\ w " ignore accidentally pressing \ when hitting <Enter>
 
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
@@ -626,7 +645,7 @@
 
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    "nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
     " Easier horizontal scrolling
     map zl zL
@@ -939,6 +958,7 @@
             nnoremap <c-M-p> :Files<cr>
             nnoremap <C-M-b> :Buffers<cr>
             CommandCabbr buffers Buffers
+            CommandCabbr ls Buffers
         endif
     " }
 
@@ -1167,10 +1187,10 @@
             "let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
             "let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
             "let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
-            let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
             let g:ycm_show_diagnostics_ui                                = 1 " YCM's diagnostic, supporting custome configs
-            "let g:ycm_error_symbol                                       = '✗'
-            let g:ycm_error_symbol                                       = 'E'
+            "let g:ycm_error_symbol                                       = 'E'
+            let g:ycm_error_symbol                                       = '✗'
+            let g:ycm_error_symbol                                       = '⚠'
             let g:ycm_enable_diagnostic_signs                            = 1
             let g:ycm_server_keep_logfiles                               = 1
             let g:ycm_server_use_vim_stdout                              = 0
@@ -1576,10 +1596,12 @@
             let g:airline#extensions#virtualenv#enabled      = 1
             let g:airline#extensions#wordcount#enabled       = 1
             let g:airline#extensions#tabline#buffer_idx_mode = 1
+            " show number of search occurrences
+            let g:airline_section_z                          = '[%{SearchCount()}]%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v'
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations
-                let g:airline_left_sep='›'  " Slightly fancier than '>'
-                let g:airline_right_sep='‹' " Slightly fancier than '<'
+                let g:airline_left_sep  = '›'  " Slightly fancier than '>'
+                let g:airline_right_sep = '‹' " Slightly fancier than '<'
             endif
         endif
     " }
@@ -1615,7 +1637,7 @@
             let g:jedi#auto_vim_configuration   = 0
             let g:jedi#smart_auto_mappings      = 0
             " let g:jedi#show_call_signatures     = 0
-            let g:jedi#show_call_signatures    = "1"
+            let g:jedi#show_call_signatures     = "1"
             let g:jedi#popup_on_dot             = 0
             let g:jedi#use_tabs_not_buffers     = 1
             "let g:jedi#goto_command             = "<leader>d"
@@ -1679,7 +1701,7 @@
             "vim-jsx
             let g:jsx_ext_required    = 0 " Allow JSX in normal JS files
             "let g:jsx_pragma_required = 1
-            
+
             let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
 
             "Add extra filetypes
