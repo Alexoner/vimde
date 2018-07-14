@@ -326,16 +326,17 @@
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 
         " count of search occurrences
+        " FIXME: visual % will not work
         function! SearchCount()
           let keyString=@/
           let pos=getpos('.')
           try
             redir => nth
-              silent exe '0,.s/' . keyString . '//ne'
+              silent exe '0,.s/' . keyString . '//gne'
             redir => cnt
               silent exe '%s/' . keyString . '//ne'
             redir END
-            return matchstr( nth, '\d\+' ) . '/' . matchstr( cnt, '\d\+' )
+            return matchstr( nth, '\d\+' ) . '/' . matchstr( cnt, '\d\+' ) " regular expression matching
           finally
             call setpos('.', pos)
           endtry
@@ -1184,9 +1185,9 @@
             let g:ycm_complete_in_comments                               = 1 " Completion in comments
             let g:ycm_complete_in_strings                                = 1 " Completion in string
             let g:ycm_goto_buffer_command                                = 'new-or-existing-tab' "where GoTo* commands result should be opened.
-            "let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
-            "let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
-            "let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
+            let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
+            let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
+            let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
             let g:ycm_show_diagnostics_ui                                = 1 " YCM's diagnostic, supporting custome configs
             "let g:ycm_error_symbol                                       = 'E'
             let g:ycm_error_symbol                                       = '✗'
