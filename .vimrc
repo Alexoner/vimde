@@ -955,16 +955,20 @@
 
     " fzf.vim: fuzzy finder {
         if isdirectory(expand("~/.vim/bundle/fzf.vim"))
-            nnoremap <c-p> :GFiles<cr>
             nnoremap <c-M-p> :Files<cr>
-            nnoremap <C-M-b> :Buffers<cr>
-            CommandCabbr buffers Buffers
-            CommandCabbr history History
-            "CommandCabbr ls Buffers
-            nmap <leader>lf :Files
-            nmap <leader>lp :GFiles<CR> " list files
-            nmap <leader>lb :Buffers<CR> " list buffers
-            nmap <leader>lw :Windows<CR> " list windows
+            nmap <leader>lf :Files<CR>
+            " list files
+			nnoremap <c-p> :GFiles<cr>
+            nmap <leader>lp :GFiles<CR>
+            " list buffers
+			nnoremap <C-M-b> :Buffers<cr>
+			CommandCabbr buffers Buffers
+			nmap <leader>lb :Buffers<CR>
+            nmap <leader>ls :Buffers<CR>
+			"CommandCabbr ls Buffers
+            " list windows
+            nmap <leader>lw :Windows<CR>
+			CommandCabbr history History
         endif
     " }
 
