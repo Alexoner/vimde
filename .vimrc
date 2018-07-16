@@ -953,13 +953,18 @@
         endif
     "}
 
-    " fzf.vim {
+    " fzf.vim: fuzzy finder {
         if isdirectory(expand("~/.vim/bundle/fzf.vim"))
             nnoremap <c-p> :GFiles<cr>
             nnoremap <c-M-p> :Files<cr>
             nnoremap <C-M-b> :Buffers<cr>
             CommandCabbr buffers Buffers
-            CommandCabbr ls Buffers
+            CommandCabbr history History
+            "CommandCabbr ls Buffers
+            nmap <leader>lf :Files
+            nmap <leader>lp :GFiles<CR> " list files
+            nmap <leader>lb :Buffers<CR> " list buffers
+            nmap <leader>lw :Windows<CR> " list windows
         endif
     " }
 
