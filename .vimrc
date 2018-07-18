@@ -328,18 +328,22 @@
         " count of search occurrences
         " FIXME: visual % will not work
         function! SearchCount()
-          let keyString=@/
-          let pos=getpos('.')
-          try
-            redir => nth
-              silent exe '0,.s/' . keyString . '//gne'
-            redir => cnt
-              silent exe '%s/' . keyString . '//ne'
-            redir END
-            return matchstr( nth, '\d\+' ) . '/' . matchstr( cnt, '\d\+' ) " regular expression matching
-          finally
-            call setpos('.', pos)
-          endtry
+            let keyString=@/
+            let pos=getpos('.')
+            try
+                if keyString =~ ''
+                    return '0' . '/' . '0'
+                endif
+                redir => nth
+                    silent exe '0,.s/' . keyString . '//gne'
+                redir => cnt
+                    silent exe '%s/' . keyString . '//ne'
+                redir END
+                " regular expression matching, \v for magic(extended regex)
+                return matchstr(nth, '\v\d+') . '/' . matchstr(cnt, '\v\d+')
+            finally
+                call setpos('.', pos)
+            endtry
         endfunction
         set statusline+=[%{SearchCount()}] " Nth of N when searching
 
