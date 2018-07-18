@@ -328,18 +328,40 @@
         " count of search occurrences
         " FIXME: visual % will not work
         function! SearchCount()
-          let keyString=@/
-          let pos=getpos('.')
-          try
-            redir => nth
-              silent exe '0,.s/' . keyString . '//gne'
-            redir => cnt
-              silent exe '%s/' . keyString . '//ne'
-            redir END
-            return matchstr( nth, '\d\+' ) . '/' . matchstr( cnt, '\d\+' ) " regular expression matching
-          finally
-            call setpos('.', pos)
-          endtry
+            let keyString=@/
+            let pos=getpos('.')
+            try
+                " validate input
+                if keyString =~ '^$' " empty string
+                    return '0' . '/' . '0'
+                endif
+
+                if keyString =~ '^\\$'
+                    return '0/0'
+                endif
+
+                let nth="0 matches on 0 lines"
+                let cnt="0 matches on 0 lines"
+                redir => nth
+                    silent exe '0,.s/' . keyString . '//gne'
+                redir => cnt
+                    silent exe '%s/' . keyString . '//ne'
+                redir END
+
+                " post check
+                if !exists('nth') " undefined, empty string from stdout
+                    echo "nth doesn't exist yet!"
+                    return '0' . '/' . '0'
+                endif
+                if !exists('cnt') " empty string
+                    return '0' . '/' . '0'
+                endif
+
+                " regular expression matching, \v for magic(extended regex)
+                return matchstr(nth, '\v\d+') . '/' . matchstr(cnt, '\v\d+')
+            finally
+                call setpos('.', pos)
+            endtry
         endfunction
         set statusline+=[%{SearchCount()}] " Nth of N when searching
 
@@ -836,7 +858,7 @@
 
     " NerdTree {
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
-            map <C-e> <plug>NERDTreeTabsToggle<CR>
+            "map <C-e> <plug>NERDTreeTabsToggle<CR>
             map <leader>e :NERDTreeFind<CR>
             nmap <leader>nt :NERDTreeFind<CR>
 
