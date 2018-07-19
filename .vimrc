@@ -382,6 +382,8 @@
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set foldenable                  " Auto fold code
+    set foldmethod=indent
+    set foldlevel=9
     "list feature can be used to reveal hidden characters
     set list
     "type unicode characters: press <ctrl-v>u, followed by its unicode number
