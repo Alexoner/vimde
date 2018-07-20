@@ -236,7 +236,7 @@
     if (has("nvim"))
         "let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
     endif
-    " To enable mode shapes, "Cursor" highlight, and blinking: 
+    " To enable mode shapes, "Cursor" highlight, and blinking:
     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
                 \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
                 \,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -615,7 +615,7 @@
         nnoremap :g// :g//
     " }
 
-    " record: to apply the recorded macro over visually selected lines, 
+    " record: to apply the recorded macro over visually selected lines,
     " map visual at {
         vnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -625,7 +625,7 @@
         endfunction
 
     " }
-    
+
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
     " and off, add the following to your .vimrc.before.local file:
@@ -1203,7 +1203,7 @@
 
 
     " A code-completion engine for Vim
-    " Use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix. 
+    " Use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix.
     " YouCompleteMe {
         if count(g:vimde_bundle_groups, 'youcompleteme')
 
@@ -1240,7 +1240,7 @@
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
             "cmap ycmfixit YcmCompleter FixIt
-            CommandCabbr ycmfixit YcmCompleter\ FixIt
+            CommandCabbr fixit YcmCompleter\ FixIt
 
             " Haskell post write lint and check with ghcmod
             " $ `cabal install ghcmod` if missing and ensure
@@ -1761,7 +1761,8 @@
 
     " C, CPP {
         " STL header file type detection
-        au BufRead * if search('\M-*- C++ -*-', 'nw') | setlocal ft=cpp | endif
+        "au BufRead * if search('\M-*- C++ -*-', 'nw') | setlocal ft=cpp | endif
+        au BufRead * if search('\M-*- C++ -*-', 'n', '1') | setlocal ft=cpp | endif " only search first line
         " clang_complete
         let g:clang_use_library                        = 1
         let g:clang_library_path                       = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
@@ -1829,7 +1830,7 @@
             let g:livedown_autorun = 1
 
             " should the browser window pop-up upon previewing
-            let g:livedown_open = 1 
+            let g:livedown_open = 1
 
             " the port on which Livedown server will run
             let g:livedown_port = 1337
@@ -1837,7 +1838,7 @@
             " the browser to use
             "let g:livedown_browser = "safari"
         " }
-        
+
         " prevent indentLine overwrite
         let g:indentLine_setConceal = 0
     " }
