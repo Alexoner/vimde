@@ -983,7 +983,7 @@
             nmap <leader>lf :Files<CR>
             " list files
 			nnoremap <c-p> :GFiles<cr>
-            nmap <leader>lp :GFiles<CR>
+            nmap <leader>lg :GFiles<CR>
             " list buffers
 			nnoremap <C-M-b> :Buffers<cr>
 			CommandCabbr buffers Buffers
