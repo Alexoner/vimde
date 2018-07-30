@@ -846,6 +846,7 @@
             map <leader>e :NERDTreeFind<CR>
             nmap <leader>nt :NERDTreeFind<CR>
 
+            let NERDTreeWinSize          = 60
             let NERDTreeShowBookmarks    = 1
             let NERDTreeIgnore           = ['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '.DS_Store', '\.out']
             let NERDTreeChDirMode        = 2
@@ -1612,7 +1613,13 @@
             let g:airline#extensions#virtualenv#enabled      = 1
             let g:airline#extensions#wordcount#enabled       = 1
             let g:airline#extensions#tabline#buffer_idx_mode = 1
+            let g:airline#extensions#syntastic#enabled       = 0
+            let g:airline#extensions#neomake#enabled         = 0
+            let g:airline#extensions#ycm#enabled             = 1
+            let g:airline#extensions#ale#enabled             = 1
             " show number of search occurrences
+            let g:airline_section_error                      = ''
+            let g:airline_section_warning                    = ''
             let g:airline_section_z                          = '[%{SearchCount()}]%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v'
             if !exists('g:airline_powerline_fonts')
                 " Use the default set of separators with a few customizations

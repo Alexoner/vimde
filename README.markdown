@@ -304,7 +304,7 @@ For java users wanting to use eclim be sure to add `let g:EclimCompletionMethod 
 ## [ale](https://github.com/w0rp/ale)
 Asynchronous lint engine.
 
-## [fzf.vim]
+## [fzf.vim](https://github.com/junegunn/fzf.vim)
 Blazing fast fuzzy finder!
 **QuickStart** Launch using `<c-p>`.
 
@@ -333,6 +333,14 @@ Combined with persistent undo, this is nearly as flexible and safe as git ;-)
 Undotree makes that feature more accessible by creating a visual representation of said undo-tree.
 
 **QuickStart** Launch using `<Leader>u`.
+
+## [Abolish](https://github.com/tpope/vim-abolish)
+Want to turn `fooBar` into `foo_bar`?  Press `crs` (coerce to
+snake\_case).  MixedCase (`crm`), camelCase (`crc`), snake\_case
+(`crs`), UPPER\_CASE (`cru`), dash-case (`cr-`), dot.case (`cr.`),
+space case (`cr<space>`), and Title Case (`crt`) are all just 3
+keystrokes away.  These commands support
+[repeat.vim](https://github.com/tpope/vim-repeat).
 
 ## [ctrlp]
 DEPRECATED, in favor of fzf.vim.
