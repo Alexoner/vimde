@@ -438,6 +438,16 @@
 
 " Key (re)Mappings {
 
+    " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev{
+    " map :e to :E, :cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
+        function! CommandCabbr(abbreviation, expansion)
+          execute 'cabbrev ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
+        endfunction
+        command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
+        " Use it on itself to define a simpler abbreviation for itself.
+        CommandCabbr alias CommandCabbr
+    " }
+
     " The default leader is '\', but many people prefer ',' as it's in a standard
     " location. To override this behavior and set it back to '\' (or any other
     " character) add the following to your .vimrc.before.local file:
@@ -644,6 +654,7 @@
     " Change Working Directory to that of the current file
     cmap cwd lcd %:p:h
     cmap cd. lcd %:p:h
+    cmap cfp let @+ = expand("%:p") " Copy current File full Path into unnamedplus register
 
     " Visual shifting (does not exit Visual mode)
     vnoremap < <gv
@@ -718,16 +729,6 @@
             execute "digraphs xs " . 0x2093
     "}
 
-
-    " http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev{
-    " map :e to :E, :cabbrev e <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'E' : 'e')<CR>
-        function! CommandCabbr(abbreviation, expansion)
-          execute 'cabbrev ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
-        endfunction
-        command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
-        " Use it on itself to define a simpler abbreviation for itself.
-        CommandCabbr alias CommandCabbr
-    " }
 " }
 
 " Plugins {
@@ -983,17 +984,17 @@
             nnoremap <c-M-p> :Files<cr>
             nmap <leader>lf :Files<CR>
             " list files
-			nnoremap <c-p> :GFiles<cr>
+            nnoremap <c-p> :GFiles<cr>
             nmap <leader>lg :GFiles<CR>
             " list buffers
-			nnoremap <C-M-b> :Buffers<cr>
-			CommandCabbr buffers Buffers
-			nmap <leader>lb :Buffers<CR>
+            nnoremap <C-M-b> :Buffers<cr>
+            CommandCabbr buffers Buffers
+            nmap <leader>lb :Buffers<CR>
             nmap <leader>ls :Buffers<CR>
-			"CommandCabbr ls Buffers
+            "CommandCabbr ls Buffers
             " list windows
             nmap <leader>lw :Windows<CR>
-			CommandCabbr history History
+            CommandCabbr history History
         endif
     " }
 
