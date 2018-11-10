@@ -560,9 +560,9 @@
 
     endif
 
-    " fast buffers
-    nnoremap <S-Tab> :bprevious<CR>
-    nnoremap <Tab> :bnext<CR> " go to previous buffer
+    " fast tabs
+    nnoremap <S-Tab> :tabprevious<CR>
+    nnoremap <Tab> :tabnext<CR> " go to
 
     " Stupid shift key fixes
     if !exists('g:vimde_no_keyfixes')
