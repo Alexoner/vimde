@@ -652,9 +652,11 @@
 
     " Shortcuts
     " Change Working Directory to that of the current file
-    cmap cwd lcd %:p:h
-    cmap cd. lcd %:p:h
-    cmap cfp let @+ = expand("%:p") " Copy current File full Path into unnamedplus register
+    "cmap cwd lcd %:p:h
+    command Cwd lcd %:p:h "
+    "cmap cd. lcd %:p:h
+    "cmap ccp let @+ = expand("%:p") " Copy current File full Path into unnamedplus register
+    command Ccp  let @+ = expand("%:p") "  Copy current File full Path into unnamedplus register
 
     " Visual shifting (does not exit Visual mode)
     vnoremap < <gv
