@@ -1243,6 +1243,8 @@
             "autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript let g:ycm_auto_trigger = 1
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <C-]> :YcmCompleter GoTo<CR>
             autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
+
+            autocmd Filetype c,cpp ALEDisable
             "cmap ycmfixit YcmCompleter FixIt
             CommandCabbr fixit YcmCompleter\ FixIt
 

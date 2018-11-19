@@ -301,6 +301,15 @@ The plugin is well documented on the site linked above. Be sure to give that a r
 
 For java users wanting to use eclim be sure to add `let g:EclimCompletionMethod = 'omnifunc'` to your .vimrc.local.
 
+To generate compilation database file for YouCompleteMe to parse, refer to [bear](https://github.com/rizsotto/Bear).
+
+For example, using `scons`:
+
+    bear scons -uj`nproc` .
+
+If you run into linking error, you can skip that submodule by compiling it without bear, then compile incrementally with `bear`.
+
+
 ## [ale](https://github.com/w0rp/ale)
 Asynchronous lint engine.
 
