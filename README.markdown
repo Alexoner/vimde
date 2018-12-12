@@ -627,6 +627,20 @@ Here's some tips if you've never used VIM before:
 [![Analytics](https://ga-beacon.appspot.com/UA-7131036-5/vimde/readme)](https://github.com/igrigorik/ga-beacon)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vimde/vimde/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+# Tune vim for better experience
+## Accessing system clipboard
+- `set clipboard=unnamedplus`
+- (Optional) Configure `tmux` to use system clipboard
+- Install `xsel` and make sure `DISPLAY` variable is set correctly
+
+## Profiling vim startup time
+
+    nvim --startuptime start.txt
+
+The time stamp indicates when the specific plugin is done loading.
+For example if `python3.vim` is slow to load, set `let g:python3_host_prog='python'` in vimrc
+will let the python provider skip detecting usable python to speed up loading.
+
 
 [Git]:http://git-scm.com
 [Curl]:http://curl.haxx.se
