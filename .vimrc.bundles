@@ -468,7 +468,7 @@
 
     " Misc {
         if count(g:vimde_bundle_groups, 'misc')
-            Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
+            "Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
             Plug 'tpope/vim-cucumber'
             Plug 'cespare/vim-toml', { 'for': ['toml'] }
             Plug 'quentindecock/vim-cucumber-align-pipes'
