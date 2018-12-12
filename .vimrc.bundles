@@ -93,10 +93,18 @@
     "   let g:override_vimde_bundles = 1
     if !exists("g:override_vimde_bundles")
 
+    " Python provider for neovim {
+        " to make vim load faster without detecting providers
+        "let g:python_host_skip_check  = 1
+        "let g:python_host3_skip_check = 1
+        let g:python_host_prog        = 'python' " using pyenv as version manager
+        let g:python3_host_prog       = 'python' " using pyenv as version manager
+    " }
+
     " General {
         if count(g:vimde_bundle_groups, 'general')
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-            Plug 'scrooloose/nerdtree'
+            Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'Xuyuanp/nerdtree-git-plugin'
             "Plug 'ctrlpvim/ctrlp.vim'
@@ -251,7 +259,7 @@
                 !./install.py --clang-completer --gocode-completer --rust-completer --js-completer --java-completer
               endif
             endfunction
-
+            " FIXME: too slow loading python3.vim provider
             Plug 'Valloric/YouCompleteMe',
                     \ { 
                         \ 'do': function('BuildYCM'),
