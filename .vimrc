@@ -608,10 +608,15 @@
     nmap <leader>f9 :set foldlevel=9<CR>
 
     " easier search {
-        " search for visually selected text
-        vnoremap / y/<C-R>"<CR>
+        " search for visually selected text, http://vim.wikia.com/wiki/Search_for_visually_selected_text
+        vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
+
+        " search within range, http://vim.wikia.com/wiki/Search_only_over_a_visual_range
+        vnoremap / <Esc>/\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
+        vnoremap ? <Esc>?\%><C-R>=line("'<")-1<CR>l\%<<C-R>=line("'>")+1<CR>l
 
         " Permanent very magic mode, like POSIX regular expression, see :help magic
+        " http://vim.wikia.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic
         " Refer to https://github.com/vim-scripts/Enchanted-Vim
         nnoremap / /\v
         nnoremap ? ?\v
