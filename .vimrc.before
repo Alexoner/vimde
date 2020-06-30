@@ -113,6 +113,9 @@
 " Disable views
 let g:vimde_no_views = 1
 
+" don't automatically change to current directory
+let g:vimde_no_autochdir = 1
+
 " Use 'deoplete' or 'youcompleteme' as auto-completion engine
 let g:vimde_bundle_groups=[
             \ 'general',

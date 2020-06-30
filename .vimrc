@@ -777,7 +777,7 @@
     " }
 
     " nerdcommenter {
-        let NERDSpaceDelims=0
+        let NERDSpaceDelims=1
         let g:NERDCustomDelimiters = {
             \ 'javascript': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
             \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
@@ -1219,7 +1219,8 @@
             let g:ycm_auto_trigger                                       = 1
             " enable completion from tags
             let g:ycm_collect_identifiers_from_tags_files                = 1
-            let g:ycm_global_ycm_extra_conf                              = $HOME."/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+            let g:ycm_global_ycm_extra_conf                              = $HOME."/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py"
+            let g:ycm_global_ycm_extra_conf                              = $HOME."/.ycm_extra_conf.py"
             let g:ycm_confirm_extra_conf                                 = 0
             let g:ycm_collect_identifiers_from_tags_files                = 1 " Let YCM read tags from Ctags file
             let g:ycm_use_ultisnips_completer                            = 1 " Default 1, just ensure
