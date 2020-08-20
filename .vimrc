@@ -114,6 +114,15 @@
         endif
     endif
 
+    " WSL yank support
+    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+    if executable(s:clip)
+        augroup WSLYank
+            autocmd!
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+        augroup END
+    endif
+
     " Most prefer to automatically switch to the current file directory when
     " a new buffer is opened; to prevent this behavior, add the following to
     " your .vimrc.before.local file:
@@ -662,6 +671,10 @@
     "cmap cd. lcd %:p:h
     "cmap ccp let @+ = expand("%:p") " Copy current File full Path into unnamedplus register
     command Ccp  let @+ = expand("%:p") "  Copy current File full Path into unnamedplus register
+    " WSL(Windows subsystem for Linux) support
+    if system('uname -r') =~ "Microsoft"
+        command! Ccp call system(s:clip, expand("%:p")) " command! to override previously defined commands
+    endif
 
     " Visual shifting (does not exit Visual mode)
     vnoremap < <gv

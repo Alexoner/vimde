@@ -182,7 +182,7 @@
             "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
             Plug 'w0rp/ale' " Asynchronous Lint Engine
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
-            "Plug 'nathanaelkane/vim-indent-guides'
+            " Plug 'nathanaelkane/vim-indent-guides' " DEPRECATED
             Plug 'Yggdroot/indentLine'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
@@ -197,7 +197,7 @@
             Plug 'qstrahl/vim-matchmaker'
             " a solid language pack for vim
             "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
-            Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj']}                 " automatically detect and set buffer indentation options
+            Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
             Plug 'mattn/webapi-vim'
             "Plug 'PeterRincker/vim-argumentative'
             Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
