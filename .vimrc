@@ -413,7 +413,7 @@
     set wrap                        " wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
-    set noexpandtab                   " Tabs are spaces, not tabs
+    " set noexpandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
     set softtabstop=4               " Let backspace delete indent
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
@@ -549,6 +549,7 @@
         vnoremap 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
         vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
         vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
+        vnoremap H <Nop>
     endif
 
     " The following two lines conflict with moving to top and
@@ -748,6 +749,25 @@
             execute "digraphs vs " . 0x1D65
             execute "digraphs xs " . 0x2093
     "}
+
+    " base64.
+    " https://stackoverflow.com/questions/7845671/how-to-execute-base64-decode-on-selected-text-in-vim
+    " {
+    " :'<,'>!base64 -d -
+    " :'<,'>!python -m base64 -d
+        nnoremap <leader>bd :%!base64 -d -<CR>
+        nnoremap <leader>be :%!base64 -<CR>
+        " vnoremap <leader>64 y:echo system('base64 --decode', @")<cr>")
+    " }
+
+    " JSON {
+        " format with Linux jq::%!jq --tab -S . %
+        " Or, format with python -m json.tool
+        nmap <leader>jf <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+        let g:vim_json_syntax_conceal = 0
+    " }
+
+
 
 " }
 
@@ -950,11 +970,6 @@
             "nmap <leader>ss :SessionSave<CR>
             "nmap <leader>sc :SessionClose<CR>
         "endif
-    " }
-
-    " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-        let g:vim_json_syntax_conceal = 0
     " }
 
     " ctrlp {
