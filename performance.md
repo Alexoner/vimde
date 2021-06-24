@@ -1,5 +1,8 @@
 Improve VIM performance
 
+## Profiling vim startup time
+
+    nvim --startuptime start.txt
 
 ## Fix slow scrolling in vim
 
@@ -69,3 +72,25 @@ After doing `text search`, we found the culprit:
 ```
 
 In a brutal way, we can just comment the line 90 in the specific file, then problem is solved.
+
+
+## Profiling runtime performance of plugins
+
+Reference: https://stackoverflow.com/questions/12213597/how-to-see-which-plugins-are-making-vim-slow?answertab=active#tab-top
+
+```vim
+:profile start vim.profile
+:profile func *
+:profile file *
+" At this point do slow operations
+:profile dump
+:profile pause
+
+```
+
+Then get sorted time costs:
+
+```shell
+cat vim.profile|grep -i 'total time'|sort -k3,3 -r |less
+```
+Find the most time consuming plugins, extensions.

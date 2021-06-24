@@ -1674,6 +1674,7 @@
             let g:airline#extensions#neomake#enabled         = 0
             let g:airline#extensions#ycm#enabled             = 1
             let g:airline#extensions#ale#enabled             = 1
+            let g:airline#extensions#branch#enabled          = 0
             " show number of search occurrences
             let g:airline_section_error                      = ''
             let g:airline_section_warning                    = ''
