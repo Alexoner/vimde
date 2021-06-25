@@ -180,7 +180,7 @@
             "Plug 'godlygeek/tabular'
             Plug 'junegunn/vim-easy-align'
             "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
-            Plug 'w0rp/ale' " Asynchronous Lint Engine
+            " Plug 'w0rp/ale' " Asynchronous Lint Engine
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
             " Plug 'nathanaelkane/vim-indent-guides' " DEPRECATED
             Plug 'Yggdroot/indentLine'
@@ -248,6 +248,13 @@
     " }
 
     " Snippets & AutoComplete {
+
+        if count(g:vimde_bundle_groups, 'coc.nvim')
+            " Use release branch (recommend)
+            Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
+            Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'  }
+        endif
+
         if count(g:vimde_bundle_groups, 'youcompleteme')
             function! BuildYCM(info)
               " info is a dictionary with 3 fields
@@ -265,7 +272,7 @@
                     \ { 
                         \ 'do': function('BuildYCM'),
                     \ }
-                    "\ 'for': ['c', 'cpp', 'python', 'rust', 'go', 'objc', 'objcpp', 'javascript', 'sh', 'thrift'],
+                    \ 'for': ['c', 'cpp', 'python', 'rust', 'go', 'objc', 'objcpp', 'javascript', 'sh', 'thrift'],
             " XXX: For Golang auto complete to work, remember to set GOPATH
             " environment variable to your project package location before
             " opening go projects.
@@ -334,9 +341,10 @@
 
     " C, CPP, objc, objcpp {
         if !count(g:vimde_bundle_groups, 'youcompleteme') && !count(g:vimde_bundle_groups, 'deoplete')
-            Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
-                        \ " we don't need this plugin to complete header file anymore
-                         \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
+
+            " Plug 'Rip-Rip/clang_complete',{ 'for': ['c', 'cpp', 'objc', 'objcpp'], 'do': '' } |
+                        " \ " we don't need this plugin to complete header file anymore
+                         " \ Plug 'xaizek/vim-inccomplete', { 'for': [] }
         endif
         Plug 'critiqjo/lldb.nvim', { 'for': ['c', 'cpp', 'rust', 'go', 'objc', 'objcpp', 'swift'] }
     " }

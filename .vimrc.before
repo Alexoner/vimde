@@ -116,14 +116,15 @@ let g:vimde_no_views = 1
 " don't automatically change to current directory
 let g:vimde_no_autochdir = 1
 
-" Use 'deoplete' or 'youcompleteme' as auto-completion engine
+            " \ 'youcompleteme',
+" Use 'coc.nvim' or 'youcompleteme' as auto-completion engine
 let g:vimde_bundle_groups=[
             \ 'general',
             \ 'colorscheme',
             \ 'writting',
             \ 'programming',
             \ 'autocomplete',
-            \ 'youcompleteme',
+            \ 'coc.nvim',
             \ 'python',
             \ 'javascript',
             \ 'go',
