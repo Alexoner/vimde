@@ -122,6 +122,46 @@
             autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
         augroup END
     endif
+    function! IsWSL()
+      if has("unix")
+        let lines = readfile("/proc/version")
+        if lines[0] =~ "microsoft"
+            echo "WINDOWS SUBSYSTEM LINUX!"
+          return 1
+        endif
+      endif
+      return 0
+    endfunction
+
+    if IsWSL()
+        " may still need to remove xclip from Linux to work.
+        let g:clipboard = {
+                \   'name': 'WslClipboard',
+                \   'copy': {
+                \      '+': 'clip.exe',
+                \      '*': 'clip.exe',
+                \    },
+                \   'paste': {
+                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+    elseif exists('$TMUX')
+        let g:clipboard = {
+            \   'name': 'myClipboard',
+            \   'copy': {
+            \      '+': 'tmux load-buffer -',
+            \      '*': 'tmux load-buffer -',
+            \    },
+            \   'paste': {
+            \      '+': 'tmux save-buffer -',
+            \      '*': 'tmux save-buffer -',
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+    endif
+
 
     " Most prefer to automatically switch to the current file directory when
     " a new buffer is opened; to prevent this behavior, add the following to
@@ -232,6 +272,7 @@
         let $NVIM_TUI_ENABLE_TRUE_COLOR   = 1
       endif
     endif
+
     "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
     "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
@@ -1472,8 +1513,31 @@
             nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
             " Resume latest coc list.
             nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+            " Start multiple cursors session
+            " nmap <silent> <C-c> <Plug>(coc-cursors-position)
+            " nmap <silent> <C-d> <Plug>(coc-cursors-word)
+            xmap <silent> <C-d> <Plug>(coc-cursors-range)
+            xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+
+            " " use normal command like `<leader>xi(`
+            " nmap <leader>x  <Plug>(coc-cursors-operator)
+
+            " More VSCode behaviour
+            " nmap <expr> <silent> <C-d> <SID>select_current_word()
+            " function! s:select_current_word()
+              " if !get(b:, 'coc_cursors_activated', 0)
+                " return "\<Plug>(coc-cursors-word)"
+              " endif
+              " return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+            " endfunc
+
+            " color
+            hi default link CocHighlightText StatusLine
+
         endif
     " }
+
     " deoplete {
         if count(g:vimde_bundle_groups, 'deoplete')
             " Use deoplete.
@@ -1846,6 +1910,7 @@
             let g:airline#extensions#ycm#enabled             = 1
             let g:airline#extensions#ale#enabled             = 1
             let g:airline#extensions#branch#enabled          = 0
+            let g:airline#extensions#fugitiveline#enabled    = 0
             " show number of search occurrences
             let g:airline_section_error                      = ''
             let g:airline_section_warning                    = ''
