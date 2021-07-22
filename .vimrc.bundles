@@ -137,6 +137,7 @@
             Plug 'rhysd/conflict-marker.vim'
             "Plug 'Raimondi/delimitMate'
             "Plug 'vim-scripts/sessionman.vim'
+            Plug 'tpope/vim-obsession'
             Plug 'Shougo/vimproc.vim', {'do': 'make'}
             if (has("python") || has("python3")) && exists('g:vimde_use_powerline') && !exists('g:vimde_use_old_powerline')
                 Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
@@ -374,7 +375,7 @@
         Plug 'yssource/python.vim', { 'for': ['python'] }
         "Plug 'python_match.vim', { 'for': ['python'] }
         "Plug 'pythoncomplete', { 'for': ['python'] }
-        if !count(g:vimde_bundle_groups, 'youcompleteme') && !count(g:vimde_bundle_groups, 'deoplete')
+        if !count(g:vimde_bundle_groups, 'youcompleteme') && !count(g:vimde_bundle_groups, 'coc.nvim')
             Plug 'davidhalter/jedi-vim', { 'for': 'python' }
         endif
         "Plug 'klen/python-mode', { 'for': ['python'] }
