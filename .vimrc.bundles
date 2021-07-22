@@ -488,7 +488,6 @@
             Plug 'quentindecock/vim-cucumber-align-pipes'
             Plug 'saltstack/salt-vim'
             Plug 'chrisbra/csv.vim', { 'for': ['csv'] }
-            Plug 'shime/vim-livedown', {'do': 'npm install -g livedown'} " Vim plugin for Livedown.
 
             function! BuildComposer(info)
               if a:info.status != 'unchanged' || a:info.force
@@ -497,11 +496,23 @@
               endif
             endfunction
 
-            "Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-            " FIXME: plugin not working
-            "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'npm install -g instant-markdown-d'}
-            "autocmd Filetype markdown set shell=bash\ -i
         endif
+    " }
+
+    " markdown {
+        " If you don't have nodejs and yarn
+        " use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
+        " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
+        " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+        " If you have nodejs and yarn
+        Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
+        "Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+        " FIXME: plugin not working
+        "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'npm install -g instant-markdown-d'}
+        "autocmd Filetype markdown set shell=bash\ -i
+
     " }
 
     " Rust {
