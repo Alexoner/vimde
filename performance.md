@@ -88,6 +88,91 @@ Reference: https://stackoverflow.com/questions/12213597/how-to-see-which-plugins
 
 ```
 
+Sample content
+```text
+FUNCTION  sy#start()
+    Defined: ~/.vim/bundle/vim-signify/autoload/sy.vim line 7
+Called 25 times
+Total time:   7.443873
+ Self time:   0.214259
+
+count  total (s)   self (s)
+   25              0.000058   if g:signify_locked
+                                call sy#verbose('Locked.')
+                                return
+   25              0.000052   endif
+                            
+   25              0.000175   let bufnr = a:0 && has_key(a:1, 'bufnr') ? a:1.bufnr : bufnr('')
+   25              0.000126   let sy = getbufvar(bufnr, 'sy')
+                            
+   25              0.000056   if empty(sy)
+    1   0.019030   0.000015     let path = s:get_path(bufnr)
+    1   0.009387   0.000027     if s:skip(bufnr, path)
+                                  call sy#verbose('Skip file: '. path)
+                                  return
+    1              0.000000     endif
+    1   0.000043   0.000024     call sy#verbose('Register new file: '. path)
+    1   0.004916   0.004852     let new_sy = { 'path':       path, 'buffer':     bufnr, 'detecting':  0, 'vcs':        [], 'hunks':      [], 'signid':     0x100, 'updated_by': '', 'stats':      [-1, -1, -1], 'info':       {    'dir':  fnamemodify(path, ':p:h'),    'path': sy#util#escape(path),    'file': sy#util#escape(fnamemodify(path, ':t')) }}
+    1              0.000011     call setbufvar(bufnr, 'sy', new_sy)
+    1   0.000802   0.000011     call sy#set_buflocal_autocmds(bufnr)
+    1   0.009517   0.000033     call sy#repo#detect(bufnr)
+   24              0.000187   elseif has('vim_starting')
+                                call sy#verbose("Don't run Sy more than once during startup.")
+                                return
+   24              0.000018   else
+   24   7.016266   0.000400     let path = s:get_path(bufnr)
+   24              0.201131     if !filereadable(path)
+                                  call sy#stop()
+                                  return
+
+FUNCTIONS SORTED ON TOTAL TIME
+count  total (s)   self (s)  function
+   25   7.443873   0.214259  sy#start()
+   25   7.034880             <SNR>210_get_path()
+    9   1.437161   0.000176  nerdtree#ui_glue#invokeKeyMap()
+    9   1.436985   0.000822  79()
+  881   1.360072   1.350915  <SNR>209_parse_screen()
+    9   1.226106   0.000233  78()
+    6   0.893418   0.000094  <SNR>67_customOpenDir()
+    6   0.893092   0.000090  <SNR>67_activateDirNode()
+    6   0.892019   0.000177  136()
+    6   0.697042   0.000091  170()
+    5   0.695272   0.000141  159()
+    9   0.688980   0.000383  158()
+    6   0.675053   0.001586  156()
+   47   0.609598   0.002821  35()
+   47   0.602849   0.304622  37()
+  212   0.547341   0.415978  134()
+ 1600   0.400291   0.235017  airline#check_mode()
+ 1477   0.365474   0.206023  airline#extensions#hunks#get_hunks()
+ 1485   0.329073             SearchCount()
+    1   0.326914   0.000022  <SNR>67_customOpenFile()
+
+FUNCTIONS SORTED ON SELF TIME
+count  total (s)   self (s)  function
+   25              7.034880  <SNR>210_get_path()
+  881   1.360072   1.350915  <SNR>209_parse_screen()
+  212   0.547341   0.415978  134()
+ 1485              0.329073  SearchCount()
+   47   0.602849   0.304622  37()
+   95              0.299347  36()
+   12   0.289146   0.286383  150()
+ 1600   0.400291   0.235017  airline#check_mode()
+   25   7.443873   0.214259  sy#start()
+ 1477   0.365474   0.206023  airline#extensions#hunks#get_hunks()
+   22   0.183317   0.178078  sy#repo#get_diff()
+14787              0.135653  airline#util#winwidth()
+10339              0.126365  airline#util#append()
+ 1003   0.133277   0.125144  <SNR>120_notify()
+  922              0.107019  <SNR>142_Highlight_Matching_Pair()
+    1   0.317199   0.103677  16()
+ 5135   0.128203   0.096371  30()
+ 3732              0.088881  <SNR>160_get_syn()
+ 8910              0.067991  airline#util#prepend()
+  933   0.158121   0.064426  airline#highlighter#get_highlight()
+
+```
+
 Then get sorted time costs:
 
 ```shell
