@@ -1,0 +1,118 @@
+" Neomake {
+" deprecated
+	if isdirectory(expand("~/.vim/bundle/neomake"))
+		"augroup lint
+			"autocmd! FileType python,javascript
+						"\ autocmd! BufWritePost,BufWinEnter * Neomake
+			" Details about autocmd see :help autocmd
+			"autocmd! InsertLeave,BufWrite,BufWinEnter * Neomake
+			"autocmd! BufWritePost,BufWinEnter * Neomake
+			"autocmd! CursorHold,CursorHoldI * Neomake
+		"augroup END
+		let g:neomake_python_flake82_maker = {
+			\ 'exe': 'python2',
+			\ 'args': [ '-m' , 'flake8'],
+			\ 'errorformat':
+				\ '%E%f:%l: could not compile,%-Z%p^,' .
+				\ '%A%f:%l:%c: %t%n %m,' .
+				\ '%A%f:%l: %t%n %m,' .
+				\ '%-G%.%#'
+			\ }
+		let g:neomake_python_flake83_maker = {
+			\ 'exe': 'python3',
+			\ 'args': ['-m', 'flake8'],
+			\ 'errorformat':
+				\ '%E%f:%l: could not compile,%-Z%p^,' .
+				\ '%A%f:%l:%c: %t%n %m,' .
+				\ '%A%f:%l: %t%n %m,' .
+				\ '%-G%.%#'
+			\ }
+		let g:neomake_python_pylint2_maker = {
+			\ 'exe': 'PYTHONPATH=$PYTHONPATH:`pwd` python2',
+			\ 'args': [
+				\ '-m', 'pylint', '--rcfile=~/.pylintrc',
+				\ '-f', 'text',
+				\ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+				\ '-r', 'n'
+			\ ],
+			\ 'errorformat':
+				\ '%A%f:%l:%c:%t: %m,' .
+				\ '%A%f:%l: %m,' .
+				\ '%A%f:(%l): %m,' .
+				\ '%-Z%p^%.%#,' .
+				\ '%-G%.%#',
+			\ }
+		let g:neomake_python_pylint3_maker = {
+			\ 'exe': 'python3',
+			\ 'args': [
+				\ '-m', 'pylint', '--rcfile=~/.pylintrc',
+				\ '-f', 'text',
+				\ '--msg-template="{path}:{line}:{column}:{C}: [{symbol}] {msg}"',
+				\ '-r', 'n'
+			\ ],
+			\ 'errorformat':
+				\ '%A%f:%l:%c:%t: %m,' .
+				\ '%A%f:%l: %m,' .
+				\ '%A%f:(%l): %m,' .
+				\ '%-Z%p^%.%#,' .
+				\ '%-G%.%#',
+			\ }
+		let g:neomake_python_python2_maker = {
+			\ 'args': [ '-c',
+				\ "from __future__ import print_function\n" .
+				\ "from sys import argv, exit\n" .
+				\ "if len(argv) != 2:\n" .
+				\ "    exit(1)\n" .
+				\ "try:\n" .
+				\ "    compile(open(argv[1]).read(), argv[1], 'exec', 0, 1)\n" .
+				\ "except SyntaxError as err:\n" .
+				\ "    print('%s:%s:%s: %s' % (err.filename, err.lineno, err.offset, err.msg))"
+			\ ],
+			\ 'errorformat': '%E%f:%l:%c: %m',
+			\ }
+		let g:neomake_python_python3_maker = {
+			\ 'args': [ '-c',
+				\ "from __future__ import print_function\n" .
+				\ "from sys import argv, exit\n" .
+				\ "if len(argv) != 2:\n" .
+				\ "    exit(1)\n" .
+				\ "try:\n" .
+				\ "    compile(open(argv[1]).read(), argv[1], 'exec', 0, 1)\n" .
+				\ "except SyntaxError as err:\n" .
+				\ "    print('%s:%s:%s: %s' % (err.filename, err.lineno, err.offset, err.msg))"
+			\ ],
+			\ 'errorformat': '%E%f:%l:%c: %m',
+			\ }
+		"let g:neomake_javascript_eslint_maker = {
+			"\ 'pipe': 1,
+			"\ 'args': ['-f', 'compact', '--stdin', '--stdin-filename'],
+			"\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+			"\ '%W%f: line %l\, col %c\, Warning - %m'
+			"\ }
+		"let g:neomake_jsx_eslint_maker = {
+			"\ 'pipe': 1,
+			"\ 'args': ['-f', 'compact', '--stdin', '--stdin-filename'],
+			"\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+			"\ '%W%f: line %l\, col %c\, Warning - %m'
+			"\ }
+
+		"let g:neomake_javascript_enabled_makers = ['eslint']
+		"let g:neomake_python_enabled_makers     = ['python', 'pylint', 'flake8']
+		let g:neomake_python_enabled_makers      = ['pylint']
+		let g:neomake_cpp_enable_markers         = ['clang']
+		let g:neomake_cpp_clang_args             = ["-std=c++14", "-Wextra", "-Wall", "-g"]
+		"let g:neomake_objc_enabled_makers       = ['clang']
+		let g:neomake_serialize                  = 1
+		let g:neomake_serialize_abort_on_error   = 1
+		let g:neomake_logfile                   = '/tmp/neomake.error.log'
+		let g:neomake_airline                    = 1
+		let g:neomake_open_list                  = 0
+		let g:neomake_verbose                    = 1
+		let g:neomake_error_sign                 = {
+			\ 'text': '✗',
+			\ 'texthl': 'Error',
+			\ }
+
+	endif
+" }
+

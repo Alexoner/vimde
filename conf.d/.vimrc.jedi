@@ -1,0 +1,62 @@
+" jedi, 
+if isdirectory(expand("~/.vim/bundle/jedi-vim")) && !count(g:vimde_bundle_groups, 'youcompleteme')
+	" using deoplete-vim source for completion, not jedi-vim's omnifunc
+	" but using jedi's key mapping
+	 autocmd FileType python setlocal omnifunc=jedi#completions
+
+	" use make to run the current file
+	" disable completion to avoid conflicts with completion engine
+	" plugins like YCM and deoplete
+	let g:jedi#completions_enabled      = 0
+	let g:jedi#auto_vim_configuration   = 0
+	let g:jedi#smart_auto_mappings      = 0
+	" let g:jedi#show_call_signatures     = 0
+	let g:jedi#show_call_signatures     = "1"
+	let g:jedi#popup_on_dot             = 0
+	let g:jedi#use_tabs_not_buffers     = 1
+	"let g:jedi#goto_command             = "<leader>d"
+	let g:jedi#goto_command             = "<C-]>"
+	let g:jedi#goto_assignments_command = "gd"
+	let g:jedi#goto_definitions_command = ""
+	let g:jedi#documentation_command    = "K"
+	let g:jedi#usages_command           = "<leader>n"
+	let g:jedi#completions_command      = "<C-Space>"
+	"let g:jedi#rename_command           = "<leader>r"
+endif
+
+if isdirectory(expand("~/.vim/bundle/python-mode")) && !count(g:vimde_bundle_groups, 'youcompleteme')
+	"python-mode
+	let g:pymode            = 1
+	let g:pymode_python     = 'python3'
+	let g:pymode_virtualenv = 1
+	"let g:pymode_indent    = []
+	let g:pymode_doc        = 0
+	" Override view python doc key shortcut to Ctrl-Shift-d
+	let g:pymode_doc_bind         = "<C-S-d>"
+	let g:pymode_trim_whitespaces = 0
+	let g:pymode_options          = 0
+	let g:pymode_run              = 1
+	"let g:pymode_run_bind         = '<leader>r'
+	let g:pymode_breakpoint_cmd   = ''
+	let g:pymode_lint_on_fly      = 1
+	"if using neomake, then disable pymode lint
+	"let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'mccabe']
+	"let g:pymode_lint_checkers = ['pylama', 'pylint']
+	let g:pymode_lint_checkers = []
+	let g:pymode_lint_ignore = ""
+
+	let g:pymode_rope = 1
+	" disable completion to avoid conflicts with YCM
+	let g:pymode_rope_completion             = 0
+	" Override go-to.definition key shortcut to Ctrl-]
+	let g:pymode_rope_goto_definition_bind   = "<C-]>"
+	let g:pymode_rope_goto_definition_cmd    = 'tabnew'
+	let g:pymode_rope_autoimport             = 1
+	let g:pymode_rope_autoimport_modules     = ['os', 'shutil', 'datetime']
+	let g:pymode_rope_organize_imports_bind  = '<C-c>ro'
+	let g:pymode_rope_autoimport_bind        = '<C-c>ra'
+	let g:pymode_rope_module_to_package_bind = '<C-c>r1p'
+	let g:pymode_rope_extract_method_bind    = '<C-c>rm'
+	let g:pymode_rope_extract_variable_bind  = '<C-c>rl'
+	let g:pymode_rope_rename_bind            = '<C-c>rr'
+endif

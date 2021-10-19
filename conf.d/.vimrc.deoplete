@@ -1,0 +1,45 @@
+" deoplete {
+" deprecated
+	if count(g:vimde_bundle_groups, 'deoplete')
+		" Use deoplete.
+		let g:deoplete#enable_at_startup = 1
+		" Use smartcase.
+		let g:deoplete#enable_smart_case = 1
+
+		set completeopt-=preview
+		autocmd FileType javascript set completeopt+=preview
+		set completeopt+=menuone
+
+		inoremap <silent><expr> <Tab>
+				\ pumvisible() ? "\<C-n>" :
+				\ deoplete#mappings#manual_complete()
+		" use tab to forward cycle
+		inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+		" use tab to backward cycle
+		inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+		" Enable omni completion.
+		" <C-h>, <BS>: close popup and delete backword char.
+		inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+		" disable this key mapping because it causes basic vim backspace
+		" key functions with error if deoplete not enabled
+		inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+
+		" <CR>: close popup and save indent or newline.
+		inoremap <silent><expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
+		inoremap <silent><expr><C-e> pumvisible() ? deoplete#undo_completion() : "<End>"
+		 "inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+		" function! s:my_cr_function()
+			" return deoplete#mappings#close_popup() . "\<CR>"
+		" endfunction
+
+		" actually, we don't need these settings anymore, omnifunc are
+		" managed by deoplete sources automatically
+		if !exists('g:deoplete#omni#input_patterns')
+			let g:deoplete#omni#input_patterns = {}
+		endif
+		if !exists('g:deoplete#omni#functions')
+			let g:deoplete#omni#functions = {}
+		endif
+	endif
+" }
+

@@ -1,0 +1,64 @@
+" A code-completion engine for Vim
+" Use Ctrl+Space to trigger the completion suggestions anywhere, even without a string prefix.
+" YouCompleteMe {
+" deprecated
+	if count(g:vimde_bundle_groups, 'youcompleteme')
+
+		let g:ycm_auto_trigger                                       = 1
+		" enable completion from tags
+		let g:ycm_collect_identifiers_from_tags_files                = 1
+		let g:ycm_global_ycm_extra_conf                              = $HOME."/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py"
+		let g:ycm_global_ycm_extra_conf                              = $HOME."/.ycm_extra_conf.py"
+		let g:ycm_confirm_extra_conf                                 = 0
+		let g:ycm_collect_identifiers_from_tags_files                = 1 " Let YCM read tags from Ctags file
+		let g:ycm_use_ultisnips_completer                            = 1 " Default 1, just ensure
+		let g:ycm_seed_identifiers_with_syntax                       = 1 " Completion for programming language's keyword
+		let g:ycm_complete_in_comments                               = 1 " Completion in comments
+		let g:ycm_complete_in_strings                                = 1 " Completion in string
+		let g:ycm_goto_buffer_command                                = 'new-or-existing-tab' "where GoTo* commands result should be opened.
+		let g:ycm_key_list_select_completion                         = ['<TAB>', '<Down>']
+		let g:ycm_key_list_previous_completion                       = ['<S-TAB>', '<Up>']
+		let g:ycm_key_list_stop_completion                           = ['<C-Y>', '<CR>']
+		let g:ycm_show_diagnostics_ui                                = 1 " YCM's diagnostic, supporting custome configs
+		"let g:ycm_error_symbol                                       = 'E'
+		let g:ycm_error_symbol                                       = '✗'
+		let g:ycm_error_symbol                                       = '⚠'
+		let g:ycm_enable_diagnostic_signs                            = 1
+		let g:ycm_server_keep_logfiles                               = 1
+		let g:ycm_server_use_vim_stdout                              = 0
+		" python option
+		"let g:ycm_path_to_python_interpreter                         = "python3"
+		"let g:ycm_python_binary_path                                 = "python"
+		" rust option
+		let g:ycm_rust_src_path                                      = $RUST_SRC_PATH.'/'
+
+		nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+		"inoremap <silent><expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+		"autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript let g:ycm_auto_trigger = 1
+		autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <C-]> :YcmCompleter GoTo<CR>
+		autocmd FileType c,cpp,python,javascript,go,rust,objc,objcpp,cs,typescript nnoremap <S-K> :YcmCompleter GetDoc<CR>
+
+		autocmd Filetype c,cpp ALEDisable
+		"cmap ycmfixit YcmCompleter FixIt
+		CommandCabbr fixit YcmCompleter\ FixIt
+
+		" Haskell post write lint and check with ghcmod
+		" $ `cabal install ghcmod` if missing and ensure
+		" ~/.cabal/bin is in your $PATH.
+		if !executable("ghcmod")
+			autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+		endif
+
+		" For snippet_complete marker.
+		if !exists("g:vimde_no_conceal")
+			if has('conceal')
+				set conceallevel=2 concealcursor=n " conceal only in normal mode
+			endif
+		endif
+
+		" Disable the preview  window
+		" When enabled, there can be too much visual noise especially when splits are used.
+		set completeopt-=preview
+		"let g:ycm_add_preview_to_completeopt = 1
+	endif
+" }
