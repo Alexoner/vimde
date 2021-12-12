@@ -132,7 +132,7 @@ create_symlinks() {
     mkdir -p "$target_path/.config/nvim"
     #lnif "$source_path/.vim"       "$target_path/.config/nvim"
     lnif "$source_path/.vimrc"     "$target_path/.config/nvim/init.vim"
-    lnif "$source_path/coc-settings.json"     "$target_path/.config/nvim/"
+    lnif "$source_path/.config/nvim/coc-settings.json"     "$target_path/.config/nvim/"
     # fi
 
     touch  "$target_path/.vimrc.local"
