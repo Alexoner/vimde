@@ -437,9 +437,9 @@
     "list feature can be used to reveal hidden characters
     set list
     "type unicode characters: press <ctrl-v>u, followed by its unicode number
-    "set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-    set listchars=tab:¦\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-    "set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
+    " set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    " set listchars=tab:¦\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
     "Invisible character colors, but it's overriden by colorscheme plugins
     highlight NonText guifg=#4a4a59
     highlight SpecialKey guifg=#4a4a59
@@ -468,7 +468,7 @@
     " .vimrc.before.local file:
     "   let g:vimde_keep_trailing_whitespace = 1
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:vimde_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
-    autocmd FileType c,cpp,objc,objcpp setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType c,cpp,objc,objcpp setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     autocmd FileType haskell,puppet,ruby,yml,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
@@ -1164,12 +1164,35 @@
     " }
 
     " indent_guides {
-        if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
-            let g:indent_guides_start_level = 2
-            let g:indent_guides_guide_size = 1
-            let g:indent_guides_enable_on_vim_startup = 1
-            hi IndentGuidesOdd  ctermbg=white
-        endif
+        " if isdirectory(expand("~/.vim/bundle/indentLine/"))
+        
+            " prevent indentLine overwrite
+            " let g:indentLine_setConceal = 0
+
+            let g:indentLine_defaultGroup = 'SpecialKey'
+            let g:indentLine_char = '|'
+            let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+            " Vim
+            let g:indentLine_color_term = 239
+
+            " GVim
+            if has('gui_running')
+                let g:indentLine_color_gui = '#A4E57E'
+            endif
+
+            " none X terminal
+            let g:indentLine_color_tty_light = 7 " (default: 4)
+            let g:indentLine_color_dark = 1 " (default: 2)
+
+            " Background (Vim, GVim)
+            if has('gui_running')
+                let g:indentLine_bgcolor_term = 202
+                let g:indentLine_bgcolor_gui = '#FF5F00'
+            endif
+
+        " endif
+        
     " }
 
     " vim-airline {
@@ -1327,8 +1350,6 @@
             endif
         " }
 
-        " prevent indentLine overwrite
-        let g:indentLine_setConceal = 0
     " }
 
     " lua {
