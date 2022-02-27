@@ -753,8 +753,16 @@
     nnoremap <silent> <leader>q gwip
     nnoremap <silent> <leader>m :%s/\r//g<CR>
 
+    " change square brackets [] to curly brackets {}
+    " vnoremap <silent> <leader>b :'<,'>s/\[/{/g | '<,'>s/]/}/g<CR>
+    " map to multiple :commands: use pipe with <bar>
+    " do multiple substitution in visual block: substitute, gv to se
+    vnoremap <silent> <leader>{ :s/\[/{/g<CR> gv :s/]/}/g<CR>
+    " FIXME: below doesn't work as expected
+    vnoremap <silent> <leader>[ :s/{/[/g<CR> gv :s/}/]/g<CR>
     " FIXME: Revert this f70be548
     " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH
+
     map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
     "autocmd FileType text,help,vim nnoremap <C-]> :tjump<CR>
 
@@ -828,6 +836,56 @@
         endif
     "}
 
+    " fzf.vim: fuzzy finder {
+        if isdirectory(expand("~/.vim/bundle/fzf.vim"))
+            nnoremap <c-M-p> :Files<cr>
+            nmap <leader>lf :Files<CR>
+            " list files
+            nnoremap <c-p> :GFiles<cr>
+            nmap <leader>lg :GFiles<CR>
+            " list buffers
+            nnoremap <C-M-b> :Buffers<cr>
+            CommandCabbr buffers Buffers
+            nmap <leader>lb :Buffers<CR>
+            nmap <leader>ls :Buffers<CR>
+            "CommandCabbr ls Buffers
+            " list windows
+            nmap <leader>lw :Windows<CR>
+            CommandCabbr history History
+        endif
+    " }
+
+    " coc.nvim {
+        " Conquer of Completion, language server leveraging VSCode plugins
+        if count(g:vimde_bundle_groups, 'coc.nvim')
+
+            if filereadable(expand("~/.vimde/conf.d/.vimrc.coc.nvim"))
+                source ~/.vimde/conf.d/.vimrc.coc.nvim
+            endif
+
+            if filereadable(expand("~/.vimde/conf.d/.vimrc.coc-snippets"))
+                source ~/.vimde/conf.d/.vimrc.coc-snippets
+            endif
+
+        endif
+    " }
+
+    " nerdcommenter {
+        let NERDSpaceDelims=1
+        let g:NERDCustomDelimiters = {
+            \ 'javascript': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
+            \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
+            \ 'jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
+        \ }
+        "map <C-/> <Esc><plug>NERDCommenterToggle<CR>i
+        if OSX()
+            " Do Mac stuff here
+            "map <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+            "imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+            "imap <C-/> <Esc><plug>NERDCommenterToggle<CR>i
+        endif
+    " }
+
     " TextObj Sentence {
         if count(g:vimde_bundle_groups, 'writing')
             augroup textobj_sentence
@@ -847,22 +905,6 @@
                 autocmd FileType textile call textobj#quote#init()
                 autocmd FileType text call textobj#quote#init({'educate': 0})
             augroup END
-        endif
-    " }
-
-    " nerdcommenter {
-        let NERDSpaceDelims=1
-        let g:NERDCustomDelimiters = {
-            \ 'javascript': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
-            \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
-            \ 'jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
-        \ }
-        "map <C-/> <Esc><plug>NERDCommenterToggle<CR>i
-        if OSX()
-            " Do Mac stuff here
-            "map <D-/> <Esc><plug>NERDCommenterToggle<CR>i
-            "imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
-            "imap <C-/> <Esc><plug>NERDCommenterToggle<CR>i
         endif
     " }
 
@@ -1013,25 +1055,6 @@
         "endif
     " }
 
-    " fzf.vim: fuzzy finder {
-        if isdirectory(expand("~/.vim/bundle/fzf.vim"))
-            nnoremap <c-M-p> :Files<cr>
-            nmap <leader>lf :Files<CR>
-            " list files
-            nnoremap <c-p> :GFiles<cr>
-            nmap <leader>lg :GFiles<CR>
-            " list buffers
-            nnoremap <C-M-b> :Buffers<cr>
-            CommandCabbr buffers Buffers
-            nmap <leader>lb :Buffers<CR>
-            nmap <leader>ls :Buffers<CR>
-            "CommandCabbr ls Buffers
-            " list windows
-            nmap <leader>lw :Windows<CR>
-            CommandCabbr history History
-        endif
-    " }
-
     " TagBar {
         if isdirectory(expand("~/.vim/bundle/tagbar/"))
             let updatetime=600
@@ -1083,17 +1106,6 @@
         endif
     " }
 
-    " coc.nvim {
-        " Conquer of Completion, language server leveraging VSCode plugins
-        if count(g:vimde_bundle_groups, 'coc.nvim')
-
-            if filereadable(expand("~/.vimde/conf.d/.vimrc.coc.nvim"))
-                source ~/.vimde/conf.d/.vimrc.coc.nvim
-            endif
-
-        endif
-    " }
-
     " echodoc {
         "set cmdheight=2
         "let g:echodoc_enable_at_startup = 1
@@ -1136,13 +1148,6 @@
         autocmd FileType js UltiSnipsAddFiletypes javascript-es6
 
         " CompleteParameter.vim {
-            "inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-            "inoremap <silent><expr><c-j> complete_parameter#pre_complete("()") " doesn't work...
-            inoremap <silent><expr><m-j> complete_parameter#pre_complete("()")
-            smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-            imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-            smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-            imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
         " }
 
     " }
