@@ -172,7 +172,7 @@
             " Pick one of the checksyntax, jslint, or syntastic
             "Plug 'scrooloose/syntastic', { 'for': [] }
             
-            Plug 'sheerun/vim-polyglot' "A solid language pack for Vim.
+            Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
             Plug 'tpope/vim-fugitive' " 
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
@@ -199,7 +199,7 @@
             Plug 'qstrahl/vim-matchmaker'
             " a solid language pack for vim
             "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
-            Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
+            " Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
             Plug 'mattn/webapi-vim'
             "Plug 'PeterRincker/vim-argumentative'
             Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right

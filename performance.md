@@ -66,12 +66,19 @@ ag 'logXmlEntity' ~/.vim/bundle
 After doing `text search`, we found the culprit:
 
 ```text
-/home/haodu/.vim/bundle/vim-polyglot/syntax/log.vim
+~/.vim/bundle/vim-polyglot/syntax/log.vim
 90:syn match logXmlEntity       /\&\w\+;/
 139:hi def link logXmlEntity Special
 ```
 
-In a brutal way, we can just comment the line 90 in the specific file, then problem is solved.
+In a brutal way, we can just comment the line 90 in the specific file, or just disable the plugin, then problem is solved.
+
+```vim
+set cursorline!
+set lazyredraw
+set synmaxcol=128
+syntax sync minlines=256
+```
 
 
 ## Profiling runtime performance of plugins

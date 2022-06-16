@@ -114,6 +114,12 @@
         endif
     endif
 
+    " syntax settings, to mitigate some performance issue with large files
+    set cursorline!
+    set lazyredraw
+    set synmaxcol=128
+    syntax sync minlines=256
+
     " WSL yank support
     let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
     if executable(s:clip)
@@ -1234,6 +1240,9 @@
                 let g:airline_left_sep  = '›'  " Slightly fancier than '>'
                 let g:airline_right_sep = '‹' " Slightly fancier than '<'
             endif
+
+            " airline too slow
+            " let g:airline_extensions = []
         endif
     " }
 
