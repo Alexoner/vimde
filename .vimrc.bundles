@@ -106,15 +106,14 @@
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
             Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
             Plug 'jistr/vim-nerdtree-tabs'
-            "Plug 'Xuyuanp/nerdtree-git-plugin' " too slow for large git
-            "repositories
-            "Plug 'ctrlpvim/ctrlp.vim'
-            "Plug 'tacahiroy/ctrlp-funky'
             Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
             Plug 'junegunn/fzf.vim'
             Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
-            "Plug 'google/vim-searchindex' "vim-searchindex: display number of search matches & index of a current match
             Plug 'lfv89/vim-interestingwords' " A vim plugin for highlighting and navigating through different words in a buffer.
+            "Plug 'Xuyuanp/nerdtree-git-plugin' " too slow for large git repositories
+            "Plug 'ctrlpvim/ctrlp.vim'
+            "Plug 'tacahiroy/ctrlp-funky'
+            "Plug 'google/vim-searchindex' "vim-searchindex: display number of search matches & index of a current match
             "Plug 'itchyny/vim-cursorword' " Underlines the word under the cursor
             "Plug 'dyng/ctrlsf.vim' " project-wide/global search, similar to ctrl-shift-f in sublime
             if executable('ag')
@@ -170,21 +169,21 @@
     " General Programming {
         if count(g:vimde_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            "Plug 'scrooloose/syntastic', { 'for': [] }
             
+            Plug 'scrooloose/nerdcommenter'
+            Plug 'junegunn/vim-easy-align'
             Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
             Plug 'tpope/vim-fugitive' " 
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
-            Plug 'scrooloose/nerdcommenter'
             Plug 'tpope/vim-commentary'
-            "Plug 'godlygeek/tabular'
-            Plug 'junegunn/vim-easy-align'
-            "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
-            " Plug 'w0rp/ale' " Asynchronous Lint Engine
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
-            " Plug 'nathanaelkane/vim-indent-guides' " DEPRECATED
             Plug 'Yggdroot/indentLine'
+            "Plug 'godlygeek/tabular'
+            "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
+            "Plug 'scrooloose/syntastic', { 'for': [] }
+            " Plug 'w0rp/ale' " Asynchronous Lint Engine
+            " Plug 'nathanaelkane/vim-indent-guides' " DEPRECATED
             " Plug 'lukas-reineke/indent-blankline.nvim'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
