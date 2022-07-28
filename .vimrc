@@ -477,7 +477,7 @@
     autocmd FileType c,cpp,objc,objcpp setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType haskell,puppet,ruby,yml,helm,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     " preceding line best in a plugin but here for now.
 
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
@@ -1046,6 +1046,10 @@
             " ga
             xmap <leader>a <Plug>(EasyAlign)
             vmap <leader>a <Plug>(EasyAlign)
+            "
+            " xmap a <Plug>(EasyAlign)
+            " vmap a <Plug>(EasyAlign)
+
 
             " Start interactive EasyAlign for a motion/text object (e.g. gaip), default ga
             nmap <leader>a <Plug>(EasyAlign)
@@ -1221,14 +1225,17 @@
             if !exists('g:airline_theme')
                 let g:airline_theme = 'solarized'
             endif
+
+            let g:airline_highlighting_cache = 1  " highlight very slow
+
             let g:airline#extensions#tabline#enabled         = 1
-            let g:airline#extensions#virtualenv#enabled      = 1
+            let g:airline#extensions#virtualenv#enabled      = 0
             let g:airline#extensions#wordcount#enabled       = 1
             let g:airline#extensions#tabline#buffer_idx_mode = 1
             let g:airline#extensions#syntastic#enabled       = 0
             let g:airline#extensions#neomake#enabled         = 0
-            let g:airline#extensions#ycm#enabled             = 1
-            let g:airline#extensions#ale#enabled             = 1
+            let g:airline#extensions#ycm#enabled             = 0
+            let g:airline#extensions#ale#enabled             = 0
             let g:airline#extensions#branch#enabled          = 0
             let g:airline#extensions#fugitiveline#enabled    = 0
             " show number of search occurrences
@@ -1245,6 +1252,18 @@
             " let g:airline_extensions = []
         endif
     " }
+    
+    " lightline.vim {
+        " Conquer of Completion, language server leveraging VSCode plugins
+        " if count(g:vimde_bundle_groups, 'coc.nvim')
+
+            if filereadable(expand("~/.vimde/conf.d/.vimrc.lightline.vim"))
+                source ~/.vimde/conf.d/.vimrc.lightline.vim
+            endif
+
+        " endif
+    " }
+
 
     " lightline.vim {
         if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))

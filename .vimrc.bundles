@@ -145,7 +145,7 @@
                 Plug 'Lokaltog/vim-powerline'
             else
                 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
-                "Plug 'itchyny/lightline.vim'
+                " Plug 'itchyny/lightline.vim'
             endif
             Plug 'powerline/fonts'
             "Plug 'bling/vim-bufferline'
@@ -206,46 +206,6 @@
             "Plug 'zenbro/mirror.vim'
             "Plug 'editorconfig/editorconfig-vim'
             "Plug 'tpope/vim-endwise' " endwise.vim: wisely add 'end' in ruby, endfunction/endif/more in vim script, etc
-        endif
-    " }
-
-    " colorscheme {
-        if count(g:vimde_bundle_groups, 'colorscheme')
-            Plug 'flazz/vim-colorschemes'
-            Plug 'iCyMind/NeoSolarized'
-            Plug 'sickill/vim-monokai'
-
-            " color schemes below are either included by 'flazz/vim-colorschemes', or
-            " ugly...
-            "Plug 'morhetz/gruvbox'
-            "Plug 'joshdick/onedark.vim'
-            "Plug 'tomasr/molokai'
-            "Plug 'mhartington/oceanic-next'
-            "Plug 'romainl/flattened'
-            "Plug 'freeo/vim-kalisi'
-            "Plug 'altercation/vim-colors-solarized'
-            "Plug 'w0ng/vim-hybrid'
-            "Plug 'chriskempson/vim-tomorrow-theme'
-            "Plug 'frankier/neovim-colors-solarized-truecolor-only'
-            "Plug 'raphamorim/lucario'
-        endif
-    " }
-
-    " Writing {
-        if count(g:vimde_bundle_groups, 'writing')
-            Plug 'reedes/vim-litecorrect'
-            Plug 'kana/vim-textobj-user'
-            Plug 'kana/vim-textobj-indent'
-            Plug 'reedes/vim-textobj-sentence'
-            Plug 'reedes/vim-textobj-quote'
-            Plug 'reedes/vim-wordy'
-        endif
-        Plug 'junegunn/goyo.vim' " distraction-free writing in Vim
-    " }
-    
-    " Pandoc {
-        if count(g:vimde_bundle_groups, 'pandoc')
-            Plug 'vim-pandoc/vim-pandoc-syntax'
         endif
     " }
 
@@ -339,6 +299,46 @@
         endif
 
         " Plug 'tenfyzhong/CompleteParameter.vim' " Complete parameter after select the completion. Integration with YouCompleteMe(ycm), deoplete, neocomplete.
+    " }
+
+    " colorscheme {
+        if count(g:vimde_bundle_groups, 'colorscheme')
+            Plug 'flazz/vim-colorschemes'
+            Plug 'iCyMind/NeoSolarized'
+            Plug 'sickill/vim-monokai'
+
+            " color schemes below are either included by 'flazz/vim-colorschemes', or
+            " ugly...
+            "Plug 'morhetz/gruvbox'
+            "Plug 'joshdick/onedark.vim'
+            "Plug 'tomasr/molokai'
+            "Plug 'mhartington/oceanic-next'
+            "Plug 'romainl/flattened'
+            "Plug 'freeo/vim-kalisi'
+            "Plug 'altercation/vim-colors-solarized'
+            "Plug 'w0ng/vim-hybrid'
+            "Plug 'chriskempson/vim-tomorrow-theme'
+            "Plug 'frankier/neovim-colors-solarized-truecolor-only'
+            "Plug 'raphamorim/lucario'
+        endif
+    " }
+
+    " Writing {
+        if count(g:vimde_bundle_groups, 'writing')
+            Plug 'reedes/vim-litecorrect'
+            Plug 'kana/vim-textobj-user'
+            Plug 'kana/vim-textobj-indent'
+            Plug 'reedes/vim-textobj-sentence'
+            Plug 'reedes/vim-textobj-quote'
+            Plug 'reedes/vim-wordy'
+        endif
+        Plug 'junegunn/goyo.vim' " distraction-free writing in Vim
+    " }
+    
+    " Pandoc {
+        if count(g:vimde_bundle_groups, 'pandoc')
+            Plug 'vim-pandoc/vim-pandoc-syntax'
+        endif
     " }
 
     " C, CPP, objc, objcpp {
