@@ -2,19 +2,19 @@
     "coc.preferences.jumpCommand": "tab drop",
     "coc.preferences.useQuickfixForLocations": true,
     "languageserver": {
-        "clangd": {
+        "#clangd": {
             "command": "clangd",
             "rootPatterns": [
                 "compile_flags.txt",
                 "compile_commands.json"
             ],
             "filetypes": [
-                "c",
-                "cc",
-                "cpp",
-                "c++",
-                "objc",
-                "objcpp"
+                "#c",
+                "#cc",
+                "#cpp",
+                "#c++",
+                "#objc",
+                "#objcpp"
             ]
         }
     },

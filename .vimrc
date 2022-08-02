@@ -460,6 +460,8 @@
     set wrap                        " wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
+    set smartindent
+    set smarttab                    " 
     " set noexpandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
     set softtabstop=4               " Let backspace delete indent
@@ -475,11 +477,10 @@
     "   let g:vimde_keep_trailing_whitespace = 1
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:vimde_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
     autocmd FileType c,cpp,objc,objcpp setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType haskell,puppet,ruby,yml,helm,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     "autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell,puppet,ruby,yml,helm,javascript,jsx,javascript.jsx,html,xhtml,xml,css,json setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     " preceding line best in a plugin but here for now.
-
     autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
     " Workaround vim-commentary for Haskell

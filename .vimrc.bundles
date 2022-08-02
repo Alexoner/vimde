@@ -216,6 +216,8 @@
             Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'  }
         endif
 
+        " Plug 'github/copilot.vim'
+
         if count(g:vimde_bundle_groups, 'youcompleteme')
             function! BuildYCM(info)
               " info is a dictionary with 3 fields
@@ -482,7 +484,6 @@
 
     " Misc {
         if count(g:vimde_bundle_groups, 'misc')
-            "Plug 'plasticboy/vim-markdown', { 'for': ['markdown'] }
             Plug 'tpope/vim-cucumber'
             Plug 'cespare/vim-toml', { 'for': ['toml'] }
             Plug 'quentindecock/vim-cucumber-align-pipes'
@@ -506,13 +507,8 @@
         " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
         " If you have nodejs and yarn
-        Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown']  }
-
-        "Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-        " FIXME: plugin not working
-        "Plug 'suan/vim-instant-markdown', {'for': ['markdown'], 'do': 'npm install -g instant-markdown-d'}
-        "autocmd Filetype markdown set shell=bash\ -i
-
+        " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown']  }  "deprecated in favor of coc-markdown-preview-enhanced
+        Plug 'mzlogin/vim-markdown-toc'
     " }
 
     " Rust {
