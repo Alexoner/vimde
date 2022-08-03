@@ -317,18 +317,6 @@
         "color solarized             " Load a colorscheme
     endif
 
-    " OmniComplete menu highlighting{
-        " highlight pop up menu
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-        " maybe this setting is better
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=cyan ctermbg=8
-        hi PmenuSel cterm=bold ctermfg=239 ctermbg=green gui=bold guifg=#504945 guibg=#83a598
-    "}
-
     " NeoSolarized {
         if filereadable(expand("~/.vim/bundle/NeoSolarized/colors/NeoSolarized.vim"))
             " default value is "normal", Setting this option to "high" or "low" does use the
@@ -349,7 +337,15 @@
             colorscheme NeoSolarized    " Load a colorcheme
         endif
     " }
-
+   "
+    " highlighting popup menu {
+        " fg: font foregroud, bg: backround, cterm: colorful term; Pmenu: popup menu,
+        " PmenuSel: selected item,
+        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
+        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+    " }
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode

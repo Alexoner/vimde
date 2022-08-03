@@ -182,12 +182,12 @@ xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)
 " endfunc
 
 " color
-" hi default link CocHighlightText StatusLine
 
 " Issue: https://github.com/neoclide/coc.nvim/issues/511
 " solarized theme has: hi Pmenu cterm=reverse ctermfg=14 ctermbg=0 gui=reverse guifg=#93a1a1 guibg=#073642
 " customize: change guifg/guibg so that coc highlighted selected item is visible
-hi link CocFloating FloatShadow  " can't use Normal, looks the same as text
+" CocFloating: the popup window used by coc, different than pmenu! coc doesn't use PmenuSel now.
+hi CocFloating cterm=reverse ctermfg=14 ctermbg=0 gui=bold guibg=#93a1a1 guifg=#585858  " taken from solarized
 
 " coc extensions
 let g:coc_global_extensions = [
