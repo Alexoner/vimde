@@ -1,0 +1,141 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+#
+
+# https://github.com/miguelmartin75/ultisnips-snippets/blob/master/UltiSnips/cpp.snippets
+
+priority -50
+
+extends c
+
+# We want to overwrite everything in parent ft.
+priority -49
+
+
+################
+# Pre-processor
+
+
+snippet main "int main(argc, char **argv)"
+int main(int argc, char **argv) {
+    namespace fs = std::filesystem;
+
+    if (argc > 1) {
+        if (strcmp(argv[1], "-") == 0) { // read from stdin
+            cerr << "Read test data from stdin..." << endl;
+        } else {
+            cerr << "Read test data from file " << argv[1] << endl;
+            FR(argv[1]); // redirect file to stdin
+        }
+    } else { // read from default test data input file
+        cerr << "Read test data from default test file..." << endl;
+        fs::path wf(argv[0]);     // current path
+        string test_in = wf.parent_path().parent_path().string() + "/test_cases/" + wf.filename().string() + ".in";
+        debug(test_in);
+        FR(test_in.c_str()); // redirect file to stdin, the default test data file
+    }
+
+    REGISTER_CONSTRUCTOR_SOLUTION;
+    REGISTER_MEMBERFUNCTION_SOLUTION(braceExpansionII);
+    while (true) {
+        executor.constructSolution();
+        executor.executeSolution();
+    }
+
+    cerr << "self test passed" << endl;
+
+    return 0;
+}
+endsnippet
+
+snippet linc "#include local header (linc)"
+#include "${1:`!p snip.rv = snip.basename + '.hpp'`}"
+endsnippet
+
+###############
+# Keywords
+
+snippet struct "c++ struct .. (struct)"
+struct ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${2}
+
+private:
+	${0}
+};
+endsnippet
+
+snippet class "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`} 
+{
+public:
+	${2}
+
+private:
+	${0}
+};
+endsnippet
+
+snippet namespace "namespace .. (namespace)"
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
+{
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+snippet forr "for range loop"
+for(auto ${2:x} : ${1:collection})
+{
+	${0:/* code */}
+}
+endsnippet
+
+snippet {&,ref} "reference to object"
+${0:T}&
+endsnippet
+
+##############
+# STD lib
+
+snippet range "$1.begin(), $1.end() (beginend)"
+${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
+endsnippet
+
+snippet map "std::map (map)"
+std::map<${1:key}, ${2:value}> map$0;
+endsnippet
+
+snippet {vec,vector} "std::vector (v)"
+std::vector<${1:char}> ${0:name};
+endsnippet
+
+snippet template "template <typename ..> (template)"
+template <typename ${0:T}>
+endsnippet
+
+
+# vim:ft=snippets:
