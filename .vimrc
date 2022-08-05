@@ -986,15 +986,22 @@
 
     " SnipMate {
         " Setting the author var
-        " If forking, please overwrite in your .vimrc.local file
-        let g:snips_author = 'Alex Hacker <alex.h.hacker@gmail.com>'
     " }
+
+    lua << EOF
+    require("nvim-tree.main")
+EOF
+    "{
+        map <leader>e :NvimTreeFindFile<CR>
+        nmap <leader>nt :NvimTreeToggle<CR>
+    "}
+
 
     " NerdTree {
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
             "map <C-e> <plug>NERDTreeTabsToggle<CR>
-            map <leader>e :NERDTreeFind<CR>
-            nmap <leader>nt :NERDTreeFind<CR>
+            " map <leader>e :NERDTreeFind<CR>
+            " nmap <leader>nt :NERDTreeFind<CR>
 
             let NERDTreeWinSize          = 60
             let NERDTreeShowBookmarks    = 1

@@ -134,6 +134,7 @@ create_symlinks() {
     lnif "$source_path/.vimrc"     "$target_path/.config/nvim/init.vim"
     lnif "$source_path/.config/nvim/coc-settings.json"     "$target_path/.config/nvim/"
     lnif "$source_path/.config/coc/ultisnips" "$target_path/.config/coc/"
+    lnif "$source_path/.config/nvim/lua"     "$target_path/.config/nvim/"
     # fi
 
     touch  "$target_path/.vimrc.local"

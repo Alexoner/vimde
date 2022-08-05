@@ -104,10 +104,14 @@
     " General {
         if count(g:vimde_bundle_groups, 'general')
             " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-            Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
-            Plug 'jistr/vim-nerdtree-tabs'
             Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
             Plug 'junegunn/fzf.vim'
+
+            " Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+            Plug 'kyazdani42/nvim-tree.lua'"
+            " Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
+            " Plug 'jistr/vim-nerdtree-tabs'
+
             Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
             Plug 'lfv89/vim-interestingwords' " A vim plugin for highlighting and navigating through different words in a buffer.
             "Plug 'Xuyuanp/nerdtree-git-plugin' " too slow for large git repositories
@@ -139,14 +143,13 @@
             Plug 'tpope/vim-obsession'
             Plug 'Shougo/vimproc.vim', {'do': 'make'}
             if (has("python") || has("python3")) && exists('g:vimde_use_powerline') && !exists('g:vimde_use_old_powerline')
-                Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
+                Plug 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'} | Plug 'powerline/fonts'
             elseif exists('g:vimde_use_powerline') && exists('g:vimde_use_old_powerline')
-                Plug 'Lokaltog/vim-powerline'
+                Plug 'Lokaltog/vim-powerline' | Plug 'powerline/fonts'
             else
                 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
                 " Plug 'itchyny/lightline.vim'
             endif
-            Plug 'powerline/fonts'
             "Plug 'bling/vim-bufferline'
             if !exists('g:vimde_no_views')
                 Plug 'vim-scripts/restore_view.vim'
@@ -489,6 +492,7 @@
             Plug 'quentindecock/vim-cucumber-align-pipes'
             Plug 'saltstack/salt-vim'
             Plug 'chrisbra/csv.vim', { 'for': ['csv'] }
+            " Plug 'towolf/vim-helm'
 
             function! BuildComposer(info)
               if a:info.status != 'unchanged' || a:info.force
