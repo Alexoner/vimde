@@ -120,19 +120,11 @@
     set synmaxcol=128
     syntax sync minlines=256
 
-    " WSL yank support
-    let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
-    if executable(s:clip)
-        augroup WSLYank
-            autocmd!
-            autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-        augroup END
-    endif
     function! IsWSL()
       if has("unix")
         let lines = readfile("/proc/version")
         if lines[0] =~ "microsoft"
-            echo "WINDOWS SUBSYSTEM LINUX!"
+            " echo "WINDOWS SUBSYSTEM LINUX!"
           return 1
         endif
       endif
@@ -140,6 +132,15 @@
     endfunction
 
     if IsWSL()
+        " WSL yank support
+        let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+        if executable(s:clip)
+            augroup WSLYank
+                autocmd!
+                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+            augroup END
+        endif
+
         " may still need to remove xclip from Linux to work.
         let g:clipboard = {
                 \   'name': 'WslClipboard',
@@ -714,11 +715,15 @@
     "cmap cwd lcd %:p:h
     command Cwd lcd %:p:h "
     "cmap cd. lcd %:p:h
-    "cmap ccp let @+ = expand("%:p") " Copy current File full Path into unnamedplus register
-    command Ccp  let @+ = expand("%:p") "  Copy current File full Path into unnamedplus register
+    command Ccp let @+ = expand("%:p") " Copy current File full Path into unnamedplus register
+    command Ccn let @+ = expand("%") " just filename
+    " relative path
+    " :let @+ = expand("%")
+
     " WSL(Windows subsystem for Linux) support
     if system('uname -r') =~ "Microsoft"
         command! Ccp call system(s:clip, expand("%:p")) " command! to override previously defined commands
+        command! Ccn call system(s:clip, expand("%:t")) " command! to override previously defined commands
     endif
 
     " Visual shifting (does not exit Visual mode)

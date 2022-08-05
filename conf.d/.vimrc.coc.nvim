@@ -187,7 +187,6 @@ xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)
 " solarized theme has: hi Pmenu cterm=reverse ctermfg=14 ctermbg=0 gui=reverse guifg=#93a1a1 guibg=#073642
 " customize: change guifg/guibg so that coc highlighted selected item is visible
 " CocFloating: the popup window used by coc, different than pmenu! coc doesn't use PmenuSel now.
-" hi CocFloating cterm=reverse ctermfg=14 ctermbg=0 gui=bold guibg=#93a1a1 guifg=#585858  " taken from solarized
 hi CocFloating cterm=reverse ctermfg=14 ctermbg=0 gui=bold guifg=#93a1a1 guibg=#585858  " taken from solarized
 
 " coc extensions
