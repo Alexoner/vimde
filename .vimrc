@@ -103,6 +103,8 @@
     set mouse=a                 " Automatically enable mouse usage
     set mouse=n                 " no mouse when editing
     set mousehide               " Hide the mouse cursor while typing
+
+    set encoding=UTF-8
     scriptencoding utf-8
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
@@ -338,7 +340,11 @@
             colorscheme NeoSolarized    " Load a colorcheme
         endif
     " }
-   "
+
+    " lua <<EOF
+    " require("tokyonight.main")
+" EOF
+
     " highlighting popup menu {
         " fg: font foregroud, bg: backround, cterm: colorful term; Pmenu: popup menu,
         " PmenuSel: selected item,
@@ -442,7 +448,8 @@
     "type unicode characters: press <ctrl-v>u, followed by its unicode number
     " set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     " set listchars=tab:¦\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-    set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
+    " set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
+    set listchars=tab:\ ,trail:,eol:¬,extends:#,nbsp:  " Highlight problematic whitespace
     "Invisible character colors, but it's overriden by colorscheme plugins
     highlight NonText guifg=#4a4a59
     highlight SpecialKey guifg=#4a4a59

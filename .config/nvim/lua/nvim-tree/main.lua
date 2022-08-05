@@ -19,7 +19,7 @@ require("nvim-tree").setup({
   },
   filters = {
     dotfiles = false,
-    custom = {"^.git$|^.py[cd]$"}
+    custom = {"^(.git$|.py[cd]|.swo|.swp|.DS_Store)$"}
     -- custom = {"^.py[cd]$", "^~$", "^.swo$", "^.swp$", "^.git$", "^.hg$", "^.svn$", "^.bzr$", ".DS_Store"},
   },
 })

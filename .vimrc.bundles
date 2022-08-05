@@ -107,7 +107,7 @@
             Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
             Plug 'junegunn/fzf.vim'
 
-            " Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+            Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons. For WSL, patch CascadiaCode font.
             Plug 'kyazdani42/nvim-tree.lua'"
             " Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
             " Plug 'jistr/vim-nerdtree-tabs'
@@ -177,17 +177,14 @@
             Plug 'junegunn/vim-easy-align'
             Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
             Plug 'tpope/vim-fugitive' " 
+            Plug 'lukas-reineke/indent-blankline.nvim'
+            " Plug 'Yggdroot/indentLine'
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
             Plug 'tpope/vim-commentary'
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
-            Plug 'Yggdroot/indentLine'
             "Plug 'godlygeek/tabular'
             "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
-            "Plug 'scrooloose/syntastic', { 'for': [] }
-            " Plug 'w0rp/ale' " Asynchronous Lint Engine
-            " Plug 'nathanaelkane/vim-indent-guides' " DEPRECATED
-            " Plug 'lukas-reineke/indent-blankline.nvim'
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
             Plug 'thinca/vim-quickrun'
@@ -309,6 +306,7 @@
         if count(g:vimde_bundle_groups, 'colorscheme')
             Plug 'flazz/vim-colorschemes'
             Plug 'iCyMind/NeoSolarized'
+            Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
             Plug 'sickill/vim-monokai'
 
             " color schemes below are either included by 'flazz/vim-colorschemes', or
