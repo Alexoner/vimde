@@ -182,7 +182,6 @@ xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)
 " endfunc
 
 " color
-
 " Issue: https://github.com/neoclide/coc.nvim/issues/511
 " solarized theme has: hi Pmenu cterm=reverse ctermfg=14 ctermbg=0 gui=reverse guifg=#93a1a1 guibg=#073642
 " customize: change guifg/guibg so that coc highlighted selected item is visible
@@ -203,6 +202,7 @@ let g:coc_global_extensions = [
       \'coc-emmet',
       \'coc-json',
       \'coc-java',
+	  \'coc-lua',
       \'coc-prettier',
       \'coc-rls',
       \'coc-swagger',

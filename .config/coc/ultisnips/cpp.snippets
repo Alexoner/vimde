@@ -27,12 +27,13 @@
 
 # https://github.com/miguelmartin75/ultisnips-snippets/blob/master/UltiSnips/cpp.snippets
 
-priority -50
+# to overwrite vim-snippets priority -50
+priority -51
 
 extends c
 
 # We want to overwrite everything in parent ft.
-priority -49
+priority -50
 
 
 ################
@@ -64,6 +65,18 @@ int main(int argc, char **argv) {
         executor.constructSolution();
         executor.executeSolution();
     }
+
+	// if testing an API class
+    REGISTER_CONSTRUCTOR_CLASS($class, $cons);
+    REGISTER_MEMBERFUNCTION_CLASS($class, $method);
+    while (true) {
+        executor.constructClass();
+        while(executor) {
+            executor.executeClass();
+        }
+
+    }
+	// test API class
 
     cerr << "self test passed" << endl;
 

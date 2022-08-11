@@ -180,6 +180,7 @@
             Plug 'lukas-reineke/indent-blankline.nvim'
             " Plug 'Yggdroot/indentLine'
             Plug 'mhinz/vim-signify'
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
             Plug 'mattn/gist-vim'
             Plug 'tpope/vim-commentary'
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
@@ -187,6 +188,14 @@
             "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
             Plug 'luochen1990/rainbow'
             Plug 'kien/rainbow_parentheses.vim'
+            " Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/vim-build-tools-wrapper'
+            Plug 'cdelledonne/vim-cmake'
+            Plug 'alepez/vim-gtest'
+
+            Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
+" 'bash install.sh 1' to get the bleeding edge or if you have trouble with the precompiled binary,
+"  but you'll compile sniprun at every update & will need the rust toolchain
+            Plug 'CRAG666/code_runner.nvim'
             Plug 'thinca/vim-quickrun'
             Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
             if executable('ctags')
@@ -213,7 +222,8 @@
         if count(g:vimde_bundle_groups, 'coc.nvim')
             " Use release branch (recommend)
             Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
-            Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'  }
+            " Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'  }
+            Plug 'honza/vim-snippets'
         endif
 
         " Plug 'github/copilot.vim'
@@ -300,6 +310,10 @@
         endif
 
         " Plug 'tenfyzhong/CompleteParameter.vim' " Complete parameter after select the completion. Integration with YouCompleteMe(ycm), deoplete, neocomplete.
+    " }
+    
+    " { neovim ecosystem
+        Plug 'rcarriga/nvim-notify' 
     " }
 
     " colorscheme {
@@ -514,7 +528,7 @@
     " }
 
     " Rust {
-        Plug 'rust-lang/rust.vim', { 'for': ['rust']}
+        " Plug 'rust-lang/rust.vim', { 'for': ['rust']}
         "Plug 'ebfe/vim-racer',
                     "\ {
                         "\ 'for': ['rust'],
@@ -540,7 +554,7 @@
     " }
 
     " java {
-        Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java'] }
+    
     " }
 
     " json {

@@ -15,27 +15,39 @@ if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
         let g:airline_theme = 'solarized'
     endif
 
-    let g:airline_highlighting_cache = 1  " highlight very slow
 
-    let g:airline#extensions#tabline#enabled         = 1
-    let g:airline#extensions#virtualenv#enabled      = 0
-    let g:airline#extensions#wordcount#enabled       = 1
+    " :help airline-coc
+    " * enable/disable coc integration >
+	let g:airline_highlighting_cache                 = 1  " highlight very slow
+	let g:airline#extensions#tabline#enabled         = 1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
+    let g:airline#extensions#coc#enabled             = 1
+    let g:airline#extensions#branch#enabled          = 1
+    let g:airline#extensions#fugitiveline#enabled    = 1
+    let g:airline#extensions#wordcount#enabled       = 1
+    let g:airline#extensions#virtualenv#enabled      = 0
     let g:airline#extensions#syntastic#enabled       = 0
     let g:airline#extensions#neomake#enabled         = 0
     let g:airline#extensions#ycm#enabled             = 0
     let g:airline#extensions#ale#enabled             = 0
-    let g:airline#extensions#branch#enabled          = 0
-    let g:airline#extensions#fugitiveline#enabled    = 0
+
+    " * change error symbol: >
+    " let airline#extensions#coc#error_symbol = 'E:'
+    " * change warning symbol: >
+    " let airline#extensions#coc#warning_symbol = 'W:'
+    " * enable/disable coc status display >
+    let g:airline#extensions#coc#show_coc_status = 1
+
     " show number of search occurrences
-    let g:airline_section_error                      = ''
-    let g:airline_section_warning                    = ''
-    let g:airline_section_z                          = '[%{SearchCount()}]%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v'
+    " let g:airline_section_error                      = ''
+    " let g:airline_section_warning                    = ''
+    " let g:airline_section_z                          = '[%{SearchCount()}]%3p%% %#__accent_bold#%{g:airline_symbols.linenr}%4l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__# :%3v'
     if !exists('g:airline_powerline_fonts')
         " Use the default set of separators with a few customizations
         let g:airline_left_sep  = '›'  " Slightly fancier than '>'
         let g:airline_right_sep = '‹' " Slightly fancier than '<'
     endif
+
 
     " airline too slow
     " let g:airline_extensions = []
