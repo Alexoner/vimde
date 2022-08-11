@@ -191,13 +191,13 @@ hi CocFloating cterm=reverse ctermfg=14 ctermbg=0 gui=bold guifg=#93a1a1 guibg=#
 
 " coc extensions
 let g:coc_global_extensions = [
-      \'coc-snippets',
       \'coc-clangd',
+      \'coc-diagnostic',
+      \'coc-snippets',
       \'coc-css',
       \'coc-cmake',
       \'coc-eslint',
-      \'coc-jedi',
-      \'coc-diagnostic',
+      \'coc-pyright',
       \'coc-go',
       \'coc-html',
       \'coc-emmet',
