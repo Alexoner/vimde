@@ -1,17 +1,17 @@
 " COLORSCHEME
 " terminal config
-"set background=dark
-"colorscheme NeoSolarized
-"colorscheme gruvbox
+set background=dark
+
+" colorscheme solarized8
+colorscheme NeoSolarized
+" colorscheme solarized  " doesn't work
+" colorscheme gruvbox
+" colorscheme nightfox
+" colorscheme dayfox
+" colorscheme terafox
 "colorscheme molokai
-"colorscheme Monokai
 "colorscheme onedark
-"colorscheme solarized
 "autocmd FileType javascript,jsx,html,css colorscheme molokai
-"colorscheme flattened_dark
-"colorscheme OceanicNext
-"colorscheme hybrid
-"colorscheme kalisi
 
 
 " Spelling errors are higlighted using SpellBad highlighting group

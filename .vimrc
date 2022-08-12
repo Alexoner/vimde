@@ -108,6 +108,10 @@
     scriptencoding utf-8
     set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
+    set fileformat=unix
+    " or use vim -b to open file in binary mode
+    set fileformats=unix  "'fileformats' option is global and specifies which file formats will be tried when Vim reads a file 
+
     if has('clipboard')
         if has('unnamedplus')  " When possible use + register for copy-paste
             set clipboard=unnamed,unnamedplus
@@ -300,60 +304,8 @@
                 \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
                 \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-    " highlight cursor
-    "highlight Cursor         ctermfg=8 ctermbg=14 guifg=#002b36 guibg=#93a1a1
-    "highlight Cursor         ctermfg=8 ctermbg=14 guifg=#002b36 guibg=#303030
-
     set cursorline                  " Highlight current line
     set cursorcolumn                " Highlight current column
-
-    if !exists('g:override_vimde_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-        if has('gui_running')
-            set background=light
-        else
-            set background=dark
-        endif
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="normal"
-        let g:solarized_visibility="normal"
-        "color solarized             " Load a colorscheme
-    endif
-
-    " NeoSolarized {
-        if filereadable(expand("~/.vim/bundle/NeoSolarized/colors/NeoSolarized.vim"))
-            " default value is "normal", Setting this option to "high" or "low" does use the
-            " same Solarized palette but simply shifts some values up or down in order to
-            " expand or compress the tonal range displayed.
-            let g:neosolarized_contrast = "high"
-
-            " Special characters such as trailing whitespace, tabs, newlines, when displayed
-            " using ":set list" can be set to one of three levels depending on your needs.
-            " Default value is "normal". Provide "high" and "low" options.
-            let g:neosolarized_visibility = "normal"
-
-            " If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized
-            " typefaces, simply assign 1 or 0 to the appropriate variable.
-            let g:neosolarized_bold      = 1
-            let g:neosolarized_underline = 1
-            let g:neosolarized_italic    = 0
-            colorscheme NeoSolarized    " Load a colorcheme
-        endif
-    " }
-
-    " lua <<EOF
-    " require("tokyonight.main")
-" EOF
-
-    " highlighting popup menu {
-        " fg: font foregroud, bg: backround, cterm: colorful term; Pmenu: popup menu,
-        " PmenuSel: selected item,
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-    " }
-
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
@@ -449,10 +401,10 @@
     " set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     " set listchars=tab:¦\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     " set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
-    set listchars=tab:\ ,trail:,eol:¬,extends:#,nbsp:  " Highlight problematic whitespace
+    set listchars=tab:\ ,trail:,eol:$,extends:#,nbsp:  " Highlight problematic whitespace
     "Invisible character colors, but it's overriden by colorscheme plugins
-    highlight NonText guifg=#4a4a59
-    highlight SpecialKey guifg=#4a4a59
+    " highlight NonText guifg=#4a4a59    " let it be managed by color scheme
+    " highlight SpecialKey guifg=#4a4a59
 
     set concealcursor=n
 
@@ -766,7 +718,8 @@
 
     " Easier formatting
     nnoremap <silent> <leader>q gwip
-    nnoremap <silent> <leader>m :%s/\r//g<CR>
+    " nnoremap <silent> <leader>m :%s/\r//g<CR>
+    nnoremap <silent> <leader>m :%s///g<CR>
 
     " change square brackets [] to curly brackets {}
     " vnoremap <silent> <leader>b :'<,'>s/\[/{/g | '<,'>s/]/}/g<CR>
@@ -831,6 +784,16 @@
         let g:vim_json_syntax_conceal = 0
     " }
 
+    " { :make
+        augroup exe_cpp
+            autocmd!
+            autocmd FileType cpp let &makeprg='g++ -g -std=c++17 -Wall -Wextra -Wshadow -o %< %'
+            autocmd FileType cpp nmap <'> :w<CR>:make<CR>:!%<<CR>
+            autocmd FileType cpp nmap <F5> :w<CR>:make<CR>:!%<<CR>
+            imap <F10> <Esc>:!gdb %< <CR>
+            nmap <F10> :!gdb %< <CR>
+        augroup END
+    " }
 
 
 " }
@@ -1455,6 +1418,59 @@ EOF
 
 " }
 
+
+" { color scheme
+    " highlight cursor
+    "highlight Cursor         ctermfg=8 ctermbg=14 guifg=#002b36 guibg=#93a1a1
+    "highlight Cursor         ctermfg=8 ctermbg=14 guifg=#002b36 guibg=#303030
+
+    " highlighting popup menu {
+        " fg: font foregroud, bg: backround, cterm: colorful term; Pmenu: popup menu,
+        " PmenuSel: selected item,
+        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        hi PmenuSel cterm=bold ctermfg=239 ctermbg=1 gui=bold guifg=#504945 guibg=#83a598
+        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+    " }
+
+    if !exists('g:override_vimde_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+        if has('gui_running')
+            set background=light
+        else
+            set background=dark
+        endif
+        let g:solarized_termcolors=256
+        let g:solarized_termtrans=1
+        let g:solarized_contrast="normal"
+        let g:solarized_visibility="normal"
+    endif
+
+    " NeoSolarized {
+        if filereadable(expand("~/.vim/bundle/NeoSolarized/colors/NeoSolarized.vim"))
+            " default value is "normal", Setting this option to "high" or "low" does use the
+            " same Solarized palette but simply shifts some values up or down in order to
+            " expand or compress the tonal range displayed.
+            let g:neosolarized_contrast = "high"
+
+            " Special characters such as trailing whitespace, tabs, newlines, when displayed
+            " using ":set list" can be set to one of three levels depending on your needs.
+            " Default value is "normal". Provide "high" and "low" options.
+            let g:neosolarized_visibility = "normal"
+
+            " If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized
+            " typefaces, simply assign 1 or 0 to the appropriate variable.
+            let g:neosolarized_bold      = 1
+            let g:neosolarized_underline = 1
+            let g:neosolarized_italic    = 0
+            " colorscheme NeoSolarized    " Load a colorcheme
+        endif
+    " }
+
+    " lua <<EOF
+    " require("tokyonight.main")
+" EOF
+
+" }
 " Functions {
 
     " Initialize directories {

@@ -175,12 +175,12 @@
             
             Plug 'scrooloose/nerdcommenter'
             Plug 'junegunn/vim-easy-align'
-            Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
+            " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
             Plug 'tpope/vim-fugitive' " 
             Plug 'lukas-reineke/indent-blankline.nvim'
             " Plug 'Yggdroot/indentLine'
             Plug 'mhinz/vim-signify'
-            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
             Plug 'mattn/gist-vim'
             Plug 'tpope/vim-commentary'
             Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
@@ -309,7 +309,6 @@
             Plug 'Shougo/neco-syntax', { 'for': ['vim'] }
         endif
 
-        " Plug 'tenfyzhong/CompleteParameter.vim' " Complete parameter after select the completion. Integration with YouCompleteMe(ycm), deoplete, neocomplete.
     " }
     
     " { neovim ecosystem
@@ -318,24 +317,20 @@
 
     " colorscheme {
         if count(g:vimde_bundle_groups, 'colorscheme')
-            Plug 'flazz/vim-colorschemes'
-            Plug 'iCyMind/NeoSolarized'
+            " Plug 'flazz/vim-colorschemes'
+            " Plug 'iCyMind/NeoSolarized'
+            Plug 'Tsuzat/NeoSolarized.nvim'
+            Plug 'lifepillar/vim-solarized8'
+            Plug 'EdenEast/nightfox.nvim'
+            Plug 'morhetz/gruvbox'
             Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
-            Plug 'sickill/vim-monokai'
+            Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
 
+            " Plug 'altercation/vim-colors-solarized'  " doesn't work on terminal
             " color schemes below are either included by 'flazz/vim-colorschemes', or
             " ugly...
-            "Plug 'morhetz/gruvbox'
-            "Plug 'joshdick/onedark.vim'
+            "Plug 'joshdick/onedark.vim'  " vim/neovim<0.5
             "Plug 'tomasr/molokai'
-            "Plug 'mhartington/oceanic-next'
-            "Plug 'romainl/flattened'
-            "Plug 'freeo/vim-kalisi'
-            "Plug 'altercation/vim-colors-solarized'
-            "Plug 'w0ng/vim-hybrid'
-            "Plug 'chriskempson/vim-tomorrow-theme'
-            "Plug 'frankier/neovim-colors-solarized-truecolor-only'
-            "Plug 'raphamorim/lucario'
         endif
     " }
 
