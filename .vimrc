@@ -802,12 +802,6 @@
 
     "General Programming  {
          if count(g:vimde_bundle_groups, 'programming')
-            "rainbow_parentheses.vim
-            au VimEnter * RainbowParenthesesToggle
-            au Syntax * RainbowParenthesesLoadRound
-            au Syntax * RainbowParenthesesLoadSquare
-            au Syntax * RainbowParenthesesLoadBraces
-
             " sideways.vim
             nnoremap <, :SidewaysLeft<cr>
             nnoremap >. :SidewaysRight<cr>
@@ -1055,6 +1049,12 @@ EOF
     " Rainbow {
         if isdirectory(expand("~/.vim/bundle/rainbow/"))
             let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+            " deprecated in favor of nvim-ts-rainbow
+            "rainbow_parentheses.vim
+            " au VimEnter * RainbowParenthesesToggle
+            " au Syntax * RainbowParenthesesLoadRound
+            " au Syntax * RainbowParenthesesLoadSquare
+            " au Syntax * RainbowParenthesesLoadBraces
         endif
     "}
 
@@ -1200,9 +1200,14 @@ EOF
             source ~/.vimde/conf.d/.vimrc.lightline.vim
         endif
     " }
+    
+    " nvim-treesitter {
+        if filereadable(expand("~/.vimde/conf.d/.vimrc.nvim-treesitter"))
+            source ~/.vimde/conf.d/.vimrc.nvim-treesitter
+        endif
+    " }
 
-
-    " lightline.vim {
+    " airline-themes {
         if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
             " status line
             let g:lightline = {

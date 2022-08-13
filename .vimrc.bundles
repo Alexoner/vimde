@@ -133,6 +133,7 @@
             Plug 'jiangmiao/auto-pairs'
             Plug 'mbbill/undotree'
             Plug 'easymotion/vim-easymotion'
+            Plug 'andymass/vim-matchup/'
             "Plug 'matchit.zip'
             "Plug 'ryanoasis/vim-devicons', { 'do': '' }
             Plug 'tpope/vim-surround'
@@ -174,12 +175,14 @@
             " Pick one of the checksyntax, jslint, or syntastic
             
             Plug 'scrooloose/nerdcommenter'
-            Plug 'junegunn/vim-easy-align'
-            " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            Plug 'p00f/nvim-ts-rainbow'
             " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
-            Plug 'tpope/vim-fugitive' " 
+            " Plug 'kien/rainbow_parentheses.vim'
             Plug 'lukas-reineke/indent-blankline.nvim'
             " Plug 'Yggdroot/indentLine'
+            Plug 'junegunn/vim-easy-align'
+            Plug 'tpope/vim-fugitive' " 
             Plug 'mhinz/vim-signify'
             Plug 'mattn/gist-vim'
             Plug 'tpope/vim-commentary'
@@ -187,7 +190,6 @@
             "Plug 'godlygeek/tabular'
             "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
             Plug 'luochen1990/rainbow'
-            Plug 'kien/rainbow_parentheses.vim'
             " Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/vim-build-tools-wrapper'
             Plug 'cdelledonne/vim-cmake'
             Plug 'alepez/vim-gtest'
@@ -213,7 +215,6 @@
             Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
             "Plug 'zenbro/mirror.vim'
             "Plug 'editorconfig/editorconfig-vim'
-            "Plug 'tpope/vim-endwise' " endwise.vim: wisely add 'end' in ruby, endfunction/endif/more in vim script, etc
         endif
     " }
 
@@ -222,7 +223,6 @@
         if count(g:vimde_bundle_groups, 'coc.nvim')
             " Use release branch (recommend)
             Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
-            " Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build'  }
             Plug 'honza/vim-snippets'
         endif
 
