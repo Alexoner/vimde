@@ -181,12 +181,16 @@ xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)
   " return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 " endfunc
 
+" inoremap <silent> ,s <C-r>=CocActionAsync('showSignatureHelp')<CR>
+
 " color
 " Issue: https://github.com/neoclide/coc.nvim/issues/511
 " solarized theme has: hi Pmenu cterm=reverse ctermfg=14 ctermbg=0 gui=reverse guifg=#93a1a1 guibg=#073642
 " customize: change guifg/guibg so that coc highlighted selected item is visible
 " CocFloating: the popup window used by coc, different than pmenu! coc doesn't use PmenuSel now.
-hi CocFloating cterm=reverse ctermfg=14 ctermbg=0 gui=bold guifg=#93a1a1 guibg=#585858  " taken from solarized
+" hi CocFloating cterm=reverse ctermfg=14 ctermbg=0 gui=bold guifg=#93a1a1 guibg=#585858  " taken from solarized
+" hi CocFloating ctermfg=14 ctermbg=0 gui=bold guifg=#93a1a1 guibg=#585858  " taken from solarized
+hi CocHighlightText guibg=#d75f00
 
 " coc extensions
 let g:coc_global_extensions = [
@@ -226,4 +230,6 @@ let g:coc_global_extensions = [
       \'coc-omnisharp'
   \ ]
 
+" debug
 let $NVIM_COC_LOG_LEVEL='info'  " :CocInfo to check log
+let g:node_client_debug = 1     "  :echo $NODE_CLIENT_LOG_FILE

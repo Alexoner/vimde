@@ -85,7 +85,7 @@
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
     if !exists('g:vimde_bundle_groups')
-        let g:vimde_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+        let g:vimde_bundle_groups=['general', 'writing', 'coc.nvim', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
     endif
 
     " To override all the included bundles, add the following to your
@@ -97,8 +97,8 @@
         " to make vim load faster without detecting providers
         "let g:python_host_skip_check  = 1
         "let g:python_host3_skip_check = 1
-        let g:python_host_prog        = 'python' " using pyenv as version manager
-        let g:python3_host_prog       = 'python' " using pyenv as version manager
+        " let g:python_host_prog        = 'python' " using pyenv as version manager
+        " let g:python3_host_prog       = 'python' " using pyenv as version manager
     " }
 
     " General {
@@ -108,7 +108,9 @@
             Plug 'junegunn/fzf.vim'
 
             Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons. For WSL, patch CascadiaCode font.
-            Plug 'kyazdani42/nvim-tree.lua'"
+            if has('nvim-0.5.0')
+                Plug 'kyazdani42/nvim-tree.lua'"
+            endif
             " Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
             " Plug 'jistr/vim-nerdtree-tabs'
 
@@ -170,13 +172,30 @@
         endif
     " }
 
+    " Snippets & AutoComplete, state of the art {
+
+        if count(g:vimde_bundle_groups, 'coc.nvim')
+            " Use release branch (recommend)
+            Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
+            " Plug 'honza/vim-snippets'
+        endif
+
+        " Plug 'github/copilot.vim'
+    " }
+
+    " { neovim ecosystem
+        Plug 'rcarriga/nvim-notify' 
+    " }
+
     " General Programming {
         if count(g:vimde_bundle_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            
+
             Plug 'scrooloose/nerdcommenter'
-            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-            Plug 'p00f/nvim-ts-rainbow'
+            if has('nvim-0.5.0')
+                Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+                Plug 'p00f/nvim-ts-rainbow'
+            endif
             " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
             " Plug 'kien/rainbow_parentheses.vim'
             Plug 'lukas-reineke/indent-blankline.nvim'
@@ -195,22 +214,20 @@
             Plug 'alepez/vim-gtest'
 
             Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-" 'bash install.sh 1' to get the bleeding edge or if you have trouble with the precompiled binary,
-"  but you'll compile sniprun at every update & will need the rust toolchain
             Plug 'CRAG666/code_runner.nvim'
             Plug 'thinca/vim-quickrun'
             Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
             if executable('ctags')
                 Plug 'majutsushi/tagbar'
             endif
-            Plug 'janko-m/vim-test'
+            " Plug 'janko-m/vim-test'
             " CVS/SVN/SVK/git/hk/bzr integration
             "Plug 'vim-scripts/vcscommand.vim'
-            Plug 'qstrahl/vim-matchmaker'
+            " Plug 'qstrahl/vim-matchmaker'
             " a solid language pack for vim
             "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
             " Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
-            Plug 'mattn/webapi-vim'
+            " Plug 'mattn/webapi-vim'
             "Plug 'PeterRincker/vim-argumentative'
             Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
             "Plug 'zenbro/mirror.vim'
@@ -218,15 +235,26 @@
         endif
     " }
 
-    " Snippets & AutoComplete {
+    " colorscheme {
+        if count(g:vimde_bundle_groups, 'colorscheme')
+            " Plug 'flazz/vim-colorschemes'
+            " Plug 'iCyMind/NeoSolarized'
+            Plug 'Tsuzat/NeoSolarized.nvim'
+            Plug 'lifepillar/vim-solarized8'
+            Plug 'EdenEast/nightfox.nvim'
+            Plug 'morhetz/gruvbox'
+            Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
+            Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
 
-        if count(g:vimde_bundle_groups, 'coc.nvim')
-            " Use release branch (recommend)
-            Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
-            Plug 'honza/vim-snippets'
+            " Plug 'altercation/vim-colors-solarized'  " doesn't work on terminal
+            " color schemes below are either included by 'flazz/vim-colorschemes', or
+            " ugly...
+            "Plug 'joshdick/onedark.vim'  " vim/neovim<0.5
+            "Plug 'tomasr/molokai'
         endif
+    " }
 
-        " Plug 'github/copilot.vim'
+    " Snippets & AutoComplete, deprecated {
 
         if count(g:vimde_bundle_groups, 'youcompleteme')
             function! BuildYCM(info)
@@ -311,29 +339,6 @@
 
     " }
     
-    " { neovim ecosystem
-        Plug 'rcarriga/nvim-notify' 
-    " }
-
-    " colorscheme {
-        if count(g:vimde_bundle_groups, 'colorscheme')
-            " Plug 'flazz/vim-colorschemes'
-            " Plug 'iCyMind/NeoSolarized'
-            Plug 'Tsuzat/NeoSolarized.nvim'
-            Plug 'lifepillar/vim-solarized8'
-            Plug 'EdenEast/nightfox.nvim'
-            Plug 'morhetz/gruvbox'
-            Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
-            Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
-
-            " Plug 'altercation/vim-colors-solarized'  " doesn't work on terminal
-            " color schemes below are either included by 'flazz/vim-colorschemes', or
-            " ugly...
-            "Plug 'joshdick/onedark.vim'  " vim/neovim<0.5
-            "Plug 'tomasr/molokai'
-        endif
-    " }
-
     " Writing {
         if count(g:vimde_bundle_groups, 'writing')
             Plug 'reedes/vim-litecorrect'
