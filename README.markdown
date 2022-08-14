@@ -134,6 +134,24 @@ Alternatively you can manually perform the following steps. If anything has chan
 This distribution started as a fork of spf13-vim.
 I'm always happy to take pull requests from others. A good number of people are already [contributors] to [vimde]. Go ahead to fork and customize.
 
+## Installing fonts
+
+### Unicode support
+
+To display unicode symbols like: ¦.
+
+	sudo apt install fonts-noto
+
+
+### Install NerdFont
+
+[NerdFont](https://www.nerdfonts.com/).
+
+## For WSL
+
+Use [Windows Terminal].
+
+
 # A highly optimized .vimrc config file
 
 ![vimderc image][vimderc-img]

@@ -396,12 +396,12 @@
     set foldmethod=indent
     set foldlevel=9
     "list feature can be used to reveal hidden characters
-    set list
+    set nolist
     "type unicode characters: press <ctrl-v>u, followed by its unicode number
-    " set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     " set listchars=tab:¦\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-    " set listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
-    set listchars=tab:\ ,trail:,eol:$,extends:#,nbsp:  " Highlight problematic whitespace
+    "et listchars=tab:▸\ ,trail:•,eol:¬,extends:#,nbsp:.  " Highlight problematic whitespace
+    " set listchars=tab:\ ,trail:,eol:$,extends:#,nbsp:  " Highlight problematic whitespace
     "Invisible character colors, but it's overriden by colorscheme plugins
     " highlight NonText guifg=#4a4a59    " let it be managed by color scheme
     " highlight SpecialKey guifg=#4a4a59
@@ -784,18 +784,17 @@
         let g:vim_json_syntax_conceal = 0
     " }
 
-    " { :make
-        augroup exe_cpp
-            autocmd!
-            autocmd FileType cpp let &makeprg='g++ -g -std=c++17 -Wall -Wextra -Wshadow -o %< %'
-            autocmd FileType cpp nmap <'> :w<CR>:make<CR>:!%<<CR>
-            autocmd FileType cpp nmap <F5> :w<CR>:make<CR>:!%<<CR>
-            imap <F10> <Esc>:!gdb %< <CR>
-            nmap <F10> :!gdb %< <CR>
-        augroup END
-    " }
 
+" }
 
+" }
+
+" Python provider for neovim {
+    " to make vim load faster without detecting providers
+    "let g:python_host_skip_check  = 1
+    "let g:python_host3_skip_check = 1
+    " let g:python_host_prog        = 'python' " using pyenv as version manager
+    " let g:python3_host_prog       = 'python' " using pyenv as version manager
 " }
 
 " Plugins {
@@ -839,6 +838,14 @@
                 source ~/.vimde/conf.d/.vimrc.coc-snippets
             endif
 
+        endif
+    " }
+    
+    " nvim-treesitter {
+        if has('nvim-0.5.0')
+            if filereadable(expand("~/.vimde/conf.d/.vimrc.nvim-treesitter"))
+                source ~/.vimde/conf.d/.vimrc.nvim-treesitter
+            endif
         endif
     " }
 
@@ -951,10 +958,13 @@
     " SnipMate {
         " Setting the author var
     " }
-
-    lua << EOF
-    require("nvim-tree.main")
+    if has('nvim-0.5.0')
+        Plug 'kyazdani42/nvim-tree.lua'"
+        lua << EOF
+        require("nvim-tree.main")
 EOF
+    endif
+
     "{
         map <leader>e :NvimTreeFindFile<CR>
         nmap <leader>nt :NvimTreeToggle<CR>
@@ -1201,12 +1211,6 @@ EOF
         endif
     " }
     
-    " nvim-treesitter {
-        if filereadable(expand("~/.vimde/conf.d/.vimrc.nvim-treesitter"))
-            source ~/.vimde/conf.d/.vimrc.nvim-treesitter
-        endif
-    " }
-
     " airline-themes {
         if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
             " status line
@@ -1269,6 +1273,17 @@ EOF
         " STL header file type detection
         "au BufRead * if search('\M-*- C++ -*-', 'nw') | setlocal ft=cpp | endif
         au BufRead * if search('\M-*- C++ -*-', 'n', '1') | setlocal ft=cpp | endif " only search first line
+        " { :make
+        augroup exe_cpp
+            autocmd!
+            autocmd FileType cpp let &makeprg='g++ -g -std=c++17 -Wall -Wextra -Wshadow -o %< %'
+            autocmd FileType cpp nmap <'> :w<CR>:make<CR>:!%<<CR>
+            autocmd FileType cpp nmap <F5> :w<CR>:make<CR>:!%<<CR>
+            imap <F10> <Esc>:!gdb %< <CR>
+            nmap <F10> :!gdb %< <CR>
+        augroup END
+        " }
+
         " clang_complete
         let g:clang_use_library                        = 1
         let g:clang_library_path                       = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib"
@@ -1339,13 +1354,7 @@ EOF
     " }
 
     " java {
-        if isdirectory(expand("~/.vim/bundle/vim-javacomplete2"))
-            autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-            nmap <F4> <Plug>(JavaComplete-Imports-Add)
-            imap <F4> <Plug>(JavaComplete-Imports-Add)
-
-        endif
+        
     " }
 
     " swift {
@@ -1394,7 +1403,6 @@ EOF
                 \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
                 \ "html,xml" : ["at"],
                 \ }
-    " }
 " }
 
 " GUI Settings {
@@ -1422,7 +1430,6 @@ EOF
     endif
 
 " }
-
 
 " { color scheme
     " highlight cursor
@@ -1655,3 +1662,4 @@ EOF
     "cmap <expr> UpdateSelf UpdateSelf()
     command! UpdateSelf call UpdateSelf()
 " }
+

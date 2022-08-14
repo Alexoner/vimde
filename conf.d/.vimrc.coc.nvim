@@ -232,4 +232,4 @@ let g:coc_global_extensions = [
 
 " debug
 let $NVIM_COC_LOG_LEVEL='info'  " :CocInfo to check log
-let g:node_client_debug = 1     "  :echo $NODE_CLIENT_LOG_FILE
+" let g:node_client_debug = 1     "  :echo $NODE_CLIENT_LOG_FILE

@@ -1,7 +1,17 @@
 {
     "coc.preferences.jumpCommand": "tab drop",
     "coc.preferences.useQuickfixForLocations": true,
-    "coc.preferences.extensionUpdateCheck": "daily",
+    "coc.preferences.extensionUpdateCheck": "weekly",
+    "coc.source.around.enable": false,
+    "suggest.enablePreselect": false,
+    "suggest.noselect": true,
+    "suggest.labelMaxLength": 160,
+    "#suggest.floatEnable": true,
+    "#suggest.pumFloatConfig": {
+      "maxWidth": 160,
+      "highlight": "CocFloating",
+      "shadow": true
+    },
     "clangd.fallbackFlags": [
         "-pedantic", "-std=c++17", "-Wall", "-Wextra",
         "-Werror=uninitialized", "-Werror=return-type", "-Werror=shadow", "-Werror=narrowing", "-Werror=conversion",
@@ -35,7 +45,7 @@
             ]
         }
     },
-    "diagnostic.level": "error",
+    "diagnostic.level": "warning",
     "diagnostic-languageserver.filetypes": {
         "python": "flake8",
         "sh": "shellcheck"
@@ -101,6 +111,8 @@
         "--max-line-length=119",
         "--ignore=E203,W503,W504"
     ],
+    "snippets.autoTrigger": false,
+    "snippets.snipmate.enable": false,
     "markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true,
     "markdownlint.config": {
         "default":true,

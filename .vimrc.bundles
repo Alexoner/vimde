@@ -75,31 +75,23 @@
     " }
 " }
 
+" package manager {
+    " Bundle 'gmarik/vundle'
+    Plug 'junegunn/vim-plug'
+" }
+
 " Plugins {
 
-    " Deps {
-        " Bundle 'gmarik/vundle'
-        Plug 'junegunn/vim-plug'
-    " }
-
-    " In your .vimrc.before.local file
-    " list only the plugin groups you will use
-    if !exists('g:vimde_bundle_groups')
-        let g:vimde_bundle_groups=['general', 'writing', 'coc.nvim', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
-    endif
+" In your .vimrc.before.local file
+" list only the plugin groups you will use
+if !exists('g:vimde_bundle_groups')
+    let g:vimde_bundle_groups=['general', 'writing', 'coc.nvim', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+endif
 
     " To override all the included bundles, add the following to your
     " .vimrc.bundles.local file:
     "   let g:override_vimde_bundles = 1
-    if !exists("g:override_vimde_bundles")
-
-    " Python provider for neovim {
-        " to make vim load faster without detecting providers
-        "let g:python_host_skip_check  = 1
-        "let g:python_host3_skip_check = 1
-        " let g:python_host_prog        = 'python' " using pyenv as version manager
-        " let g:python3_host_prog       = 'python' " using pyenv as version manager
-    " }
+if !exists("g:override_vimde_bundles")
 
     " General {
         if count(g:vimde_bundle_groups, 'general')
@@ -172,85 +164,88 @@
         endif
     " }
 
-    " Snippets & AutoComplete, state of the art {
+    " AutoComplete & Snippets, state of the art {
 
         if count(g:vimde_bundle_groups, 'coc.nvim')
             " Use release branch (recommend)
             Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
-            " Plug 'honza/vim-snippets'
+            Plug 'honza/vim-snippets'
         endif
 
         " Plug 'github/copilot.vim'
     " }
 
     " { neovim ecosystem
+    if has('nvim')
         Plug 'rcarriga/nvim-notify' 
+        Plug 'lukas-reineke/indent-blankline.nvim'
+        Plug 'CRAG666/code_runner.nvim'
+    endif
     " }
 
     " General Programming {
-        if count(g:vimde_bundle_groups, 'programming')
-            " Pick one of the checksyntax, jslint, or syntastic
+    if count(g:vimde_bundle_groups, 'programming')
+        " Pick one of the checksyntax, jslint, or syntastic
 
-            Plug 'scrooloose/nerdcommenter'
-            if has('nvim-0.5.0')
-                Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-                Plug 'p00f/nvim-ts-rainbow'
-            endif
-            " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
-            " Plug 'kien/rainbow_parentheses.vim'
-            Plug 'lukas-reineke/indent-blankline.nvim'
-            " Plug 'Yggdroot/indentLine'
-            Plug 'junegunn/vim-easy-align'
-            Plug 'tpope/vim-fugitive' " 
-            Plug 'mhinz/vim-signify'
-            Plug 'mattn/gist-vim'
-            Plug 'tpope/vim-commentary'
-            Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
-            "Plug 'godlygeek/tabular'
-            "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
-            Plug 'luochen1990/rainbow'
-            " Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/vim-build-tools-wrapper'
-            Plug 'cdelledonne/vim-cmake'
-            Plug 'alepez/vim-gtest'
-
-            Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-            Plug 'CRAG666/code_runner.nvim'
-            Plug 'thinca/vim-quickrun'
-            Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
-            if executable('ctags')
-                Plug 'majutsushi/tagbar'
-            endif
-            " Plug 'janko-m/vim-test'
-            " CVS/SVN/SVK/git/hk/bzr integration
-            "Plug 'vim-scripts/vcscommand.vim'
-            " Plug 'qstrahl/vim-matchmaker'
-            " a solid language pack for vim
-            "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
-            " Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
-            " Plug 'mattn/webapi-vim'
-            "Plug 'PeterRincker/vim-argumentative'
-            Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
-            "Plug 'zenbro/mirror.vim'
-            "Plug 'editorconfig/editorconfig-vim'
+        Plug 'scrooloose/nerdcommenter'
+        if has('nvim-0.5.0')
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+            Plug 'p00f/nvim-ts-rainbow'
         endif
+        " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
+        " Plug 'kien/rainbow_parentheses.vim'
+        " Plug 'Yggdroot/indentLine'
+        Plug 'junegunn/vim-easy-align'
+        Plug 'tpope/vim-fugitive' " 
+        Plug 'mhinz/vim-signify'
+        Plug 'mattn/gist-vim'
+        Plug 'tpope/vim-commentary'
+        Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
+        "Plug 'godlygeek/tabular'
+        "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
+        Plug 'luochen1990/rainbow'
+        " Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/vim-build-tools-wrapper'
+        Plug 'cdelledonne/vim-cmake'
+        Plug 'alepez/vim-gtest'
+
+        Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
+        Plug 'thinca/vim-quickrun'
+        Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
+        if executable('ctags')
+            Plug 'majutsushi/tagbar'
+        endif
+        " Plug 'janko-m/vim-test'
+        " CVS/SVN/SVK/git/hk/bzr integration
+        "Plug 'vim-scripts/vcscommand.vim'
+        " Plug 'qstrahl/vim-matchmaker'
+        " a solid language pack for vim
+        "for javascript with tagbar, { 'do': 'npm install -g git+https://github.com/ramitos/jsctags.git' }
+        " Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
+        " Plug 'mattn/webapi-vim'
+        "Plug 'PeterRincker/vim-argumentative'
+        Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
+        "Plug 'zenbro/mirror.vim'
+        "Plug 'editorconfig/editorconfig-vim'
+    endif
     " }
 
     " colorscheme {
         if count(g:vimde_bundle_groups, 'colorscheme')
             " Plug 'flazz/vim-colorschemes'
             " Plug 'iCyMind/NeoSolarized'
-            Plug 'Tsuzat/NeoSolarized.nvim'
             Plug 'lifepillar/vim-solarized8'
-            Plug 'EdenEast/nightfox.nvim'
-            Plug 'morhetz/gruvbox'
-            Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
-            Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
+            if has('nvim')
+                Plug 'Tsuzat/NeoSolarized.nvim'
+                Plug 'EdenEast/nightfox.nvim'
+                Plug 'morhetz/gruvbox'
+                Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
+                Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
+                "Plug 'joshdick/onedark.vim'  " vim/neovim<0.5
+            endif
 
             " Plug 'altercation/vim-colors-solarized'  " doesn't work on terminal
             " color schemes below are either included by 'flazz/vim-colorschemes', or
             " ugly...
-            "Plug 'joshdick/onedark.vim'  " vim/neovim<0.5
-            "Plug 'tomasr/molokai'
         endif
     " }
 
@@ -390,8 +385,6 @@
     " Python {
         " Pick either python-mode or pyflakes & pydoc
         Plug 'yssource/python.vim', { 'for': ['python'] }
-        "Plug 'python_match.vim', { 'for': ['python'] }
-        "Plug 'pythoncomplete', { 'for': ['python'] }
         if !count(g:vimde_bundle_groups, 'youcompleteme') && !count(g:vimde_bundle_groups, 'coc.nvim')
             Plug 'davidhalter/jedi-vim', { 'for': 'python' }
         endif
@@ -404,7 +397,6 @@
     " R {
         if count(g:vimde_bundle_groups, 'R')
             Plug 'jalvesaq/Nvim-R', { 'for': ['r'] }
-            "Plug 'vim-scripts/Vim-R-plugin', { 'for': ['r'] }
         endif
     " }
 
@@ -421,7 +413,6 @@
             Plug 'briancollins/vim-jst', { 'for': ['javascript'] }
             Plug 'kchmck/vim-coffee-script', { 'for': ['javascript'] }
             Plug 'isRuslan/vim-es6', { 'for': ['javascript'] }
-            "Plug 'othree/jspc.vim', { 'for': ['javascript'] }
             "Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
         endif
     " }
@@ -566,7 +557,7 @@
         Plug 'donRaphaco/neotex', { 'for': 'tex' } "latex live preview - plugin for neovim and vim 8
     " }
 
-    endif
+endif
 " }
 
 " Setup Plugin Manager Support end {
