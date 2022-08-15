@@ -791,35 +791,29 @@
 
 " Python provider for neovim {
     " to make vim load faster without detecting providers
-    "let g:python_host_skip_check  = 1
-    "let g:python_host3_skip_check = 1
-    " let g:python_host_prog        = 'python' " using pyenv as version manager
-    " let g:python3_host_prog       = 'python' " using pyenv as version manager
+    let g:python_host_skip_check  = 1
+    let g:python_host3_skip_check = 1
+    let g:python_host_prog        = 'python' " using pyenv as version manager
+    let g:python3_host_prog       = 'python' " using pyenv as version manager
 " }
 
 " Plugins {
 
-    "General Programming  {
-         if count(g:vimde_bundle_groups, 'programming')
-            " sideways.vim
-            nnoremap <, :SidewaysLeft<cr>
-            nnoremap >. :SidewaysRight<cr>
-        endif
-    "}
-
     " fzf.vim: fuzzy finder {
         if isdirectory(expand("~/.vim/bundle/fzf.vim"))
-            nnoremap <c-M-p> :Files<cr>
-            nmap <leader>lf :Files<CR>
-            " list files
-            nnoremap <c-p> :GFiles<cr>
-            nmap <leader>lg :GFiles<CR>
-            " list buffers
-            nnoremap <C-M-b> :Buffers<cr>
-            CommandCabbr buffers Buffers
-            nmap <leader>lb :Buffers<CR>
-            nmap <leader>ls :Buffers<CR>
-            "CommandCabbr ls Buffers
+            if !count(g:vimde_bundle_groups, 'telescope.nvim')
+                nnoremap <c-M-p> :Files<cr>
+                nmap <leader>lf :Files<CR>
+                " " list files
+                nnoremap <c-p> :GFiles<cr>
+                nmap <leader>lg :GFiles<CR>
+                " " list buffers
+                nnoremap <C-M-b> :Buffers<cr>
+                CommandCabbr buffers Buffers
+                nmap <leader>lb :Buffers<CR>
+                nmap <leader>ls :Buffers<CR>
+                CommandCabbr ls Buffers
+            endif
             " list windows
             nmap <leader>lw :Windows<CR>
             CommandCabbr history History
@@ -839,6 +833,12 @@
             endif
 
         endif
+    " }
+    
+    " fuzzy finder telescope {
+            if filereadable(expand("~/.vimde/conf.d/.vimrc.telescope.nvim"))
+                source ~/.vimde/conf.d/.vimrc.telescope.nvim
+            endif
     " }
     
     " nvim-treesitter {
@@ -864,6 +864,14 @@
             "imap <C-/> <Esc><plug>NERDCommenterToggle<CR>i
         endif
     " }
+
+    "General Programming  {
+         if count(g:vimde_bundle_groups, 'programming')
+            " sideways.vim
+            nnoremap <, :SidewaysLeft<cr>
+            nnoremap >. :SidewaysRight<cr>
+        endif
+    "}
 
     " TextObj Sentence {
         if count(g:vimde_bundle_groups, 'writing')
@@ -907,9 +915,9 @@
         if isdirectory(expand("~/.vim/bundle/nerdtree"))
             let g:NERDShutUp=1
         endif
-        if isdirectory(expand("~/.vim/bundle/matchit.zip"))
-            let b:match_ignorecase = 1
-        endif
+        " if isdirectory(expand("~/.vim/bundle/matchit.zip"))
+            " let b:match_ignorecase = 1
+        " endif
     " }
 
     " OmniComplete {

@@ -1,0 +1,29 @@
+
+lua <<EOF
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+require('telescope').load_extension('fzf')
+EOF
+
+
+
+" Find files using Telescope command-line sugar.
+" nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>fb <cmd>Telescope buffers<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using Lua functions
+" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+" nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
+
+nnoremap <c-M-p> <cmd>Telescope<cr>
+nnoremap <c-p> <cmd>Telescope git_files<cr>
+nnoremap <leader>ff <cmd>Telescope live_grep<cr>
+nnoremap <leader>lg <cmd>Telescope git_files<CR>
+nnoremap <leader>lb <cmd>Telescope buffers<CR>
+nnoremap <leader>lf :Telescope find_files<CR>

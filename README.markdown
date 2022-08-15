@@ -32,6 +32,12 @@ The easiest way to install vimde is to use our [automatic installer](https://raw
 
 *Requires Git 1.7+ and Vim 7.3+*
 
+On Linux:
+```bash
+sudo apt install neovim        # install neovim, recommended
+sudo apt-get install ripgrep   # fast grep
+```
+
 ```bash
     # for Mac OSX with homebrew
     brew install neovim/neovim/neovim

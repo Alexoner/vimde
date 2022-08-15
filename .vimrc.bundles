@@ -123,11 +123,11 @@ if !exists("g:override_vimde_bundles")
             elseif executable('ack')
                 Plug 'mileszs/ack.vim'
             endif
-            Plug 'terryma/vim-multiple-cursors'
             Plug 'jiangmiao/auto-pairs'
             Plug 'mbbill/undotree'
             Plug 'easymotion/vim-easymotion'
             Plug 'andymass/vim-matchup/'
+            Plug 'terryma/vim-multiple-cursors'
             "Plug 'matchit.zip'
             "Plug 'ryanoasis/vim-devicons', { 'do': '' }
             Plug 'tpope/vim-surround'
@@ -170,16 +170,30 @@ if !exists("g:override_vimde_bundles")
             " Use release branch (recommend)
             Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'npm install -g yarn'}
             Plug 'honza/vim-snippets'
+        else  " use neovim native LSP protocol support
+            Plug 'neovim/nvim-lspconfig'
         endif
+
 
         " Plug 'github/copilot.vim'
     " }
 
     " { neovim ecosystem
     if has('nvim')
+        " lua plugin dependencies
+        Plug 'nvim-lua/plenary.nvim'
+        " fuzzy finder over lists
+        Plug 'nvim-telescope/telescope.nvim'
+        Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+
+        Plug 'mfussenegger/nvim-dap'
+
         Plug 'rcarriga/nvim-notify' 
         Plug 'lukas-reineke/indent-blankline.nvim'
         Plug 'CRAG666/code_runner.nvim'
+        Plug 'folke/which-key.nvim'
+
+        " reference: awesome neovim, https://github.com/NvChad/NvChad
     endif
     " }
 
@@ -191,6 +205,7 @@ if !exists("g:override_vimde_bundles")
         if has('nvim-0.5.0')
             Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
             Plug 'p00f/nvim-ts-rainbow'
+            Plug 'stsewd/tree-sitter-comment'
         endif
         " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
         " Plug 'kien/rainbow_parentheses.vim'

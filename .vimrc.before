@@ -121,10 +121,11 @@ let g:vimde_no_autochdir = 1
 let g:vimde_bundle_groups=[
             \ 'general',
             \ 'colorscheme',
-            \ 'writting',
             \ 'programming',
-            \ 'autocomplete',
             \ 'coc.nvim',
+            \ 'telescope.nvim',
+            \ 'autocomplete',
+            \ 'writting',
             \ 'python',
             \ 'javascript',
             \ 'go',
@@ -163,28 +164,6 @@ let g:vimde_bundle_groups=[
         aug END
     endif
 " }
-
-" default setting
-"let g:vimde_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
-"let g:vimde_bundle_groups=[
-            "\ 'general',
-            "\ 'writting',
-            "\ 'programming',
-            "\ 'php',
-            "\ 'ruby',
-            "\ 'python',
-            "\ 'javascript',
-            "\ 'go',
-            "\ 'html',
-            "\ 'misc',
-            "\ 'scala',
-            "\ 'R',
-            "\ 'youcompleteme',
-            "\ 'deoplete',
-            "\ ]
-
-"
-
 
 "let g:powerline_pycmd="python3"
 "let g:vimde_use_powerline=1
