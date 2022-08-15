@@ -106,7 +106,9 @@ if !exists("g:override_vimde_bundles")
             " Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
             " Plug 'jistr/vim-nerdtree-tabs'
 
-            Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
+            if !count(g:vimde_bundle_groups, 'telescope.nvim')
+                Plug 'eugen0329/vim-esearch' "Project-wide/global search and edit
+            endif
             Plug 'lfv89/vim-interestingwords' " A vim plugin for highlighting and navigating through different words in a buffer.
             "Plug 'Xuyuanp/nerdtree-git-plugin' " too slow for large git repositories
             "Plug 'ctrlpvim/ctrlp.vim'
@@ -125,16 +127,15 @@ if !exists("g:override_vimde_bundles")
             endif
             Plug 'jiangmiao/auto-pairs'
             Plug 'mbbill/undotree'
-            Plug 'easymotion/vim-easymotion'
             Plug 'andymass/vim-matchup/'
             Plug 'terryma/vim-multiple-cursors'
-            "Plug 'matchit.zip'
             "Plug 'ryanoasis/vim-devicons', { 'do': '' }
             Plug 'tpope/vim-surround'
             Plug 'tpope/vim-repeat'
             Plug 'rhysd/conflict-marker.vim'
             "Plug 'Raimondi/delimitMate'
             "Plug 'vim-scripts/sessionman.vim'
+            Plug 'easymotion/vim-easymotion'
             Plug 'tpope/vim-obsession'
             Plug 'Shougo/vimproc.vim', {'do': 'make'}
             if (has("python") || has("python3")) && exists('g:vimde_use_powerline') && !exists('g:vimde_use_old_powerline')
@@ -215,17 +216,17 @@ if !exists("g:override_vimde_bundles")
         Plug 'mhinz/vim-signify'
         Plug 'mattn/gist-vim'
         Plug 'tpope/vim-commentary'
-        Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
+        " Plug 'Chiel92/vim-autoformat', { 'do': 'npm install -g esformatter esformatter-jsx' }
         "Plug 'godlygeek/tabular'
         "Plug 'benekastah/neomake', { 'do': 'pip install pylint && npm install -g eslint babel-eslint eslint-plugin-react', 'for': ['python', 'javascript'] }
-        Plug 'luochen1990/rainbow'
+        " Plug 'luochen1990/rainbow'
         " Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/vim-build-tools-wrapper'
         Plug 'cdelledonne/vim-cmake'
         Plug 'alepez/vim-gtest'
 
         Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
         Plug 'thinca/vim-quickrun'
-        Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
+        " Plug 'thinca/vim-qfreplace'  " perform the replacement in quickfix
         if executable('ctags')
             Plug 'majutsushi/tagbar'
         endif
@@ -254,7 +255,7 @@ if !exists("g:override_vimde_bundles")
                 Plug 'EdenEast/nightfox.nvim'
                 Plug 'morhetz/gruvbox'
                 Plug 'folke/tokyonight.nvim', { 'branch': 'main'  }
-                Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
+                " Plug 'navarasu/onedark.nvim'  " neovim>=0.5"
                 "Plug 'joshdick/onedark.vim'  " vim/neovim<0.5
             endif
 
@@ -357,8 +358,8 @@ if !exists("g:override_vimde_bundles")
             Plug 'reedes/vim-textobj-sentence'
             Plug 'reedes/vim-textobj-quote'
             Plug 'reedes/vim-wordy'
+            Plug 'junegunn/goyo.vim' " distraction-free writing in Vim
         endif
-        Plug 'junegunn/goyo.vim' " distraction-free writing in Vim
     " }
     
     " Pandoc {
