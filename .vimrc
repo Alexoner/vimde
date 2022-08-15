@@ -67,12 +67,69 @@
 
 " }
 
-" Python provider for neovim {
+" provider for neovim {
+    " :help provider
     " to make vim load faster without detecting providers
+    " must be put before loading plugins
+    
+    " disable python provider check
     let g:python_host_skip_check  = 1
     let g:python_host3_skip_check = 1
     let g:python_host_prog        = 'python' " using pyenv as version manager
     let g:python3_host_prog       = 'python' " using pyenv as version manager
+
+    let g:loaded_ruby_provider = 0
+
+    " set clipboard 
+    function! IsWSL()
+      if has("unix")
+        let lines = readfile("/proc/version")
+        if lines[0] =~ "microsoft"
+            " echo "WINDOWS SUBSYSTEM LINUX!"
+          return 1
+        endif
+      endif
+      return 0
+    endfunction
+
+    if IsWSL()
+        " WSL yank support
+        let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+        if executable(s:clip)
+            augroup WSLYank
+                autocmd!
+                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+            augroup END
+        endif
+
+        " may still need to remove xclip from Linux to work.
+        let g:clipboard = {
+                \   'name': 'WslClipboard',
+                \   'copy': {
+                \      '+': 'clip.exe',
+                \      '*': 'clip.exe',
+                \    },
+                \   'paste': {
+                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+                \   },
+                \   'cache_enabled': 0,
+                \ }
+    elseif exists('$TMUX')
+        let g:clipboard = {
+            \   'name': 'myClipboard',
+            \   'copy': {
+            \      '+': 'tmux load-buffer -',
+            \      '*': 'tmux load-buffer -',
+            \    },
+            \   'paste': {
+            \      '+': 'tmux save-buffer -',
+            \      '*': 'tmux save-buffer -',
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+    endif
+
 " }
 
 " Use before config if available {
@@ -133,56 +190,6 @@
     set lazyredraw
     set synmaxcol=128
     syntax sync minlines=256
-
-    function! IsWSL()
-      if has("unix")
-        let lines = readfile("/proc/version")
-        if lines[0] =~ "microsoft"
-            " echo "WINDOWS SUBSYSTEM LINUX!"
-          return 1
-        endif
-      endif
-      return 0
-    endfunction
-
-    if IsWSL()
-        " WSL yank support
-        let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
-        if executable(s:clip)
-            augroup WSLYank
-                autocmd!
-                autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-            augroup END
-        endif
-
-        " may still need to remove xclip from Linux to work.
-        let g:clipboard = {
-                \   'name': 'WslClipboard',
-                \   'copy': {
-                \      '+': 'clip.exe',
-                \      '*': 'clip.exe',
-                \    },
-                \   'paste': {
-                \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-                \   },
-                \   'cache_enabled': 0,
-                \ }
-    elseif exists('$TMUX')
-        let g:clipboard = {
-            \   'name': 'myClipboard',
-            \   'copy': {
-            \      '+': 'tmux load-buffer -',
-            \      '*': 'tmux load-buffer -',
-            \    },
-            \   'paste': {
-            \      '+': 'tmux save-buffer -',
-            \      '*': 'tmux save-buffer -',
-            \   },
-            \   'cache_enabled': 1,
-            \ }
-    endif
-
 
     " Most prefer to automatically switch to the current file directory when
     " a new buffer is opened; to prevent this behavior, add the following to
