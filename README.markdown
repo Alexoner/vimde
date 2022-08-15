@@ -659,7 +659,9 @@ Here's some tips if you've never used VIM before:
 
 ## Profiling vim startup time
 
-    nvim --startuptime start.txt
+    nvim --startuptime start.txt  # or
+	time vim --startuptime start.log +:q
+	cat start.log|less
 
 The time stamp indicates when the specific plugin is done loading.
 For example if `python3.vim` is slow to load, set `let g:python3_host_prog='python'` in vimrc

@@ -67,6 +67,14 @@
 
 " }
 
+" Python provider for neovim {
+    " to make vim load faster without detecting providers
+    let g:python_host_skip_check  = 1
+    let g:python_host3_skip_check = 1
+    let g:python_host_prog        = 'python' " using pyenv as version manager
+    let g:python3_host_prog       = 'python' " using pyenv as version manager
+" }
+
 " Use before config if available {
     if filereadable(expand("~/.vimrc.before"))
         source ~/.vimde/.vimrc.before
@@ -787,14 +795,6 @@
 
 " }
 
-" }
-
-" Python provider for neovim {
-    " to make vim load faster without detecting providers
-    let g:python_host_skip_check  = 1
-    let g:python_host3_skip_check = 1
-    let g:python_host_prog        = 'python' " using pyenv as version manager
-    let g:python3_host_prog       = 'python' " using pyenv as version manager
 " }
 
 " Plugins {
