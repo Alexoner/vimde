@@ -194,6 +194,8 @@ if !exists("g:override_vimde_bundles")
         Plug 'CRAG666/code_runner.nvim'
         Plug 'folke/which-key.nvim'
 
+        Plug 'CRAG666/code_runner.nvim'
+
         " reference: awesome neovim, https://github.com/NvChad/NvChad
     endif
     " }

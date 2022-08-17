@@ -16,7 +16,7 @@ if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
         let g:airline_theme = 'solarized_flood'
     endif
 	let g:airline_powerline_fonts=1
-	" let g:airline#extensions#tabline#fnamemod=':t'
+	let g:airline#extensions#tabline#fnamemod=':t'
 
 
     " :help airline-coc

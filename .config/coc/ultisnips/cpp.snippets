@@ -39,8 +39,31 @@ priority -50
 ################
 # Pre-processor
 
+snippet main "codeforces main with fast io" 
+#include <bits/stdc++.h>
+using namespace std;
 
-snippet main "int main(argc, char **argv)"
+int main(int argc, char **argv) {
+    std::ios_base::sync_with_stdio(false); // XXX: fast io in C++
+    std::cin.tie(NULL);
+
+    while(!cin.eof()) {
+        int n;
+        cin >> n;
+        if (cin.eof()) break;
+        vector<int> arr(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> arr[i];
+        }
+		$code;
+        cout << solve(arr, foe) << endl;
+    }
+
+    return 0;
+}
+endsnippet
+
+snippet main "leetcode main"
 int main(int argc, char **argv) {
     namespace fs = std::filesystem;
 
@@ -82,6 +105,11 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+endsnippet
+
+snippet ios "fast io " 
+    ios_base::sync_with_stdio(false); // XXX: fast io in C++
+    cin.tie(NULL);
 endsnippet
 
 snippet linc "#include local header (linc)"

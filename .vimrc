@@ -857,6 +857,10 @@
         endif
     " }
 
+    if filereadable(expand("~/.vimde/conf.d/.vimrc.code_runner.nvim"))
+        source ~/.vimde/conf.d/.vimrc.code_runner.nvim
+    endif
+
     " nerdcommenter {
         let NERDSpaceDelims=1
         let g:NERDCustomDelimiters = {
@@ -864,7 +868,7 @@
             \ 'javascript.jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
             \ 'jsx': { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': '*/' },
         \ }
-        "map <C-/> <Esc><plug>NERDCommenterToggle<CR>i
+        " nmap <C-/> <plug>NERDCommenterToggle
         if OSX()
             " Do Mac stuff here
             "map <D-/> <Esc><plug>NERDCommenterToggle<CR>i
@@ -1296,14 +1300,23 @@ EOF
         "au BufRead * if search('\M-*- C++ -*-', 'nw') | setlocal ft=cpp | endif
         au BufRead * if search('\M-*- C++ -*-', 'n', '1') | setlocal ft=cpp | endif " only search first line
         " { :make
-        augroup exe_cpp
-            autocmd!
-            autocmd FileType cpp let &makeprg='g++ -g -std=c++17 -Wall -Wextra -Wshadow -o %< %'
-            autocmd FileType cpp nmap <'> :w<CR>:make<CR>:!%<<CR>
-            autocmd FileType cpp nmap <F5> :w<CR>:make<CR>:!%<<CR>
-            imap <F10> <Esc>:!gdb %< <CR>
-            nmap <F10> :!gdb %< <CR>
-        augroup END
+        if exists(":RunCode")
+            " with code_runner.nvim
+            augroup exe_cpp
+                autocmd!
+                autocmd FileType cpp nmap <F5> :w<CR>:RunCode<CR>
+            augroup END
+        else
+            augroup exe_cpp
+                autocmd!
+                autocmd FileType cpp let &makeprg='g++ -g -std=c++17 -Wall -Wextra -Wshadow -o %< %'
+                " autocmd FileType cpp nmap <C-'> :w<CR>:make<CR>:!%<<CR>
+                autocmd FileType cpp nmap <F8> :w<CR>:make<CR>
+                autocmd FileType cpp nmap <F5> :w<CR>:make<CR>:!%<<CR>
+                imap <F10> <Esc>:!gdb %< <CR>
+                nmap <F10> :!gdb %< <CR>
+            augroup END
+        endif
         " }
 
         " clang_complete
