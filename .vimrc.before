@@ -165,11 +165,8 @@ let g:vimde_bundle_groups=[
     endif
 " }
 
-"let g:powerline_pycmd="python3"
-"let g:vimde_use_powerline=1
-let g:airline_powerline_fonts=1
-let g:airline_theme='luna'
-let g:airline#extensions#tabline#fnamemod=':t'
+" let g:powerline_pycmd="python3"
+" let g:vimde_use_powerline=1
 
 "vim-coloresque
 if !exists("b:color_pattern")

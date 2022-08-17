@@ -2,7 +2,7 @@
 
 " Set configuration options for the statusline plugin vim-airline.
 " Use the powerline theme and optionally enable powerline symbols.
-" To use the symbols , , , , , , and .in the statusline
+" To use the symbols , , , , , ⚡, , and .in the statusline
 " segments add the following to your .vimrc.before.local file:
 "   let g:airline_powerline_fonts=1
 " If the previous symbols do not render for you then install a
@@ -12,8 +12,11 @@
 " Default in terminal vim is 'dark'
 if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
     if !exists('g:airline_theme')
-        let g:airline_theme = 'solarized'
+		let g:airline_theme='luna'
+        let g:airline_theme = 'solarized_flood'
     endif
+	let g:airline_powerline_fonts=1
+	" let g:airline#extensions#tabline#fnamemod=':t'
 
 
     " :help airline-coc
@@ -51,4 +54,5 @@ if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
 
     " airline too slow
     " let g:airline_extensions = []
+
 endif

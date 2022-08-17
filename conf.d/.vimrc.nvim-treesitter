@@ -45,6 +45,17 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = false,  -- experimental as of 20220812
   },
+  textobjects = {
+    swap = {
+      enable = true,
+      swap_next = {
+        [">."] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<,"] = "@parameter.inner",
+      },
+    },
+  },
 }
 
 

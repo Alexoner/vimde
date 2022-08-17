@@ -312,6 +312,7 @@
 
 
     if (has("nvim"))
+        " not needed anymore?
         "let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
     endif
     " To enable mode shapes, "Cursor" highlight, and blinking:
@@ -874,11 +875,14 @@
 
     "General Programming  {
          if count(g:vimde_bundle_groups, 'programming')
-            " sideways.vim
-            nnoremap <, :SidewaysLeft<cr>
-            nnoremap >. :SidewaysRight<cr>
+            " sideways.vim, deprecated in favor of treesitter
+
+            if !has('nvim-0.5.0')
+                nnoremap <, :SidewaysLeft<cr>
+                nnoremap >. :SidewaysRight<cr>
+            endif
         endif
-    "}
+        "}
 
     " TextObj Sentence {
         if count(g:vimde_bundle_groups, 'writing')
@@ -903,11 +907,14 @@
     " }
 
     " vim-autoformat {
-        "vim-autoformat
+        "vim-autoformat, deprecated in favor of treesitter
         "noremap <F3> :Autoformat<CR>
-        noremap <F7> :Autoformat<CR>
-        "au BufWrite * :Autoformat
-        let g:formatter_yapf_style = 'pep8'
+
+        if !has('nvim-0.5.0')
+            noremap <F7> :Autoformat<CR>
+            "au BufWrite * :Autoformat
+            let g:formatter_yapf_style = 'pep8'
+        endif
 
     " }
 
@@ -1226,8 +1233,8 @@ EOF
         endif
     " }
     
-    " airline-themes {
-        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+    " lightline {
+        if isdirectory(expand("~/.vim/bundle/lightline/"))
             " status line
             let g:lightline = {
                   \ 'colorscheme': 'solarized',

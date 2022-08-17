@@ -85,7 +85,7 @@
 " In your .vimrc.before.local file
 " list only the plugin groups you will use
 if !exists('g:vimde_bundle_groups')
-    let g:vimde_bundle_groups=['general', 'writing', 'coc.nvim', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
+    let g:vimde_bundle_groups=['general', 'coc.nvim', 'telescopre.nvim', 'programming', 'writing', 'php', 'ruby', 'python', 'javascript', 'html', 'misc',]
 endif
 
     " To override all the included bundles, add the following to your
@@ -127,7 +127,7 @@ if !exists("g:override_vimde_bundles")
             endif
             Plug 'jiangmiao/auto-pairs'
             Plug 'mbbill/undotree'
-            Plug 'andymass/vim-matchup/'
+            Plug 'andymass/vim-matchup'
             Plug 'terryma/vim-multiple-cursors'
             "Plug 'ryanoasis/vim-devicons', { 'do': '' }
             Plug 'tpope/vim-surround'
@@ -207,6 +207,8 @@ if !exists("g:override_vimde_bundles")
             Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
             Plug 'p00f/nvim-ts-rainbow'
             Plug 'stsewd/tree-sitter-comment'
+            Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+            Plug 'JoosepAlviste/nvim-ts-context-commentstring'
         endif
         " Plug 'sheerun/vim-polyglot' "A solid language pack for Vim. XXX: too slow moving in normal mode, don't use
         " Plug 'kien/rainbow_parentheses.vim'
@@ -239,7 +241,7 @@ if !exists("g:override_vimde_bundles")
         " Plug 'tpope/vim-sleuth', {'for': ['c', 'cpp', 'obj', 'go', 'cs', 'html', 'javascript', 'python']}                 " automatically detect and set buffer indentation options
         " Plug 'mattn/webapi-vim'
         "Plug 'PeterRincker/vim-argumentative'
-        Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
+        " Plug 'AndrewRadev/sideways.vim' "move function arguments (and other delimited-by-something items) left and right
         "Plug 'zenbro/mirror.vim'
         "Plug 'editorconfig/editorconfig-vim'
     endif
@@ -410,6 +412,13 @@ if !exists("g:override_vimde_bundles")
         Plug 'hdima/python-syntax', {'for': ['python']}
     " }
 
+    " Go Lang {
+        if count(g:vimde_bundle_groups, 'go')
+            "Plug 'Blackrush/vim-gocode', { 'for': ['go'], 'do': 'go get github.com/nsf/gocode' }
+            "Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries'}
+        endif
+    " }
+
     " R {
         if count(g:vimde_bundle_groups, 'R')
             Plug 'jalvesaq/Nvim-R', { 'for': ['r'] }
@@ -418,11 +427,13 @@ if !exists("g:override_vimde_bundles")
 
     " Javascript {
         if count(g:vimde_bundle_groups, 'javascript')
+            if !count(g:vimde_bundle_groups, 'youcompleteme') && !count(g:vimde_bundle_groups, 'coc.nvim')
+                Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install && npm install -g tern' }
+            endif
             Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
             Plug 'jelera/vim-javascript-syntax', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
             Plug 'othree/yajs.vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'], 'do': 'rm ~/.vim/bundle/vim-jsx/after/indent/jsx.vim' }
-            "Plug 'marijnh/tern_for_vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': 'npm install && npm install -g tern' }
             Plug 'moll/vim-node', { 'for': ['javascript'] }
             Plug 'justinj/vim-react-snippets', { 'for': ['javascript'] }
             Plug 'groenewege/vim-less', { 'for': ['javascript'] }
@@ -464,13 +475,12 @@ if !exists("g:override_vimde_bundles")
 
     " HTML {
         if count(g:vimde_bundle_groups, 'html')
-            Plug 'vim-scripts/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
-            Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'javascript']}
             Plug 'ap/vim-css-color' ", { 'for': ['css', 'scss', 'javascript'] }
-            Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
-            Plug 'mattn/emmet-vim', { 'for': ['css', 'scss', 'javascript'] }
+            " Plug 'vim-scripts/HTML-AutoCloseTag', { 'for': ['css', 'html', 'javascript', 'xml']}
+            " Plug 'mattn/emmet-vim', {'for': ['html','javascript', 'css', 'jsx', 'javascript.jsx' ]}
+            " Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'javascript']}
+            " Plug 'tpope/vim-haml', { 'for': ['haml', 'sass', 'scss'] }
         endif
-        Plug 'mattn/emmet-vim', {'for': ['html','javascript', 'css', 'jsx', 'javascript.jsx' ]}
     " }
 
     " Ruby {
@@ -485,13 +495,6 @@ if !exists("g:override_vimde_bundles")
     " Puppet {
         if count(g:vimde_bundle_groups, 'puppet')
             Plug 'rodjek/vim-puppet'
-        endif
-    " }
-
-    " Go Lang {
-        if count(g:vimde_bundle_groups, 'go')
-            "Plug 'Blackrush/vim-gocode', { 'for': ['go'], 'do': 'go get github.com/nsf/gocode' }
-            "Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoInstallBinaries'}
         endif
     " }
 
@@ -551,13 +554,13 @@ if !exists("g:override_vimde_bundles")
     " }
 
     " SQL {
-        Plug 'vim-scripts/SQLUtilities', { 'for': ['sql'] }
-        Plug 'vim-scripts/SQLComplete.vim', { 'for': ['sql']}
-        Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
+        " Plug 'vim-scripts/SQLUtilities', { 'for': ['sql'] }
+        " Plug 'vim-scripts/SQLComplete.vim', { 'for': ['sql']}
+        " Plug 'vim-scripts/dbext.vim', { 'for': ['sql']}
     " }
 
     " lua {
-        Plug 'xolox/vim-misc' | Plug 'xolox/vim-lua-ftplugin', {'for':['lua']}
+        " Plug 'xolox/vim-misc' | Plug 'xolox/vim-lua-ftplugin', {'for':['lua']}
     " }
 
     " java {
@@ -565,12 +568,12 @@ if !exists("g:override_vimde_bundles")
     " }
 
     " json {
-        Plug 'elzr/vim-json', { 'for': ['json'] }
+        " Plug 'elzr/vim-json', { 'for': ['json'] }
     " }
 
     " LaTex {
-        Plug 'lervag/vimtex', {'for': ['tex']}
-        Plug 'donRaphaco/neotex', { 'for': 'tex' } "latex live preview - plugin for neovim and vim 8
+        " Plug 'lervag/vimtex', {'for': ['tex']}
+        " Plug 'donRaphaco/neotex', { 'for': 'tex' } "latex live preview - plugin for neovim and vim 8
     " }
 
 endif
