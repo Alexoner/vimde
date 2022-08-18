@@ -40,8 +40,42 @@ priority -50
 # Pre-processor
 
 snippet main "codeforces main with fast io" 
+#define DEBUG
+
 #include <bits/stdc++.h>
 using namespace std;
+
+#ifdef DEBUG
+#define debug(...) cerr  << "(" << #__VA_ARGS__ << ") = (", debug_out(__VA_ARGS__)  // redirect stderr to stdout: std::cerr.rdbuf(std::cout.rdbuf());
+#define debug_if(c, x...) if(c) debug(x)  // without {} around, debug(x) has to use comma expression, not ; expression
+#define LOG(x...) cerr << __FILE__ << ":" << __LINE__ << " "; debug(x) // print file name, line number
+#define ERROR(...) cerr << "\033[31m"; debug(__VA_ARGS__); cerr << "\033[0m";
+#define INFO(...) cerr <<"\033[32m"; debug(__VA_ARGS__); cerr <<"\033[0m";"]]]]"
+#else
+#define debug(...)
+#define debug_if(...)
+#define LOG(...)
+#define ERROR(...)
+#define INFO(...)
+#endif // DEBUG end debug print
+/////////////////////  DEBUG option 2: overload stream operator
+
+inline string to_string(const string &s) { return '"' + s + '"'; } // primitive types. Comma operator instead of ';'
+inline string to_string(const char *s) { return to_string((string) s); }
+inline string to_string(bool b) { return (b ? "true" : "false"); } // void __print(auto x) {cerr << x;}. compile error, ambiguous with overload for collection containers.
+inline string to_string(char c) { return "'" + string(1, c) + "'"; }
+
+template<typename T> string to_string(const T &x); // XXX: forward declaration, mutual recursive template function between __print(const T&x) and __print(const pair<> &x).
+// pair, iterable collection containers: overloaded variadic functions:
+template <size_t N>
+string to_string(bitset<N> v) { string res = ""; for (size_t i = 0; i < N; i++) { res += static_cast<char>('0' + v[i]); } return res; }
+template<typename A, typename B>
+string to_string(const pair<A, B> &x) {return "("+ to_string(x.first) + "," + to_string(x.second) + ")";}  // overload: std::pair
+template <typename A, typename B, typename C>
+string to_string(tuple<A, B, C> p) { return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")"; }
+template<typename T>
+string to_string(const T &v) {int f = 0; string res =  "{"; for (const auto &x: v) (res += (f++ ? "," : "") + to_string(x)); res += "}"; return res;} // XXX: overload: collection.
+
 
 int main(int argc, char **argv) {
     std::ios_base::sync_with_stdio(false); // XXX: fast io in C++

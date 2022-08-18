@@ -570,6 +570,7 @@
         vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
         vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
         vnoremap H <Nop>
+        nnoremap H h
     endif
 
     " The following two lines conflict with moving to top and

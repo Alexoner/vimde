@@ -147,8 +147,9 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
+nnoremap <silent><nowait> <space>a  :<C-u>CocList<cr>
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
@@ -230,6 +231,8 @@ let g:coc_global_extensions = [
       \'coc-lists',
       \'coc-omnisharp'
   \ ]
+
+nmap <f4> :CocDiagnostics<CR>
 
 " debug
 let $NVIM_COC_LOG_LEVEL='info'  " :CocInfo to check log
