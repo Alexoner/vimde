@@ -40,13 +40,59 @@ priority -50
 # Pre-processor
 
 snippet main "codeforces main with fast io" 
-#define DEBUG
+// #define DEBUG
 
 #include <bits/stdc++.h>
 using namespace std;
 
+#define biti(x, i) ((x) & (1 << (i)))  // ith bit from right to left
+#define bit1(x, i) (((x) >> (i)) & 1)  // ith bit from right to left, set or not
+#define bitcnt(x) (__builtin_popcountll(x)) // count set bits
+#define lastbit(x) ((x) & -(x))
+#define fi first
+#define se second
+#define FR(x) freopen((x), "r", stdin)
+#define FW(x) freopen((x), "w", stdout)
+#define FOR(a, b, c) for (int(a) = (b); (a) < (c); ++(a))
+#define REP(i, n) FOR(i, 0, n)
+#define all(c) ::std::begin(c), ::std::end(c)   // container shortcut
+#define rall(c) rbegin(c),rend(c)
+#define make_unique(a) a.erase(unique(begin(a),end(a)),end(a))
+#define len(x) ((int)x.size())
+
+#define llong long long
+#define ldouble long double
+typedef pair<int, int> pii;
+typedef vector<int> vi; // vector<int>
+typedef vector<vi> vvi; // vector<vector<int>>
+typedef vector<vvi> vvvi; // vector<vector<vector<int>>>
+#define umap unordered_map
+#define uset unordered_set
+
+
+template<class T> llong sq(T x) { return (llong)x * x; }
+
+inline string to_string(const string &s) { return '"' + s + '"'; }
+inline string to_string(const char *s) { return to_string((string) s); }
+inline string to_string(bool b) { return (b ? "true" : "false"); } // void __print(auto x) {cerr << x;}. compile error, ambiguous with overload for collection containers.
+inline string to_string(char c) { return "'" + string(1, c) + "'"; }
+
+template<typename T> string to_string(const T &x);
+// pair, iterable collection containers: overloaded variadic functions:
+template <size_t N>
+string to_string(bitset<N> v) { string res = ""; for (size_t i = 0; i < N; i++) { res += static_cast<char>('0' + v[i]); } return res; }
+template<typename A, typename B>
+string to_string(const pair<A, B> &x) {return "("+ to_string(x.first) + "," + to_string(x.second) + ")";}  // overload: std::pair
+template <typename A, typename B, typename C>
+string to_string(tuple<A, B, C> p) { return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")"; }
+template<typename T>
+string to_string(const T &v) {int f = 0; string res =  "{"; for (const auto &x: v) (res += (f++ ? "," : "") + to_string(x)); res += "}"; return res;}
+
 #ifdef DEBUG
-#define debug(...) cerr  << "(" << #__VA_ARGS__ << ") = (", debug_out(__VA_ARGS__)  // redirect stderr to stdout: std::cerr.rdbuf(std::cout.rdbuf());
+void debug_out() {cerr << "]\n";} // print end of expression delimeter
+template <typename Head, typename... Tail>
+void debug_out(Head h, Tail... t) { cerr << to_string(h); if (sizeof...(t)) cerr << ", ", debug_out(t...);} 
+#define debug(...) cerr  << "(" << #__VA_ARGS__ << ") = (", debug_out(__VA_ARGS__), cerr << ")\n" 
 #define debug_if(c, x...) if(c) debug(x)  // without {} around, debug(x) has to use comma expression, not ; expression
 #define LOG(x...) cerr << __FILE__ << ":" << __LINE__ << " "; debug(x) // print file name, line number
 #define ERROR(...) cerr << "\033[31m"; debug(__VA_ARGS__); cerr << "\033[0m";
@@ -60,21 +106,6 @@ using namespace std;
 #endif // DEBUG end debug print
 /////////////////////  DEBUG option 2: overload stream operator
 
-inline string to_string(const string &s) { return '"' + s + '"'; } // primitive types. Comma operator instead of ';'
-inline string to_string(const char *s) { return to_string((string) s); }
-inline string to_string(bool b) { return (b ? "true" : "false"); } // void __print(auto x) {cerr << x;}. compile error, ambiguous with overload for collection containers.
-inline string to_string(char c) { return "'" + string(1, c) + "'"; }
-
-template<typename T> string to_string(const T &x); // XXX: forward declaration, mutual recursive template function between __print(const T&x) and __print(const pair<> &x).
-// pair, iterable collection containers: overloaded variadic functions:
-template <size_t N>
-string to_string(bitset<N> v) { string res = ""; for (size_t i = 0; i < N; i++) { res += static_cast<char>('0' + v[i]); } return res; }
-template<typename A, typename B>
-string to_string(const pair<A, B> &x) {return "("+ to_string(x.first) + "," + to_string(x.second) + ")";}  // overload: std::pair
-template <typename A, typename B, typename C>
-string to_string(tuple<A, B, C> p) { return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")"; }
-template<typename T>
-string to_string(const T &v) {int f = 0; string res =  "{"; for (const auto &x: v) (res += (f++ ? "," : "") + to_string(x)); res += "}"; return res;} // XXX: overload: collection.
 
 
 int main(int argc, char **argv) {
@@ -90,7 +121,7 @@ int main(int argc, char **argv) {
             cin >> arr[i];
         }
 		$code;
-        cout << solve(arr, foe) << endl;
+        cout << solve(arr) << endl;
     }
 
     return 0;

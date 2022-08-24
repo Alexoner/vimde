@@ -7,7 +7,7 @@ require('code_runner').setup({
 		python = "python3 -u",
 		typescript = "deno run",
 		rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
-		cpp = "cd $dir && clang++ -pedantic -std=c++17 -Wall -Wextra -Werror=uninitialized -Werror=return-type -Werror=shadow -Werror=narrowing -Werror=conversion -Wno-sign-conversion -Werror=float-equal -Werror=parentheses -Wformat=2 -Wcast-qual -Wcast-align -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -O2 -ggdb -fno-omit-frame-pointer -fsanitize=address,undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds -o $fileNameWithoutExt $fileName && if [ -f $dir/$fileNameWithoutExt.in ]; then $dir/$fileNameWithoutExt < $dir/$fileNameWithoutExt.in; else $dir/$fileNameWithoutExt; fi",
+		cpp = "cd $dir && clang++ -pedantic -std=c++17 -Wall -Wextra -Werror=uninitialized -Werror=return-type -Werror=shadow -Werror=narrowing -Werror=conversion -Wno-sign-conversion -Werror=float-equal -Werror=parentheses -Wformat=2 -Wcast-qual -Wcast-align -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -O2 -ggdb -fno-omit-frame-pointer -fsanitize=address,undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds -Wl,-z,stack-size=268435456 -o $fileNameWithoutExt $fileName && if [ -f $dir/$fileNameWithoutExt.in ]; then $dir/$fileNameWithoutExt < $dir/$fileNameWithoutExt.in; else $dir/$fileNameWithoutExt; fi",
 	},
 })
 EOF

@@ -845,9 +845,11 @@
     " }
     
     " fuzzy finder telescope {
+        if has('nvim-0.5.0')
             if filereadable(expand("~/.vimde/conf.d/.vimrc.telescope.nvim"))
                 source ~/.vimde/conf.d/.vimrc.telescope.nvim
             endif
+        endif
     " }
     
     " nvim-treesitter {
@@ -887,7 +889,12 @@
                 nnoremap >. :SidewaysRight<cr>
             endif
         endif
-        "}
+    "}
+    
+    " competitive programming {
+        let g:cph_chdir = "~/code/dsa/oj/codeforces"
+        let g:cpp_compile_command = "clang++ -pedantic -std=c++17 -Wall -Wextra -Werror=uninitialized -Werror=return-type -Werror=shadow -Werror=narrowing -Werror=conversion -Wno-sign-conversion -Werror=float-equal -Werror=parentheses -Wformat=2 -Wcast-qual -Wcast-align -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -O2 -ggdb -fno-omit-frame-pointer -fsanitize=address,undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,local-bounds -Wl,-z,stack-size=268435456 -o cpp.out solution.cpp"
+    " }
 
     " TextObj Sentence {
         if count(g:vimde_bundle_groups, 'writing')
@@ -1306,6 +1313,7 @@ EOF
             augroup exe_cpp
                 autocmd!
                 autocmd FileType cpp nmap <F5> :w<CR>:RunCode<CR>
+                autocmd FileType cpp imap <F5> <Esc>:w<CR>:RunCode<CR>
             augroup END
         else
             augroup exe_cpp
