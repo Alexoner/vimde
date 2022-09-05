@@ -155,7 +155,9 @@ To display unicode symbols like: ¦.
 
 ## For WSL
 
-Use [Windows Terminal].
+- Use [Windows Terminal].
+- choose font `DroidSans Mono`
+- [webinstall.dev](https://webinstall.dev/nerdfont/)
 
 
 # A highly optimized .vimrc config file
