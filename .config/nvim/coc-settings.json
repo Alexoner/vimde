@@ -111,11 +111,14 @@
         "--max-line-length=119",
         "--ignore=E203,W503,W504"
     ],
+    "rust-analyzer.cargo.autoreload": true,
+    "rust-analyzer.procMacro.enable": true,
     "snippets.autoTrigger": false,
     "snippets.snipmate.enable": false,
     "markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true,
     "markdownlint.config": {
         "default":true,
         "line_length": false
-    }
+    },
+    "snippets.ultisnips.pythonPrompt": false
 }

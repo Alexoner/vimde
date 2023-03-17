@@ -204,13 +204,13 @@ let g:coc_global_extensions = [
       \'coc-eslint',
       \'coc-pyright',
       \'coc-go',
+	  \'coc-rust-analyzer',
       \'coc-html',
       \'coc-emmet',
       \'coc-json',
       \'coc-java',
 	  \'coc-lua',
       \'coc-prettier',
-      \'coc-rls',
       \'coc-swagger',
       \'coc-sh',
       \'coc-texlab',
@@ -229,6 +229,7 @@ let g:coc_global_extensions = [
       \'coc-flutter', 
       \'coc-git',
       \'coc-lists',
+	  \'coc-copilot',
       \'coc-omnisharp'
   \ ]
 

@@ -92,7 +92,20 @@
       return 0
     endfunction
 
-    if IsWSL()
+    if exists('$TMUX')
+        let g:clipboard = {
+            \   'name': 'myClipboard',
+            \   'copy': {
+            \      '+': 'tmux load-buffer -',
+            \      '*': 'tmux load-buffer -',
+            \    },
+            \   'paste': {
+            \      '+': 'tmux save-buffer -',
+            \      '*': 'tmux save-buffer -',
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+    elseif IsWSL()
         " WSL yank support
         let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
         if executable(s:clip)
@@ -115,19 +128,6 @@
                 \   },
                 \   'cache_enabled': 0,
                 \ }
-    elseif exists('$TMUX')
-        let g:clipboard = {
-            \   'name': 'myClipboard',
-            \   'copy': {
-            \      '+': 'tmux load-buffer -',
-            \      '*': 'tmux load-buffer -',
-            \    },
-            \   'paste': {
-            \      '+': 'tmux save-buffer -',
-            \      '*': 'tmux save-buffer -',
-            \   },
-            \   'cache_enabled': 1,
-            \ }
     endif
 
 " }
@@ -1310,13 +1310,13 @@ EOF
         " { :make
         if exists(":RunCode")
             " with code_runner.nvim
-            augroup exe_cpp
+            augroup runcode
                 autocmd!
-                autocmd FileType cpp nmap <F5> :w<CR>:RunCode<CR>
-                autocmd FileType cpp imap <F5> <Esc>:w<CR>:RunCode<CR>
+                autocmd FileType c,cpp,python,rust,go nmap <F5> :w<CR>:RunCode<CR>
+                autocmd FileType c,cpp,python,rust,go imap <F5> <Esc>:w<CR>:RunCode<CR>
             augroup END
         else
-            augroup exe_cpp
+            augroup runcode
                 autocmd!
                 autocmd FileType cpp let &makeprg='g++ -g -std=c++17 -Wall -Wextra -Wshadow -o %< %'
                 " autocmd FileType cpp nmap <C-'> :w<CR>:make<CR>:!%<<CR>
